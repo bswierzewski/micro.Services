@@ -1,7 +1,8 @@
+using Database;
+using Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using UpdateDevice.Models;
 
 namespace UpdateDevice.Data
 {

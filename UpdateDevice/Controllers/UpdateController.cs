@@ -1,13 +1,13 @@
+using Database.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using UpdateDevice.Data;
 using UpdateDevice.Dtos;
-using UpdateDevice.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
 
 namespace UpdateDevice.Controllers
 {
@@ -174,7 +174,7 @@ namespace UpdateDevice.Controllers
 
                 if (fileData.Id > 0)
                 {
-                    var newVersion = new Models.Version
+                    var newVersion = new Database.Entities.Version
                     {
                         Created = DateTime.Now,
                         Major = uploadDto.Major,

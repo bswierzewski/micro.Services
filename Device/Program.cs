@@ -1,4 +1,5 @@
 using System;
+using Database;
 using Device.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

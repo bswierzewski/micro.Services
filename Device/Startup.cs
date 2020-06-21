@@ -1,22 +1,21 @@
-using Device.Static;
+using Database;
 using Device.Data;
+using Device.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Http;
-using Device.Helpers;
-using System.IO;
 using System;
+using System.IO;
+using System.Net;
 using System.Reflection;
+using System.Text;
 
 namespace Device
 {
@@ -32,7 +31,7 @@ namespace Device
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Urls.DefaultConnection));
+            services.AddDbContext<DataContext>(DataContext.DbContextBuilder);
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;

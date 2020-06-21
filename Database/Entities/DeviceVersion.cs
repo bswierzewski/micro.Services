@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UpdateDevice.Models
+namespace Database.Entities
 {
     public class DeviceVersion
     {

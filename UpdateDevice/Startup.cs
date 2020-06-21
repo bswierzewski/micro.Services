@@ -1,28 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UpdateDevice.Static;
-using UpdateDevice.Data;
-using System.Threading.Tasks;
+using Database;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using UpdateDevice.Helpers;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
+using System;
 using System.IO;
+using System.Net;
+using System.Reflection;
+using System.Text;
+using UpdateDevice.Data;
+using UpdateDevice.Helpers;
 
 namespace UpdateDevice
 {
@@ -39,21 +32,21 @@ namespace UpdateDevice
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Urls.DefaultConnection));
+            services.AddDbContext<DataContext>(DataContext.DbContextBuilder);
             services.AddControllers();
             services.AddCors();
             services.AddScoped<IUpdateRepository, UpdateRepository>();
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuerSigningKey = true,
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-            //            ValidateIssuer = false,
-            //            ValidateAudience = false,
-            //        };
-            //    });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
+                });
 
             // Inject an implementation of ISwaggerProvider with defaulted settings applied
 

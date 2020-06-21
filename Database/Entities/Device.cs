@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Device.Models
+namespace Database.Entities
 {
     public class Device
     {
@@ -12,6 +12,9 @@ namespace Device.Models
         public string Name { get; set; }
         public bool IsArchival { get; set; }
         public string PhotoUrl { get; set; }
+
+        public int? VersionId { get; set; }
+        public Version Version { get; set; }
 
         public short DeviceTypeId { get; set; }
         [ForeignKey("DeviceTypeId")]

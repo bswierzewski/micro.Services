@@ -1,4 +1,4 @@
-﻿namespace Device.Enums
+﻿namespace Database.Enums
 {
     public enum DeviceRoleEnum
     {

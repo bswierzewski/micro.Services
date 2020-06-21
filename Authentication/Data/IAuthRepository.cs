@@ -1,5 +1,5 @@
+using Database.Entities;
 using System.Threading.Tasks;
-using Authentication.Models;
 
 namespace Authentication.Data
 {

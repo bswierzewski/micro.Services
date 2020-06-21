@@ -1,6 +1,5 @@
+using Database.Enums;
 using Device.Data;
-using Device.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;

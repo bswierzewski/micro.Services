@@ -1,7 +1,7 @@
-using Device.Enums;
+using Database.Enums;
 using System;
 
-namespace Device.Models
+namespace Database.Entities
 {
     public class DeviceKind
     {

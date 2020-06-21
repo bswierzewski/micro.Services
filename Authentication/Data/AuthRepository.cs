@@ -1,7 +1,7 @@
-using System;
-using System.Threading.Tasks;
-using Authentication.Models;
+using Database;
+using Database.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Authentication.Data
 {

@@ -1,7 +1,8 @@
+using Database;
+using Database.Entities;
+using Database.Enums;
 using Device.Dtos;
-using Device.Enums;
 using Device.Helpers;
-using Device.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

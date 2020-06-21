@@ -1,7 +1,8 @@
+using Database;
+using Database.Entities;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using Device.Models;
-using Newtonsoft.Json;
 
 namespace Device.Data
 {
@@ -23,7 +24,7 @@ namespace Device.Data
             if (!context.Devices.Any())
             {
                 var deviceData = System.IO.File.ReadAllText("Data/SeedData/DeviceSeedData.json");
-                var devices = JsonConvert.DeserializeObject<List<Device>>(deviceData);
+                var devices = JsonConvert.DeserializeObject<List<Database.Entities.Device>>(deviceData);
                 foreach (var device in devices)
                 {
                     context.Devices.Add(device);

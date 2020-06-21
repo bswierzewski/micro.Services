@@ -1,7 +1,8 @@
+using Database;
+using Database.Entities;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using Authentication.Models;
-using Newtonsoft.Json;
 
 namespace Authentication.Data
 {
