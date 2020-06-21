@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using UpdateDeviceService.Models;
+using UpdateDevice.Models;
 
-namespace UpdateDeviceService.Data
+namespace UpdateDevice.Data
 {
     public class UpdateRepository : IUpdateRepository
     {

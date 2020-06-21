@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using AuthenticationService.Models;
+using Authentication.Models;
 using Newtonsoft.Json;
 
-namespace AuthenticationService.Data
+namespace Authentication.Data
 {
     public class Seed
     {

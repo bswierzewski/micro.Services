@@ -1,5 +1,5 @@
-using DeviceService.Static;
-using DeviceService.Data;
+using Device.Static;
+using Device.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +13,12 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
-using DeviceService.Helpers;
+using Device.Helpers;
 using System.IO;
 using System;
 using System.Reflection;
 
-namespace DeviceService
+namespace Device
 {
     public class Startup
     {
@@ -58,8 +58,8 @@ namespace DeviceService
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Description = "DeviceService API",
-                    Title = "DeviceService"
+                    Description = "Device API",
+                    Title = "Device"
                 });
 
                 // Set the comments path for the Swagger JSON and UI.

@@ -1,6 +1,6 @@
 using System;
 
-namespace DeviceService.Dtos
+namespace Device.Dtos
 {
     public class DeviceDto
     {

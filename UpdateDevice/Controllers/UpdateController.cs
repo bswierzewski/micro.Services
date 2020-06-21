@@ -2,14 +2,14 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using UpdateDeviceService.Data;
-using UpdateDeviceService.Dtos;
-using UpdateDeviceService.Models;
+using UpdateDevice.Data;
+using UpdateDevice.Dtos;
+using UpdateDevice.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 
-namespace UpdateDeviceService.Controllers
+namespace UpdateDevice.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -84,7 +84,7 @@ namespace UpdateDeviceService.Controllers
 
             var deviceVersion = await _repo.GetDeviceVersionByDeviceId(device.Id);
 
-            if(deviceVersion != null)
+            if (deviceVersion != null)
             {
                 if (deviceVersion.VersionId == device.VersionId)
                     return StatusCode((int)HttpStatusCode.NotFound, "Up to date");
@@ -95,7 +95,7 @@ namespace UpdateDeviceService.Controllers
             var latestVersion = await _repo.GetLatestVersion();
 
             if (latestVersion == null)
-                return StatusCode((int)HttpStatusCode.NotFound);                
+                return StatusCode((int)HttpStatusCode.NotFound);
 
             if (device.VersionId == latestVersion.Id)
                 return StatusCode((int)HttpStatusCode.NotFound, "Up to date");
@@ -110,7 +110,7 @@ namespace UpdateDeviceService.Controllers
         {
             var version = await _repo.GetVersionById(versionId);
 
-            if(version == null)
+            if (version == null)
                 return StatusCode((int)HttpStatusCode.NotFound);
 
             var file = await _repo.DownloadFile(version.FileDataId ?? 0);
@@ -130,7 +130,7 @@ namespace UpdateDeviceService.Controllers
         {
             var device = await _repo.GetDevice(confirmDto.MacAddress);
 
-            if(device == null)
+            if (device == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
 
             var version = await _repo.GetVersionById(confirmDto.VersionId);
@@ -147,7 +147,7 @@ namespace UpdateDeviceService.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadNewVersion([FromForm]UploadDto uploadDto)
+        public async Task<IActionResult> UploadNewVersion([FromForm] UploadDto uploadDto)
         {
             if (await _repo.IsVersionExists(uploadDto.Major, uploadDto.Minor, uploadDto.Patch))
                 return BadRequest("Version already exists!");
@@ -180,12 +180,12 @@ namespace UpdateDeviceService.Controllers
                         Major = uploadDto.Major,
                         Minor = uploadDto.Minor,
                         Patch = uploadDto.Patch,
-                        FileDataId = fileData.Id                        
+                        FileDataId = fileData.Id
                     };
 
                     await _repo.AddVersion(newVersion);
 
-                    if(newVersion.Id > 0)
+                    if (newVersion.Id > 0)
                         return StatusCode((int)HttpStatusCode.Created);
                 }
             }
@@ -209,7 +209,8 @@ namespace UpdateDeviceService.Controllers
                 return StatusCode((int)HttpStatusCode.NotFound, "Version not exists!");
 
 
-            var deviceVersion = new DeviceVersion {
+            var deviceVersion = new DeviceVersion
+            {
                 DeviceId = device.Id,
                 VersionId = version.Id
             };

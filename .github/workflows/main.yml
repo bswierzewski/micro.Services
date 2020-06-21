@@ -6,7 +6,6 @@ jobs:
   build-update: 
     runs-on: ubuntu-18.04    
     env:
-      DOCKER_REGISTRY: swierzewskibartosz
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       DOCKER_TARGET_PLATFORM: linux/arm/v7                 
@@ -35,15 +34,19 @@ jobs:
     - name: Run Buildx - Authentication (push image)    
       if: contains(github.event.head_commit.message, '$auth') || contains(github.event.head_commit.message, '$all')
       run: |        
-        docker buildx build --file ./Authentication/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/authenticationservice:latest --output "type=image,push=true" .     
+        docker buildx build --file ./Authentication/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .     
 
     - name: Run Buildx - Device (push image)              
       if: contains(github.event.head_commit.message, '$device') || contains(github.event.head_commit.message, '$all')
       run: |        
-        docker buildx build --file ./Device/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/deviceservice:latest --output "type=image,push=true" .
+        docker buildx build --file ./Device/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_device:latest --output "type=image,push=true" .
 
     - name: Run Buildx - UpdateDevice (push image)              
       if: contains(github.event.head_commit.message, '$update') || contains(github.event.head_commit.message, '$all')
       run: |        
-        docker buildx build --file ./UpdateDevice/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/updatedeviceservice:latest --output "type=image,push=true" .
-                        
+        docker buildx build --file ./UpdateDevice/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_update_device:latest --output "type=image,push=true" .
+
+    - name: Run Buildx - SocketIO (push image)              
+      if: contains(github.event.head_commit.message, '$socket') || contains(github.event.head_commit.message, '$all')
+      run: |        
+        docker buildx build --file ./SocketIO/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_socket_io:latest --output "type=image,push=true" .

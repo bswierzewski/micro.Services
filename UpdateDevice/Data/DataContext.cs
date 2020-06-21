@@ -1,7 +1,7 @@
-using UpdateDeviceService.Models;
+using UpdateDevice.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace UpdateDeviceService.Data
+namespace UpdateDevice.Data
 {
     public class DataContext : DbContext
     {
@@ -11,7 +11,7 @@ namespace UpdateDeviceService.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<DeviceVersion>()   
+            modelBuilder.Entity<DeviceVersion>()
                 .HasKey(x => new { x.DeviceId, x.VersionId });
         }
 

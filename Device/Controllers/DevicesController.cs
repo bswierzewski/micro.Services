@@ -1,11 +1,11 @@
-using DeviceService.Data;
-using DeviceService.Enums;
+using Device.Data;
+using Device.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace DeviceService.Controllers
+namespace Device.Controllers
 {
     //[Authorize]
     [ApiController]

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UpdateDeviceService.Static;
-using UpdateDeviceService.Data;
+using UpdateDevice.Static;
+using UpdateDevice.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,12 +19,12 @@ using System.Text;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using UpdateDeviceService.Helpers;
+using UpdateDevice.Helpers;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 
-namespace UpdateDeviceService
+namespace UpdateDevice
 {
     public class Startup
     {
@@ -62,8 +62,8 @@ namespace UpdateDeviceService
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Description = "UpdateDeviceService API",
-                    Title = "UpdateDeviceService"
+                    Description = "UpdateDevice API",
+                    Title = "UpdateDevice"
                 });
 
                 // Set the comments path for the Swagger JSON and UI.

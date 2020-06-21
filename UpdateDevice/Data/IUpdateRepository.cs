@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using UpdateDeviceService.Models;
+using UpdateDevice.Models;
 
-namespace UpdateDeviceService.Data
+namespace UpdateDevice.Data
 {
     public interface IUpdateRepository
     {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AuthenticationService.Dtos
+namespace Authentication.Dtos
 {
     public class UserForRegisterDto
     {

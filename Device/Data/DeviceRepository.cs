@@ -1,7 +1,7 @@
-using DeviceService.Dtos;
-using DeviceService.Enums;
-using DeviceService.Helpers;
-using DeviceService.Models;
+using Device.Dtos;
+using Device.Enums;
+using Device.Helpers;
+using Device.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace DeviceService.Data
+namespace Device.Data
 {
     public class DeviceRepository : IDeviceRepository
     {

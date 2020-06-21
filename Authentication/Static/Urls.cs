@@ -1,4 +1,4 @@
-namespace AuthenticationService.Static
+namespace Authentication.Static
 {
     public static class Urls
     {

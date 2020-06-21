@@ -1,4 +1,4 @@
-﻿namespace DeviceService.Enums
+﻿namespace Device.Enums
 {
     public enum DeviceRoleEnum
     {

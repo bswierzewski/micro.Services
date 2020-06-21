@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UpdateDeviceService.Models
+namespace UpdateDevice.Models
 {
     public class Device
     {

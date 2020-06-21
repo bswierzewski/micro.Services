@@ -1,7 +1,7 @@
-using DeviceService.Enums;
+using Device.Enums;
 using System;
 
-namespace DeviceService.Models
+namespace Device.Models
 {
     public class DeviceKind
     {

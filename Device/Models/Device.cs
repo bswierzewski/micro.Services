@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DeviceService.Models
+namespace Device.Models
 {
     public class Device
     {

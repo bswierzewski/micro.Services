@@ -1,4 +1,4 @@
-namespace DeviceService.Static
+namespace Device.Static
 {
     public static class Urls
     {

@@ -1,10 +1,10 @@
-﻿using RedisBrokerService.Static;
+﻿using RedisBroker.Static;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace RedisBrokerService
+namespace RedisBroker
 {
     class Program
     {

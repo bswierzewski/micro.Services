@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace DeviceService.Data
+namespace Device.Data
 {
     public interface IAppRepository
     {

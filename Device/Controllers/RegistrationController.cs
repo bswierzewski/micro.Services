@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace DeviceService.Controllers
+namespace Device.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

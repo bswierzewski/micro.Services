@@ -1,7 +1,7 @@
-using DeviceService.Models;
+using Device.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeviceService.Data
+namespace Device.Data
 {
     public class DataContext : DbContext
     {

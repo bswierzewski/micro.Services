@@ -1,5 +1,5 @@
-using AuthenticationService.Static;
-using AuthenticationService.Data;
+using Authentication.Static;
+using Authentication.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +13,12 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
-using AuthenticationService.Helpers;
+using Authentication.Helpers;
 using System.Reflection;
 using System;
 using System.IO;
 
-namespace AuthenticationService
+namespace Authentication
 {
     public class Startup
     {
@@ -55,8 +55,8 @@ namespace AuthenticationService
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Description = "AuthenticationService API",
-                    Title = "AuthenticationService"
+                    Description = "Authentication API",
+                    Title = "Authentication"
                 });
 
                 // Set the comments path for the Swagger JSON and UI.

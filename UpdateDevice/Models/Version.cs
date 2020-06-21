@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UpdateDeviceService.Models
+namespace UpdateDevice.Models
 {
     public class Version
     {

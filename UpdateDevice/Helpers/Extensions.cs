@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace UpdateDeviceService.Helpers
+namespace UpdateDevice.Helpers
 {
     public static class Extensions
     {

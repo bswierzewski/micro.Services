@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
 
-namespace DeviceService.Helpers
+namespace Device.Helpers
 {
     public static class Extensions
     {

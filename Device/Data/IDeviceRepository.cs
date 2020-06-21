@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DeviceService.Dtos;
+using Device.Dtos;
 
-namespace DeviceService.Data
+namespace Device.Data
 {
     public interface IDeviceRepository : IAppRepository
     {

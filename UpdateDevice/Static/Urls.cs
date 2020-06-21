@@ -1,4 +1,4 @@
-namespace UpdateDeviceService.Static
+namespace UpdateDevice.Static
 {
     public static class Urls
     {

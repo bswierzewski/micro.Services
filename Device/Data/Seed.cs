@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using DeviceService.Models;
+using Device.Models;
 using Newtonsoft.Json;
 
-namespace DeviceService.Data
+namespace Device.Data
 {
     public class Seed
     {

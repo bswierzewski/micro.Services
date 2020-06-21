@@ -1,6 +1,6 @@
 using System;
 
-namespace UpdateDeviceService.Models
+namespace UpdateDevice.Models
 {
     public class FileData
     {

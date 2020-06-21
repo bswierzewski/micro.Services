@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace AuthenticationService.Helpers
+namespace Authentication.Helpers
 {
     public static class Extensions
     {

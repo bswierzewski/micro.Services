@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using UpdateDeviceService.Data;
+using UpdateDevice.Data;
 
-namespace UpdateDeviceService
+namespace UpdateDevice
 {
     public class Program
     {

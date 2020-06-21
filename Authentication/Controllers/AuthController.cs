@@ -4,14 +4,14 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using AuthenticationService.Data;
-using AuthenticationService.Dtos;
-using AuthenticationService.Models;
+using Authentication.Data;
+using Authentication.Dtos;
+using Authentication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AuthenticationService.Controllers
+namespace Authentication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -51,7 +51,7 @@ namespace AuthenticationService.Controllers
             if (userFromRepo == null)
                 return Unauthorized();
 
-            if(!userFromRepo.IsActive)
+            if (!userFromRepo.IsActive)
                 return BadRequest("Account not activated");
 
             var claims = new[]

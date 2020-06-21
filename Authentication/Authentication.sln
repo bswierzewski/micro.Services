@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateDeviceService", "UpdateDeviceService.csproj", "{948032FC-B2B2-4D73-881C-7E37E5004A9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication", "Authentication.csproj", "{D8455B7A-0F3D-4B77-B3D4-D7F9D0D60B64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{948032FC-B2B2-4D73-881C-7E37E5004A9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{948032FC-B2B2-4D73-881C-7E37E5004A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{948032FC-B2B2-4D73-881C-7E37E5004A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{948032FC-B2B2-4D73-881C-7E37E5004A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8455B7A-0F3D-4B77-B3D4-D7F9D0D60B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8455B7A-0F3D-4B77-B3D4-D7F9D0D60B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8455B7A-0F3D-4B77-B3D4-D7F9D0D60B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8455B7A-0F3D-4B77-B3D4-D7F9D0D60B64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DA5ABDBF-B161-4D22-B12A-B276266D6998}
+		SolutionGuid = {B9377DB6-528E-4133-8A9C-A8EB92A82191}
 	EndGlobalSection
 EndGlobal

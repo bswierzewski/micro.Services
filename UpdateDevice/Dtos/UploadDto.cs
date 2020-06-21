@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace UpdateDeviceService.Dtos
+namespace UpdateDevice.Dtos
 {
     public class UploadDto
     {

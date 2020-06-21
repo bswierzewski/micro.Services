@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "UpdateDeviceService": {
+    "UpdateDevice": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
