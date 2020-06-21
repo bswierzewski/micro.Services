@@ -1,5 +1,5 @@
 name: Docker Build/Publish Image 
-on:  
+on: 
   push:    
     branches: [ master ]  
 jobs:   
