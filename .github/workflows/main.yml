@@ -33,17 +33,17 @@ jobs:
         echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin   
 
     - name: Run Buildx - Authentication (push image)    
-      if: steps.docker.outputs.status == 'success' && ("contains(github.event.head_commit.message, '$auth')" || "contains(github.event.head_commit.message, '$all')") 
+      if: steps.docker.outputs.status == 'success' && (contains(github.event.head_commit.message, '$auth') || contains(github.event.head_commit.message, '$all')) 
       run: |        
         docker buildx build --file ./Authentication/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/authenticationservice:latest --output "type=image,push=true" .     
 
     - name: Run Buildx - Device (push image)              
-      if: steps.docker.outputs.status == 'success' && ("contains(github.event.head_commit.message, '$device')" || "contains(github.event.head_commit.message, '$all')")
+      if: steps.docker.outputs.status == 'success' && (contains(github.event.head_commit.message, '$device') || contains(github.event.head_commit.message, '$all'))
       run: |        
         docker buildx build --file ./Device/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/deviceservice:latest --output "type=image,push=true" .
 
     - name: Run Buildx - UpdateDevice (push image)              
-      if: steps.docker.outputs.status == 'success' && ("contains(github.event.head_commit.message, '$update')" || "contains(github.event.head_commit.message, '$all')")
+      if: steps.docker.outputs.status == 'success' && (contains(github.event.head_commit.message, '$update') || contains(github.event.head_commit.message, '$all'))
       run: |        
         docker buildx build --file ./UpdateDevice/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/updatedeviceservice:latest --output "type=image,push=true" .
                         
