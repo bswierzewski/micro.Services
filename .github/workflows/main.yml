@@ -3,35 +3,47 @@ on:
   push:    
     branches: [ master ]  
 jobs:   
-  build:    
+  build-update: 
     runs-on: ubuntu-18.04    
-    env:      
+    env:
       DOCKER_REGISTRY: swierzewskibartosz
-      DOCKER_IMAGE: testupdate
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       DOCKER_TARGET_PLATFORM: linux/arm/v7                 
     steps:    
+
     - name: Checkout the code       
-      uses: actions/checkout@v1          
+      uses: actions/checkout@v1   
+
     - name: Set up Docker Buildx      
       uses: crazy-max/ghaction-docker-buildx@v3.1.0      
       with:        
         version: latest    
+
     - name: Prepare      
       if: success()      
       id: prepare      
       run: |        
         echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}        
-        echo ::set-output name=docker_image::${DOCKER_REGISTRY}/${DOCKER_IMAGE}        
-        echo ::set-output name=version::${GITHUB_RUN_NUMBER}    
-    - name: Docker Login      
+
+    - name: Docker Login
+      id: docker      
       if: success()      
       run: |        
-        echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin          
-    - name: Run Buildx (push image)      
-      if: success()      
+        echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin   
+
+    - name: Run Buildx - Authentication (push image)    
+      if: steps.docker.outputs.status == 'success' && ("contains(github.event.head_commit.message, '$auth')" || "contains(github.event.head_commit.message, '$all')") 
       run: |        
-        docker buildx build --platform ${{ steps.prepare.outputs.docker_platform }} --tag ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }} --output "type=image,push=true" .
-        
-        
+        docker buildx build --file ./Authentication/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/authenticationservice:latest --output "type=image,push=true" .     
+
+    - name: Run Buildx - Device (push image)              
+      if: steps.docker.outputs.status == 'success' && ("contains(github.event.head_commit.message, '$device')" || "contains(github.event.head_commit.message, '$all')")
+      run: |        
+        docker buildx build --file ./Device/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/deviceservice:latest --output "type=image,push=true" .
+
+    - name: Run Buildx - UpdateDevice (push image)              
+      if: steps.docker.outputs.status == 'success' && ("contains(github.event.head_commit.message, '$update')" || "contains(github.event.head_commit.message, '$all')")
+      run: |        
+        docker buildx build --file ./UpdateDevice/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/updatedeviceservice:latest --output "type=image,push=true" .
+                        

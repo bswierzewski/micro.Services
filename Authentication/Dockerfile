@@ -3,14 +3,14 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["AuthenticationService.csproj", ""]
+COPY ["./Authentication/AuthenticationService.csproj", ""]
 RUN dotnet restore "./AuthenticationService.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "AuthenticationService.csproj" -c Release -o /app/build
+RUN dotnet build "./Authentication/AuthenticationService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "AuthenticationService.csproj" -c Release -o /app/publish
+RUN dotnet publish "./Authentication/AuthenticationService.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

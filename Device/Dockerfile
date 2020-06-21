@@ -3,14 +3,14 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["DeviceService.csproj", ""]
+COPY ["./Device/DeviceService.csproj", ""]
 RUN dotnet restore "./DeviceService.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "DeviceService.csproj" -c Release -o /app/build
+RUN dotnet build "./Device/DeviceService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DeviceService.csproj" -c Release -o /app/publish
+RUN dotnet publish "./Device/DeviceService.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
