@@ -32,7 +32,7 @@ namespace UpdateDevice
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(DataContext.DbContextBuilder);
+            services.AddDbContext<DataContext>();
             services.AddControllers();
             services.AddCors();
             services.AddScoped<IUpdateRepository, UpdateRepository>();
