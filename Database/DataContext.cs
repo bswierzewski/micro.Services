@@ -1,17 +1,22 @@
 ﻿using Database.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Database
 {
     public class DataContext : DbContext
     {
-        public static Action<DbContextOptionsBuilder> DbContextBuilder = x => x.UseSqlite("local.db");
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        public DataContext() : base() { }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {          
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlite("Datasource=local.db", b => b.MigrationsAssembly("Database.Migrations"));
+            
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);            
 
             modelBuilder.Entity<DeviceVersion>()
                 .HasKey(x => new { x.DeviceId, x.VersionId });

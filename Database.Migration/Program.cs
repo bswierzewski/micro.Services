@@ -2,7 +2,7 @@ using Database.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace UpdateDevice
+namespace Database.Migrations
 {
     public class Program
     {
@@ -11,7 +11,7 @@ namespace UpdateDevice
             CreateHostBuilder(args)
                 .Build()
                 .MigrateDatabase()
-                .Run();
+                .StopAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,3 +22,4 @@ namespace UpdateDevice
                 });
     }
 }
+
