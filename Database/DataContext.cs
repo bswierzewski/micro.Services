@@ -11,9 +11,14 @@ namespace Database
         {          
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlite("Datasource=local.db", b => b.MigrationsAssembly("Database.Migrations"));
-            
+            optionsBuilder.UseNpgsql("Username=postgres;" +
+                                     "Password=mysecretpassword;" +
+                                     "Server=db;" +
+                                     "Database=micro");
+
+            //optionsBuilder.UseSqlite("Datasource=local.db", b => b.MigrationsAssembly("database.migrations"));        
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);            
@@ -28,8 +33,8 @@ namespace Database
 
         public DbSet<Device> Devices { get; set; }
         public DbSet<DeviceVersion> DeviceVersions { get; set; }
-        public DbSet<DeviceKind> DeviceTypes { get; set; }
+        public DbSet<DeviceType> DeviceTypes { get; set; }
         public DbSet<FileData> FileDatas { get; set; }
-        public DbSet<Entities.Version> Versions { get; set; }
+        public DbSet<Version> Versions { get; set; }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Database.Migrations.Migrations
+namespace Database.Migrations
 {
     public partial class InitialMigrations : Migration
     {
@@ -12,9 +13,9 @@ namespace Database.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<short>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Created = table.Column<DateTime>(nullable: false),
-                    Kind = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
                     Role = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -27,7 +28,7 @@ namespace Database.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Created = table.Column<DateTime>(nullable: false),
                     FileName = table.Column<string>(nullable: true),
                     FileExtension = table.Column<string>(nullable: true),
@@ -43,7 +44,7 @@ namespace Database.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Created = table.Column<DateTime>(nullable: false),
                     Rssi = table.Column<int>(nullable: false),
                     ScannerMacAddress = table.Column<string>(nullable: true),
@@ -59,7 +60,7 @@ namespace Database.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastActive = table.Column<DateTime>(nullable: false),
@@ -77,7 +78,7 @@ namespace Database.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Created = table.Column<DateTime>(nullable: false),
                     Major = table.Column<short>(nullable: false),
                     Minor = table.Column<short>(nullable: false),
@@ -100,12 +101,10 @@ namespace Database.Migrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Created = table.Column<DateTime>(nullable: false),
-                    LastActivated = table.Column<DateTime>(nullable: false),
                     MacAddress = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    IsArchival = table.Column<bool>(nullable: false),
                     PhotoUrl = table.Column<string>(nullable: true),
                     VersionId = table.Column<int>(nullable: true),
                     DeviceTypeId = table.Column<short>(nullable: false)

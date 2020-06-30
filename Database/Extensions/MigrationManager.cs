@@ -15,12 +15,15 @@ namespace Database.Extensions
                 {
                     try
                     {
+                        //appContext.Database.EnsureDeleted();
+
                         appContext.Database.Migrate();
+
+                        Seed.SeedData(appContext);
                     }
                     catch (Exception ex)
                     {
-                        //Log errors or do anything you think it's needed
-                        throw;
+                        throw ex;
                     }
                 }
             }

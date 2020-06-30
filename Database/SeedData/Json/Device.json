@@ -5,8 +5,6 @@
     "macaddress": "1F:11:16:3E:FB:FB",
     "deviceTypeId": 2,
     "Name": "Cassie",
-    "isArchival": false,
-    "lastActivated": "2020-01-02T11:19:02",
     "photoUrl": "https://a.allegroimg.com/s512/03da0b/e2f5496d4bdd9b9b08763bc9bfea/Lokalizator-Kluczy-Bluetooth-Brelok-GPS-Key-Finder"
   },
   {
@@ -15,8 +13,6 @@
     "macaddress": "42:17:50:97:9C:4B",
     "DeviceTypeId": 1,
     "Name": "Hinton",
-    "isArchival": false,
-    "lastActivated": "2020-01-24T10:56:20",
     "photoUrl": "https://cdn.sos.sk/productdata/32/84/50142cfa/esp32-devkitc.jpg"
   },
   {
@@ -25,8 +21,6 @@
     "macaddress": "03:DE:D4:CE:6D:FA",
     "DeviceTypeId": 2,
     "Name": "Bass",
-    "isArchival": false,
-    "lastActivated": "2020-01-24T11:18:21",
     "photoUrl": "https://a.allegroimg.com/s512/03da0b/e2f5496d4bdd9b9b08763bc9bfea/Lokalizator-Kluczy-Bluetooth-Brelok-GPS-Key-Finder"
   },
   {
@@ -35,8 +29,6 @@
     "macaddress": "2B:51:55:BB:F6:E6",
     "DeviceTypeId": 1,
     "Name": "Mays",
-    "isArchival": false,
-    "lastActivated": "2020-04-08T07:37:03",
     "photoUrl": "https://cdn.sos.sk/productdata/32/84/50142cfa/esp32-devkitc.jpg"
   }
 ]

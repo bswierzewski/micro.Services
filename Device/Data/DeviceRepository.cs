@@ -37,7 +37,7 @@ namespace Device.Data
         public async Task<IEnumerable<DeviceDto>> GetDevices() => await GetDevices(n => true);
         public async Task<IEnumerable<DeviceDto>> GetDevices(DeviceRoleEnum roleEnum) => await GetDevices(n => n.Role == roleEnum);
 
-        private async Task<IEnumerable<DeviceDto>> GetDevices(Expression<Func<DeviceKind, bool>> @where)
+        private async Task<IEnumerable<DeviceDto>> GetDevices(Expression<Func<DeviceType, bool>> @where)
         {
             var devices = await (from device in _context.Devices
                                  join types in _context.DeviceTypes.Where(@where) on device.DeviceTypeId equals types.Id
@@ -45,20 +45,17 @@ namespace Device.Data
                                  {
                                      Id = device.Id,
                                      Created = device.Created,
-                                     IsActive = device.LastActivated.CalculateActive(),
-                                     LastActivated = device.LastActivated,
-                                     IsArchival = device.IsArchival,
                                      Name = device.Name,
                                      MacAddress = device.MacAddress,
                                      PhotoUrl = device.PhotoUrl,
                                      Role = types.Role.ToString(),
-                                     Kind = types.Kind,
+                                     Kind = types.Type,
                                  }).ToListAsync();
 
             return devices;
         }
 
-        private async Task<DeviceDto> GetDevice(int id, Expression<Func<DeviceKind, bool>> @where)
+        private async Task<DeviceDto> GetDevice(int id, Expression<Func<DeviceType, bool>> @where)
         {
             var device = await (from devices in _context.Devices
                                 join types in _context.DeviceTypes.Where(@where) on devices.DeviceTypeId equals types.Id
@@ -66,14 +63,11 @@ namespace Device.Data
                                 {
                                     Id = devices.Id,
                                     Created = devices.Created,
-                                    IsActive = devices.LastActivated.CalculateActive(),
-                                    LastActivated = devices.LastActivated,
-                                    IsArchival = devices.IsArchival,
                                     Name = devices.Name,
                                     MacAddress = devices.MacAddress,
                                     PhotoUrl = devices.PhotoUrl,
                                     Role = types.Role.ToString(),
-                                    Kind = types.Kind,
+                                    Kind = types.Type,
                                 }).FirstOrDefaultAsync(x => x.Id == id);
 
             return device;
