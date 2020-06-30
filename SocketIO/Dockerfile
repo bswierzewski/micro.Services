@@ -14,3 +14,5 @@ RUN npm install
 
 # Bundle app source
 COPY ./SocketIO .
+
+CMD [ "node", "server.js" ]
