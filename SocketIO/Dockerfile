@@ -4,7 +4,7 @@ FROM arm32v7/node:slim
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY ./SocketIO/package.json .
+COPY ./SocketIO/package.json /usr/src/app
 
 RUN npm install
 # If you are building your code for production
