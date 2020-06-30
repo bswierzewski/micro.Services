@@ -13,6 +13,6 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY . .
+COPY . ./SocketIO
 
 CMD [ "node", "./SocketIO/server.js" ]
