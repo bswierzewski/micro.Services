@@ -13,18 +13,12 @@ namespace Database.Extensions
             {
                 using (var appContext = scope.ServiceProvider.GetRequiredService<DataContext>())
                 {
-                    try
+                    if (appContext.Database.EnsureCreated())
                     {
-                        //appContext.Database.EnsureDeleted();
-
                         appContext.Database.Migrate();
+                    }
 
-                        Seed.SeedData(appContext);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    Seed.SeedData(appContext);
                 }
             }
 

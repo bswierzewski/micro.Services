@@ -9,8 +9,6 @@ namespace CreateAndSeedDatabase
         {
             using (var db = new DataContext())
             {
-                db.Database.EnsureDeleted();
-
                 db.Database.Migrate();
 
                 Seed.SeedData(db);

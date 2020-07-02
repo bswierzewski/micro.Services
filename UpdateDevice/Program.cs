@@ -10,6 +10,7 @@ namespace UpdateDevice
         {
             CreateHostBuilder(args)
                 .Build()
+                .MigrateDatabase()
                 .Run();
         }
 
