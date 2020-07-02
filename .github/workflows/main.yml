@@ -35,7 +35,7 @@ jobs:
     - name: Run Buildx - Authentication (push image)    
       if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$auth'))
       run: |        
-        docker buildx build --file ./Authentication/Dockerfile --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .     
+        docker buildx build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .     
 
     - name: Run Buildx - Device (push image)              
       if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$device'))
