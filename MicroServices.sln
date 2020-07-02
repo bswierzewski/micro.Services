@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisBroker", "RedisBroker\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateDevice", "UpdateDevice\UpdateDevice.csproj", "{4B7E2D82-4B2A-44E9-8FBE-6111D99D16C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateAndSeedDatabase", "CreateAndSeedDatabase\CreateAndSeedDatabase.csproj", "{3D22EB9B-38AF-4213-8387-7CE7A34468C0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{4B7E2D82-4B2A-44E9-8FBE-6111D99D16C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B7E2D82-4B2A-44E9-8FBE-6111D99D16C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B7E2D82-4B2A-44E9-8FBE-6111D99D16C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D22EB9B-38AF-4213-8387-7CE7A34468C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D22EB9B-38AF-4213-8387-7CE7A34468C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D22EB9B-38AF-4213-8387-7CE7A34468C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D22EB9B-38AF-4213-8387-7CE7A34468C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
