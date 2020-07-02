@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+  auth:
+    build:
+      context: .
+      dockerfile: Dockerfile-auth
+      args:
+        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1  
+    ports:
+        - 80:80

@@ -1,4 +1,6 @@
-FROM arm32v7/node:slim
+ARG IMAGE=arm32v7/node:slim
+
+FROM $IMAGE 
 
 # Create app directory
 WORKDIR /usr/src/app
