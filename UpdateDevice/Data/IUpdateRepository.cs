@@ -17,6 +17,8 @@ namespace UpdateDevice.Data
 
         Task<DeviceVersion> GetDeviceVersionByDeviceId(int deviceId);
 
+        Task<DeviceType> GetDeviceType(string deviceType);
+
         Task<bool> AddDevice(Device device);
         Task<bool> AddVersion(Version version);
         Task<bool> AddDeviceVersion(DeviceVersion deviceVersion);

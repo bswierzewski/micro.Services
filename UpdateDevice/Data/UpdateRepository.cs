@@ -63,6 +63,11 @@ namespace UpdateDevice.Data
             return await _context.DeviceVersions.FirstOrDefaultAsync(x => x.DeviceId == deviceId);
         }
 
+        public async Task<DeviceType> GetDeviceType(string deviceType)
+        {
+            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Name == deviceType);
+        }
+
         public async Task<bool> AddDevice(Device device)
         {
             await _context.Devices.AddAsync(device);

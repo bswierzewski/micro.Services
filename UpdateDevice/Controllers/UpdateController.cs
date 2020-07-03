@@ -65,18 +65,24 @@ namespace UpdateDevice.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("get/{macAddress}")]
-        public async Task<IActionResult> GetUpdate(string macAddress)
+        [HttpPost("get")]
+        public async Task<IActionResult> GetUpdate(GetUpdateDto getUpdateDto)
         {
-            var device = await _repo.GetDevice(macAddress);
+            var device = await _repo.GetDevice(getUpdateDto.MacAddress);
 
             if (device == null)
             {
+                var deviceType = await _repo.GetDeviceType(getUpdateDto.DeviceType);
+
+                if (deviceType == null)
+                    return StatusCode((int)HttpStatusCode.NotFound, "DeviceType not exists");
+
                 var newDevice = new Device()
                 {
-                    MacAddress = macAddress,
+                    MacAddress = getUpdateDto.MacAddress,
                     Created = DateTime.Now,
-                    Name = macAddress,
+                    DeviceTypeId = deviceType.Id,
+                    Name = getUpdateDto.MacAddress,
                 };
 
                 await _repo.AddDevice(newDevice);
