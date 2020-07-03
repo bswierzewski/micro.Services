@@ -36,6 +36,7 @@ namespace UpdateDevice
             services.AddControllers();
             services.AddCors();
             services.AddScoped<IUpdateRepository, UpdateRepository>();
+            services.AddScoped<IVersionRepository, VersionRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

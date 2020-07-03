@@ -1,4 +1,3 @@
-using Database.Enums;
 using Device.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,39 +34,6 @@ namespace Device.Controllers
 
             return Ok(device);
         }
-
-        [HttpGet("scanners")]
-        public async Task<IActionResult> GetScanners()
-        {
-            var devices = await _repo.GetDevices(DeviceRoleEnum.Scanner);
-
-            return Ok(devices);
-        }
-
-        [HttpGet("scanners/{id}")]
-        public async Task<IActionResult> GetScanner(int id)
-        {
-            var device = await _repo.GetDevice(id, DeviceRoleEnum.Scanner);
-
-            return Ok(device);
-        }
-
-        [HttpGet("locators")]
-        public async Task<IActionResult> GetLocators()
-        {
-            var devices = await _repo.GetDevices(DeviceRoleEnum.Locator);
-
-            return Ok(devices);
-        }
-
-        [HttpGet("locators/{id}")]
-        public async Task<IActionResult> GetLocator(int id)
-        {
-            var device = await _repo.GetDevice(id, DeviceRoleEnum.Locator);
-
-            return Ok(device);
-        }
-
 
         [HttpPost("add")]
         public IActionResult PostDevice(string macaddress)

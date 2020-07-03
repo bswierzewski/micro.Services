@@ -1,8 +1,6 @@
 using Database;
 using Database.Entities;
-using Database.Enums;
 using Device.Dtos;
-using Device.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,10 +30,8 @@ namespace Device.Data
         }
 
         public async Task<DeviceDto> GetDevice(int id) => await GetDevice(id, n => true);
-        public async Task<DeviceDto> GetDevice(int id, DeviceRoleEnum roleEnum) => await GetDevice(id, n => n.Role == roleEnum);
 
         public async Task<IEnumerable<DeviceDto>> GetDevices() => await GetDevices(n => true);
-        public async Task<IEnumerable<DeviceDto>> GetDevices(DeviceRoleEnum roleEnum) => await GetDevices(n => n.Role == roleEnum);
 
         private async Task<IEnumerable<DeviceDto>> GetDevices(Expression<Func<DeviceType, bool>> @where)
         {
@@ -48,8 +44,7 @@ namespace Device.Data
                                      Name = device.Name,
                                      MacAddress = device.MacAddress,
                                      PhotoUrl = device.PhotoUrl,
-                                     Role = types.Role.ToString(),
-                                     Kind = types.Type,
+                                     Kind = types.Name,
                                  }).ToListAsync();
 
             return devices;
@@ -66,8 +61,7 @@ namespace Device.Data
                                     Name = devices.Name,
                                     MacAddress = devices.MacAddress,
                                     PhotoUrl = devices.PhotoUrl,
-                                    Role = types.Role.ToString(),
-                                    Kind = types.Type,
+                                    Kind = types.Name,
                                 }).FirstOrDefaultAsync(x => x.Id == id);
 
             return device;

@@ -75,6 +75,8 @@ namespace UpdateDevice.Controllers
                 var newDevice = new Device()
                 {
                     MacAddress = macAddress,
+                    Created = DateTime.Now,
+                    Name = macAddress,
                 };
 
                 await _repo.AddDevice(newDevice);

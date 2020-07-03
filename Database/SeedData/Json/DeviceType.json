@@ -2,13 +2,11 @@
   {
     "id": 1,
     "created": "2020-01-06T08:53:45",
-    "role": "Scanner",
-    "kind": "esp32"
+    "name": "esp32"
   },
   {
     "id": 2,
     "created": "2020-01-02T05:48:13",
-    "role": "Locator",
-    "kind": "itag"
+    "name": "esp8266"
   }
 ]
