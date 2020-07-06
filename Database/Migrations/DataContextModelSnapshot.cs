@@ -29,7 +29,10 @@ namespace Database.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<short>("DeviceTypeId")
+                    b.Property<short?>("DeviceKindId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short?>("DeviceTypeId")
                         .HasColumnType("smallint");
 
                     b.Property<string>("MacAddress")
@@ -46,11 +49,37 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DeviceKindId");
+
                     b.HasIndex("DeviceTypeId");
+
+                    b.HasIndex("MacAddress")
+                        .IsUnique();
 
                     b.HasIndex("VersionId");
 
                     b.ToTable("Devices");
+                });
+
+            modelBuilder.Entity("Database.Entities.DeviceKind", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Kind")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Kind")
+                        .IsUnique();
+
+                    b.ToTable("DeviceKinds");
                 });
 
             modelBuilder.Entity("Database.Entities.DeviceType", b =>
@@ -179,6 +208,9 @@ namespace Database.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<short>("DeviceKindId")
+                        .HasColumnType("smallint");
+
                     b.Property<short>("DeviceTypeId")
                         .HasColumnType("smallint");
 
@@ -199,6 +231,8 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DeviceKindId");
+
                     b.HasIndex("DeviceTypeId");
 
                     b.HasIndex("FileDataId");
@@ -208,11 +242,13 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Entities.Device", b =>
                 {
+                    b.HasOne("Database.Entities.DeviceKind", "DeviceKind")
+                        .WithMany()
+                        .HasForeignKey("DeviceKindId");
+
                     b.HasOne("Database.Entities.DeviceType", "DeviceType")
                         .WithMany()
-                        .HasForeignKey("DeviceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DeviceTypeId");
 
                     b.HasOne("Database.Entities.Version", "Version")
                         .WithMany()
@@ -245,6 +281,12 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Entities.Version", b =>
                 {
+                    b.HasOne("Database.Entities.DeviceKind", "DeviceKind")
+                        .WithMany()
+                        .HasForeignKey("DeviceKindId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Database.Entities.DeviceType", "DeviceType")
                         .WithMany()
                         .HasForeignKey("DeviceTypeId")

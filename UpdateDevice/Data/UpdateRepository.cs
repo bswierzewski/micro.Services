@@ -15,9 +15,14 @@ namespace UpdateDevice.Data
             _context = context;
         }
 
-        public async Task<Version> GetLatestDeviceTypeVersion(int deviceTypeId)
+        public async Task<Version> GetLatestDeviceTypeVersion(short deviceTypeId, short deviceKindId)
         {
-            return await _context.Versions.Where(x => x.DeviceTypeId == deviceTypeId).OrderByDescending(x => x.Major).ThenByDescending(x => x.Minor).ThenByDescending(x => x.Patch).FirstOrDefaultAsync();
+            return await _context.Versions
+                .Where(x => x.DeviceTypeId == deviceTypeId && x.DeviceKindId == deviceKindId)
+                .OrderByDescending(x => x.Major)
+                .ThenByDescending(x => x.Minor)
+                .ThenByDescending(x => x.Patch)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Version> GetVersionById(int id)
@@ -27,17 +32,16 @@ namespace UpdateDevice.Data
 
         public async Task<Device> GetDevice(string macAddress)
         {
-            return await _context.Devices.Include(x => x.Version).Include(x => x.DeviceType).FirstOrDefaultAsync(x => x.MacAddress == macAddress);
+            return await _context.Devices
+                .Include(x => x.Version)
+                .Include(x => x.DeviceType)
+                .Include(x => x.DeviceKind)
+                .FirstOrDefaultAsync(x => x.MacAddress == macAddress);
         }
 
         public async Task<DeviceVersion> GetDeviceVersionByDeviceId(int deviceId)
         {
             return await _context.DeviceVersions.FirstOrDefaultAsync(x => x.DeviceId == deviceId);
-        }
-
-        public async Task<DeviceType> GetDeviceType(string deviceType)
-        {
-            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Type == deviceType.ToLower());
         }
 
         public async Task<bool> AddDevice(Device device)

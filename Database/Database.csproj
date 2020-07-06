@@ -6,12 +6,18 @@
 
   <ItemGroup>
     <None Remove="SeedData\Json\Device.json" />
+    <None Remove="SeedData\Json\DeviceKind.json" />
     <None Remove="SeedData\Json\DeviceType.json" />
     <None Remove="SeedData\Json\User.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="SeedData\Json\Device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SeedData\Json\DeviceKind.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

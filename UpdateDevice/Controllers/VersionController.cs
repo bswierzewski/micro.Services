@@ -56,14 +56,7 @@ namespace UpdateDevice.Controllers
             if (version == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Version not exists");
 
-            return Ok($"Version info:{Environment.NewLine}" +
-                          $" - Id: {version.Id}{Environment.NewLine}" +
-                          $" - Version Created: {version.Created}{Environment.NewLine}" +
-                          $" - Major: {version.Major}{Environment.NewLine}" +
-                          $" - Patch: {version.Patch}{Environment.NewLine}" +
-                          $" - File name: {version.FileData.Name}{Environment.NewLine}" +
-                          $" - File extension: {version.FileData.Extension}{Environment.NewLine}" +
-                          $" - File created: {version.FileData.Created}{Environment.NewLine}");
+            return Ok(version);
 
         }
 
@@ -101,10 +94,7 @@ namespace UpdateDevice.Controllers
         [HttpPost("upload")]
         public async Task<IActionResult> UploadNewVersion([FromForm] UploadDto uploadDto)
         {
-            if (await _repo.IsDeviceTypeExists(uploadDto.DeviceTypeId))
-                return BadRequest("Device Type not exists!");
-
-            if (await _repo.IsVersionExists(uploadDto.Major, uploadDto.Minor, uploadDto.Patch, uploadDto.DeviceTypeId))
+            if (await _repo.IsVersionExists(uploadDto.Major, uploadDto.Minor, uploadDto.Patch, uploadDto.DeviceTypeId ?? 0, uploadDto.DeviceKindId ?? 0))
                 return BadRequest("Version already exists!");
 
             if (uploadDto.File.Length > 0)
@@ -136,7 +126,8 @@ namespace UpdateDevice.Controllers
                         Minor = uploadDto.Minor,
                         Patch = uploadDto.Patch,
                         Name = uploadDto.Name ?? fileData.Name,
-                        DeviceTypeId = uploadDto.DeviceTypeId,
+                        DeviceTypeId = uploadDto.DeviceTypeId,  
+                        DeviceKindId = uploadDto.DeviceKindId,
                         FileDataId = fileData.Id
                     };
 

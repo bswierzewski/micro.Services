@@ -13,7 +13,7 @@ namespace Database
 
             optionsBuilder.UseNpgsql("Username=postgres;" +
                                      "Password=mysecretpassword;" +
-                                     "Server=db;" +
+                                     "Server=localhost;" +
                                      "Database=micro");
         }
 
@@ -27,10 +27,19 @@ namespace Database
             modelBuilder.Entity<DeviceType>()
                 .HasIndex(x => x.Type)
                 .IsUnique();
+
+            modelBuilder.Entity<DeviceKind>()
+                .HasIndex(x => x.Kind)
+                .IsUnique();
+
+            modelBuilder.Entity<Device>()
+                .HasIndex(x => x.MacAddress)
+                .IsUnique();
         }
 
         public DbSet<Device> Devices { get; set; }
         public DbSet<DeviceType> DeviceTypes { get; set; }
+        public DbSet<DeviceKind> DeviceKinds { get; set; }
         public DbSet<DeviceVersion> DeviceVersions { get; set; }
         public DbSet<FileData> FileDatas { get; set; }
         public DbSet<Registration> Registrations { get; set; }

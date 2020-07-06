@@ -8,11 +8,17 @@ namespace Device.Data
     public interface IDeviceRepository : IAppRepository
     {
         Task<GetDeviceDto> GetDevice(int id);
-        Task<IEnumerable<GetDeviceDto>> GetDevices(int? deviceTypeId = null);
+        Task<IEnumerable<GetDeviceDto>> GetDevices(short? deviceTypeId = null, short? deviceKindId = null);
+
+        Task<bool> ExistsDeviceType(short deviceTypeId);
+        Task<bool> ExistsDeviceKind(short deviceKindId);
+        Task<Database.Entities.Device> GetDeviceByMacAddress(string macAddress);
+
         Task<DeviceType> GetDeviceType(string type);
         Task<IEnumerable<DeviceType>> GetDeviceTypes();
-        Task<bool> ExistsDevice(string macAddress);
-        Task<bool> ExistsDeviceType(short deviceTypeId);
-        Task<DeviceType> GetDeviceTypeById(short typeId);
+
+
+        Task<DeviceKind> GetDeviceKind(string kind);
+        Task<IEnumerable<DeviceKind>> GetDeviceKinds();
     }
 }

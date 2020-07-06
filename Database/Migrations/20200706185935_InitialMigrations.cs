@@ -9,6 +9,20 @@ namespace Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "DeviceKinds",
+                columns: table => new
+                {
+                    Id = table.Column<short>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Kind = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeviceKinds", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DeviceTypes",
                 columns: table => new
                 {
@@ -68,11 +82,18 @@ namespace Database.Migrations
                     Minor = table.Column<short>(nullable: false),
                     Patch = table.Column<short>(nullable: false),
                     DeviceTypeId = table.Column<short>(nullable: false),
+                    DeviceKindId = table.Column<short>(nullable: false),
                     FileDataId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Versions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Versions_DeviceKinds_DeviceKindId",
+                        column: x => x.DeviceKindId,
+                        principalTable: "DeviceKinds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Versions_DeviceTypes_DeviceTypeId",
                         column: x => x.DeviceTypeId,
@@ -97,18 +118,25 @@ namespace Database.Migrations
                     MacAddress = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     PhotoUrl = table.Column<string>(nullable: true),
-                    DeviceTypeId = table.Column<short>(nullable: false),
+                    DeviceTypeId = table.Column<short>(nullable: true),
+                    DeviceKindId = table.Column<short>(nullable: true),
                     VersionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Devices", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Devices_DeviceKinds_DeviceKindId",
+                        column: x => x.DeviceKindId,
+                        principalTable: "DeviceKinds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Devices_DeviceTypes_DeviceTypeId",
                         column: x => x.DeviceTypeId,
                         principalTable: "DeviceTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Devices_Versions_VersionId",
                         column: x => x.VersionId,
@@ -164,9 +192,26 @@ namespace Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_DeviceKinds_Kind",
+                table: "DeviceKinds",
+                column: "Kind",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devices_DeviceKindId",
+                table: "Devices",
+                column: "DeviceKindId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Devices_DeviceTypeId",
                 table: "Devices",
                 column: "DeviceTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devices_MacAddress",
+                table: "Devices",
+                column: "MacAddress",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Devices_VersionId",
@@ -188,6 +233,11 @@ namespace Database.Migrations
                 name: "IX_Registrations_ScannerDeviceId",
                 table: "Registrations",
                 column: "ScannerDeviceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Versions_DeviceKindId",
+                table: "Versions",
+                column: "DeviceKindId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Versions_DeviceTypeId",
@@ -216,6 +266,9 @@ namespace Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "Versions");
+
+            migrationBuilder.DropTable(
+                name: "DeviceKinds");
 
             migrationBuilder.DropTable(
                 name: "DeviceTypes");

@@ -15,9 +15,11 @@ namespace Database.Entities
         public short Minor { get; set; }
         public short Patch { get; set; }
 
-
-        public short DeviceTypeId { get; set; }
+        public short? DeviceTypeId { get; set; }
         public DeviceType DeviceType { get; set; }
+
+        public short? DeviceKindId { get; set; }
+        public DeviceKind DeviceKind { get; set; }
 
         public int FileDataId { get; set; }
         public FileData FileData { get; set; }

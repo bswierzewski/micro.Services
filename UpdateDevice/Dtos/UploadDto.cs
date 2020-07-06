@@ -15,7 +15,10 @@ namespace UpdateDevice.Dtos
         public short Patch { get; set; }
 
         [Required]
-        public short DeviceTypeId { get; set; }
+        public short? DeviceTypeId { get; set; }
+
+        [Required]
+        public short? DeviceKindId { get; set; }
 
         [Required]
         public IFormFile File { get; set; }

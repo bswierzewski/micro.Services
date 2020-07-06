@@ -8,11 +8,12 @@ namespace UpdateDevice.Data
     {
         Task<VersionInfoDto[]> GetAllVersion();
         Task<bool> IsDeviceTypeExists(short deviceTypeId);
-        Task<bool> IsVersionExists(short major, short minor, short patch, short deviceTypeId);
+        Task<bool> IsVersionExists(short major, short minor, short patch, short deviceTypeId, short deviceKindId);
         Task<bool> UploadFile(FileData fileDatas);
         Task<Device> GetDevice(string macAddress);
         Task<Version> GetVersionById(int id);
         Task<bool> AddDeviceVersion(DeviceVersion deviceVersion);
         Task<bool> AddVersion(Version newVersion);
+        Task<bool> IsDeviceKindExists(short deviceKindId);
     }
 }

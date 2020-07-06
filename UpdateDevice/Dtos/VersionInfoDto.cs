@@ -9,6 +9,7 @@ namespace UpdateDevice.Dtos
         public int FileDataId { get; set; }
         public int VersionId { get; set; }
         public string DeviceType { get; set; }
+        public string DeviceKind { get; set; }
         public DateTime VersionCreated { get; set; }
         public short Major { get; set; }
         public short Minor { get; set; }

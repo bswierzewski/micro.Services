@@ -9,6 +9,7 @@ namespace Device.Dtos
         public string MacAddress { get; set; }
         public string Name { get; set; }
         public string Kind { get; set; }
+        public string Type { get; set; }
         public string PhotoUrl { get; set; }
     }
 }

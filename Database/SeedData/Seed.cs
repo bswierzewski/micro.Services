@@ -31,6 +31,17 @@ namespace Database
                 context.SaveChanges();
             }
 
+            if (!context.DeviceKinds.Any())
+            {
+                var deviceKindData = File.ReadAllText(Path.Combine(pathToJson, "DeviceKind.json"));
+                var deviceKinds = JsonConvert.DeserializeObject<List<DeviceKind>>(deviceKindData);
+                foreach (var deviceKind in deviceKinds)
+                {
+                    context.DeviceKinds.Add(deviceKind);
+                }
+                context.SaveChanges();
+            }
+
             if (!context.DeviceTypes.Any())
             {
                 var deviceTypeData = File.ReadAllText(Path.Combine(pathToJson, "DeviceType.json"));

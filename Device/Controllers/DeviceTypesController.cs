@@ -34,17 +34,6 @@ namespace Device.Controllers
             return Ok(types);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDeviceType(short typeId)
-        {
-            var type = await _repo.GetDeviceTypeById(typeId);
-
-            if (type == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Not found any types!");
-
-            return Ok(type);
-        }
-
         [HttpPost("add")]
         public async Task<IActionResult> AddDeviceType(PostDeviceTypeDto deviceTypeDto)
         {

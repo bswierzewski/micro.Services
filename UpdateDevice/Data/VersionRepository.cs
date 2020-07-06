@@ -34,11 +34,13 @@ namespace UpdateDevice.Data
         {
             return await (from version in _context.Versions
                           join file in _context.FileDatas on version.FileDataId equals file.Id
-                          join deviceType in _context.DeviceTypes on version.DeviceTypeId equals deviceType.Id
+                          join types in _context.DeviceTypes on version.DeviceTypeId equals types.Id
+                          join kinds in _context.DeviceKinds on version.DeviceTypeId equals kinds.Id
                           select new VersionInfoDto
                           {
                               FileCreated = file.Created,
-                              DeviceType = deviceType.Type,
+                              DeviceType = types.Type,
+                              DeviceKind = kinds.Kind,
                               FileDataId = file.Id,
                               FileName = file.Name,
                               Major = version.Major,
@@ -64,10 +66,14 @@ namespace UpdateDevice.Data
         {
             return await _context.DeviceTypes.AnyAsync(x => x.Id == deviceTypeId);
         }
-
-        public async Task<bool> IsVersionExists(short major, short minor, short patch, short deviceTypeId)
+        public async Task<bool> IsDeviceKindExists(short deviceKindId)
         {
-            return await _context.Versions.AnyAsync(x => x.Major == major && x.Minor == minor && x.Patch == patch && x.DeviceTypeId == deviceTypeId);
+            return await _context.DeviceKinds.AnyAsync(x => x.Id == deviceKindId);
+        }
+
+        public async Task<bool> IsVersionExists(short major, short minor, short patch, short deviceTypeId, short deviceKindId)
+        {
+            return await _context.Versions.AnyAsync(x => x.Major == major && x.Minor == minor && x.Patch == patch && x.DeviceTypeId == deviceTypeId && x.DeviceKindId == deviceKindId);
         }
 
         public async Task<bool> UploadFile(FileData fileDatas)

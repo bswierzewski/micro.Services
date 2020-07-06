@@ -31,15 +31,22 @@ namespace Device.Data
             _context.Remove(entity);
         }
 
-        public async Task<IEnumerable<GetDeviceDto>> GetDevices(int? deviceTypeId = null)
+        public async Task<IEnumerable<GetDeviceDto>> GetDevices(short? deviceTypeId = null, short? deviceKindId = null)
         {
-            Expression<Func<DeviceType, bool>> @where = n => true;
+            Expression<Func<DeviceType, bool>> @whereType = n => true;
+            Expression<Func<DeviceKind, bool>> @whereKind = n => true;
 
             if (deviceTypeId != null)
-                @where = n => n.Id == deviceTypeId;
+                @whereType = n => n.Id == deviceTypeId;
+
+            if (deviceKindId != null)
+                @whereKind = n => n.Id == deviceKindId;
 
             var devices = await (from device in _context.Devices
-                                 join types in _context.DeviceTypes.Where(@where) on device.DeviceTypeId equals types.Id
+                                 join types in _context.DeviceTypes.Where(whereType) on device.DeviceTypeId equals types.Id into typesTemp
+                                 from typesDef in typesTemp.DefaultIfEmpty()
+                                 join kinds in _context.DeviceKinds.Where(whereKind) on device.DeviceKindId equals kinds.Id into kindsTemp
+                                 from kindsDef in kindsTemp.DefaultIfEmpty()
                                  select new GetDeviceDto
                                  {
                                      Id = device.Id,
@@ -47,7 +54,8 @@ namespace Device.Data
                                      Name = device.Name,
                                      MacAddress = device.MacAddress,
                                      PhotoUrl = device.PhotoUrl,
-                                     Kind = types.Type,
+                                     Kind = kindsDef.Kind,
+                                     Type = typesDef.Type,
                                  }).ToListAsync();
 
             return devices;
@@ -57,6 +65,7 @@ namespace Device.Data
         {
             var device = await (from devices in _context.Devices
                                 join types in _context.DeviceTypes on devices.DeviceTypeId equals types.Id
+                                join kinds in _context.DeviceKinds on devices.DeviceKindId equals kinds.Id
                                 select new GetDeviceDto
                                 {
                                     Id = devices.Id,
@@ -64,7 +73,8 @@ namespace Device.Data
                                     Name = devices.Name,
                                     MacAddress = devices.MacAddress,
                                     PhotoUrl = devices.PhotoUrl,
-                                    Kind = types.Type,
+                                    Kind = kinds.Kind,
+                                    Type = types.Type,
                                 }).FirstOrDefaultAsync(x => x.Id == id);
 
             return device;
@@ -80,9 +90,14 @@ namespace Device.Data
             return await _context.DeviceTypes.ToListAsync();
         }
 
-        public async Task<bool> ExistsDevice(string macAddress)
+        public async Task<DeviceKind> GetDeviceKind(string kind)
         {
-            return await _context.Devices.AnyAsync(x => x.MacAddress == macAddress);
+            return await _context.DeviceKinds.FirstOrDefaultAsync(x => x.Kind == kind);
+        }
+
+        public async Task<IEnumerable<DeviceKind>> GetDeviceKinds()
+        {
+            return await _context.DeviceKinds.ToListAsync();
         }
 
         public async Task<bool> ExistsDeviceType(short deviceTypeId)
@@ -90,9 +105,14 @@ namespace Device.Data
             return await _context.DeviceTypes.AnyAsync(x => x.Id == deviceTypeId);
         }
 
-        public async Task<DeviceType> GetDeviceTypeById(short typeId)
+        public async Task<bool> ExistsDeviceKind(short deviceKindId)
         {
-            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Id == typeId);
+            return await _context.DeviceKinds.AnyAsync(x => x.Id == deviceKindId);
+        }
+
+        public async Task<Database.Entities.Device> GetDeviceByMacAddress(string macAddress)
+        {
+            return await _context.Devices.FirstOrDefaultAsync(x => x.MacAddress == macAddress);
         }
     }
 }

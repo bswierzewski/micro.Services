@@ -14,8 +14,10 @@ namespace Database.Entities
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
 
-        public short DeviceTypeId { get; set; }
+        public short? DeviceTypeId { get; set; }
         public DeviceType DeviceType { get; set; }
+        public short? DeviceKindId { get; set; }
+        public DeviceKind DeviceKind { get; set; }
         public int? VersionId { get; set; }
         public Version Version { get; set; }
 
