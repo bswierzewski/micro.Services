@@ -27,26 +27,6 @@ namespace Database
             modelBuilder.Entity<DeviceType>()
                 .HasIndex(x => x.Type)
                 .IsUnique();
-
-            modelBuilder.Entity<Device>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<FileData>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<Registration>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<User>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<Version>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
         }
 
         public DbSet<Device> Devices { get; set; }

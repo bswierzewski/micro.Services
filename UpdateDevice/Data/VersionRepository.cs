@@ -1,4 +1,5 @@
 ﻿using Database;
+using Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,20 @@ namespace UpdateDevice.Data
         public VersionRepository(DataContext context)
         {
             _context = context;
+        }
+
+        public async Task<bool> AddDeviceVersion(DeviceVersion deviceVersion)
+        {
+            await _context.DeviceVersions.AddAsync(deviceVersion);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> AddVersion(Version version)
+        {
+            await _context.Versions.AddAsync(version);
+
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<VersionInfoDto[]> GetAllVersion()
@@ -33,6 +48,32 @@ namespace UpdateDevice.Data
                               VersionId = version.Id
                           })
                 .ToArrayAsync();
+        }
+
+        public async Task<Device> GetDevice(string macAddress)
+        {
+            return await _context.Devices.FirstOrDefaultAsync(x => x.MacAddress == macAddress);
+        }
+
+        public async Task<FileData> GetFileDataById(int fileDataId)
+        {
+            return await _context.FileDatas.FirstOrDefaultAsync(x => x.Id == fileDataId);
+        }
+
+        public async Task<Version> GetVersionById(int id)
+        {
+            return await _context.Versions.FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<bool> IsVersionExists(short major, short minor, short patch)
+        {
+            return await _context.Versions.AnyAsync(x => x.Major == major && x.Minor == minor && x.Patch == patch);
+        }
+
+        public async Task<bool> UploadFile(FileData fileDatas)
+        {
+            await _context.FileDatas.AddAsync(fileDatas);
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Database.Entities
     public class Registration
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public DateTime Created { get; set; }
 

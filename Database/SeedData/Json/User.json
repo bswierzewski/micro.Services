@@ -1,48 +1,41 @@
 [
   {
-    "id": 1,
     "username": "Jami",
     "created": "2014-12-01T11:13:17",
     "LastActive": "2014-12-01T11:13:17",
     "IsActive": 1
   },
   {
-    "id": 2,
     "username": "Lang",
     "created": "2015-08-15T10:34:22",
     "LastActive": "2015-08-15T10:34:22",
-    "IsActive": 0  
+    "IsActive": 0
   },
   {
-    "id": 3,
     "username": "Davenport",
     "created": "2020-04-17T04:17:09",
     "LastActive": "2020-04-17T04:17:09",
     "IsActive": 0
   },
   {
-    "id": 4,
     "username": "Strickland",
     "created": "2018-03-14T05:11:40",
     "LastActive": "2018-03-14T05:11:40",
     "IsActive": 1
   },
   {
-    "id": 5,
     "username": "Osborne",
     "created": "2016-05-31T02:30:37",
     "LastActive": "2016-05-31T02:30:37",
     "IsActive": 0
   },
   {
-    "id": 6,
     "username": "Holcomb",
     "created": "2015-06-20T06:08:18",
     "LastActive": "2016-05-31T02:30:37",
     "IsActive": 0
   },
   {
-    "id": 7,
     "username": "Manuela",
     "created": "2016-09-21T09:25:19",
     "LastActive": "2016-05-31T02:30:37",

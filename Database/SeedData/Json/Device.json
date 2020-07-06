@@ -1,6 +1,5 @@
 [
   {
-    "Id": 1,
     "Created": "2020-01-06T08:53:45",
     "Macaddress": "1F:11:16:3E:FB:FB",
     "Name": "Cassie",
@@ -9,7 +8,6 @@
     "DeviceTypeId": 2
   },
   {
-    "Id": 2,
     "Created": "2020-01-02T05:48:13",
     "Macaddress": "42:17:50:97:9C:4B",
     "Name": "Hinton",
@@ -18,7 +16,6 @@
     "DeviceTypeId": 1,
   },
   {
-    "Id": 3,
     "Created": "2020-02-21T02:39:57",
     "Macaddress": "03:DE:D4:CE:6D:FA",
     "Name": "Bass",
@@ -27,7 +24,6 @@
     "DeviceTypeId": 2
   },
   {
-    "Id": 4,
     "Created": "2020-04-06T12:53:15",
     "Macaddress": "2B:51:55:BB:F6:E6",
     "Name": "Mays",
