@@ -1,10 +1,8 @@
-using Database.Entities;
 using Device.Data;
 using Device.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -40,7 +38,7 @@ namespace Device.Controllers
             return Ok(devices);
         }
 
-        [HttpGet("get/{deviceTypeId}")]
+        [HttpGet("type/{deviceTypeId}")]
         public async Task<IActionResult> GetDevicesByType(int deviceTypeId)
         {
             var devices = await _repo.GetDevices(deviceTypeId);
@@ -68,36 +66,6 @@ namespace Device.Controllers
             await _repo.Add(device);
 
             return Ok(device);
-        }
-
-        [HttpGet("types")]
-        public async Task<IActionResult> GetDeviceType()
-        {
-            var types = await _repo.GetDevicesType();
-
-            if (types == null || types.Count() == 0)
-                return StatusCode((int)HttpStatusCode.NotFound, "Not found any types!");
-
-            return Ok(types);
-        }
-
-        [HttpPost("types/add")]
-        public async Task<IActionResult> AddDeviceType(PostDeviceTypeDto deviceTypeDto)
-        {
-            var type = await _repo.GetDeviceType(deviceTypeDto.Type);
-
-            if (type != null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Device type already exists!");
-
-            var deviceType = new DeviceType()
-            {
-                Type = deviceTypeDto.Type,
-                Created = DateTime.Now,
-            };
-
-            await _repo.Add(deviceType);
-
-            return Ok(deviceType);
         }
     }
 }

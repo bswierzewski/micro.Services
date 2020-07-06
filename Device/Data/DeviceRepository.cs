@@ -75,7 +75,7 @@ namespace Device.Data
             return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Type == type);
         }
 
-        public async Task<IEnumerable<DeviceType>> GetDevicesType()
+        public async Task<IEnumerable<DeviceType>> GetDeviceTypes()
         {
             return await _context.DeviceTypes.ToListAsync();
         }
@@ -88,6 +88,11 @@ namespace Device.Data
         public async Task<bool> ExistsDeviceType(short deviceTypeId)
         {
             return await _context.DeviceTypes.AnyAsync(x => x.Id == deviceTypeId);
+        }
+
+        public async Task<DeviceType> GetDeviceTypeById(short typeId)
+        {
+            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Id == typeId);
         }
     }
 }
