@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
+using System.Linq;
 
 namespace Database.Extensions
 {
@@ -13,7 +14,10 @@ namespace Database.Extensions
             {
                 using (var appContext = scope.ServiceProvider.GetRequiredService<DataContext>())
                 {
-                    appContext.Database.Migrate();
+                    if (appContext.Database.GetPendingMigrations().Any())
+                    {
+                        appContext.Database.Migrate();
+                    }
 
                     Seed.SeedData(appContext);
                 }

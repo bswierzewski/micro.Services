@@ -101,7 +101,10 @@ namespace UpdateDevice.Controllers
         [HttpPost("upload")]
         public async Task<IActionResult> UploadNewVersion([FromForm] UploadDto uploadDto)
         {
-            if (await _repo.IsVersionExists(uploadDto.Major, uploadDto.Minor, uploadDto.Patch))
+            if (await _repo.IsDeviceTypeExists(uploadDto.DeviceTypeId))
+                return BadRequest("Device Type not exists!");
+
+            if (await _repo.IsVersionExists(uploadDto.Major, uploadDto.Minor, uploadDto.Patch, uploadDto.DeviceTypeId))
                 return BadRequest("Version already exists!");
 
             if (uploadDto.File.Length > 0)
@@ -132,6 +135,8 @@ namespace UpdateDevice.Controllers
                         Major = uploadDto.Major,
                         Minor = uploadDto.Minor,
                         Patch = uploadDto.Patch,
+                        Name = uploadDto.Name ?? fileData.Name,
+                        DeviceTypeId = uploadDto.DeviceTypeId,
                         FileDataId = fileData.Id
                     };
 

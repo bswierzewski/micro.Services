@@ -1,6 +1,11 @@
+using Database.Entities;
 using Device.Data;
+using Device.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Device.Controllers
@@ -19,14 +24,6 @@ namespace Device.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetDevices()
-        {
-            var devices = await _repo.GetDevices();
-
-            return Ok(devices);
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDevice(int id)
         {
@@ -35,22 +32,72 @@ namespace Device.Controllers
             return Ok(device);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetDevices()
+        {
+            var devices = await _repo.GetDevices();
+
+            return Ok(devices);
+        }
+
+        [HttpGet("get/{deviceTypeId}")]
+        public async Task<IActionResult> GetDevicesByType(int deviceTypeId)
+        {
+            var devices = await _repo.GetDevices(deviceTypeId);
+
+            return Ok(devices);
+        }
+
         [HttpPost("add")]
-        public IActionResult PostDevice(string macaddress)
+        public async Task<IActionResult> AddDevice(PostDeviceDto postDeviceDto)
         {
-            return Ok($"Mock callback ok...");
+            if (!await _repo.ExistsDeviceType(postDeviceDto.DeviceTypeId))
+                return StatusCode((int)HttpStatusCode.NotFound, "Device type not exists!");
+
+            if (await _repo.ExistsDevice(postDeviceDto.MacAddress))
+                return StatusCode((int)HttpStatusCode.NotFound, "Device already exists!");
+
+            var device = new Database.Entities.Device()
+            {
+                Created = DateTime.Now,
+                DeviceTypeId = postDeviceDto.DeviceTypeId,
+                MacAddress = postDeviceDto.MacAddress,
+                Name = postDeviceDto.Name ?? postDeviceDto.MacAddress,
+            };
+
+            await _repo.Add(device);
+
+            return Ok(device);
         }
 
-        [HttpPut("{macaddress}")]
-        public IActionResult PutDevice(string macaddress)
+        [HttpGet("types")]
+        public async Task<IActionResult> GetDeviceType()
         {
-            return Ok($"Mock callback ok...");
+            var types = await _repo.GetDevicesType();
+
+            if (types == null || types.Count() == 0)
+                return StatusCode((int)HttpStatusCode.NotFound, "Not found any types!");
+
+            return Ok(types);
         }
 
-        [HttpDelete("{macaddress}")]
-        public IActionResult DeleteDevice(string macaddress)
+        [HttpPost("types/add")]
+        public async Task<IActionResult> AddDeviceType(PostDeviceTypeDto deviceTypeDto)
         {
-            return Ok($"Mock callback ok...");
+            var type = await _repo.GetDeviceType(deviceTypeDto.Type);
+
+            if (type != null)
+                return StatusCode((int)HttpStatusCode.NotFound, "Device type already exists!");
+
+            var deviceType = new DeviceType()
+            {
+                Type = deviceTypeDto.Type,
+                Created = DateTime.Now,
+            };
+
+            await _repo.Add(deviceType);
+
+            return Ok(deviceType);
         }
     }
 }

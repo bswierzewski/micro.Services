@@ -19,9 +19,11 @@ namespace Device.Data
             _context = context;
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task Add<T>(T entity) where T : class
         {
-            _context.Add(entity);
+            await _context.AddAsync(entity);
+
+            await _context.SaveChangesAsync();
         }
 
         public void Delete<T>(T entity) where T : class
@@ -29,15 +31,16 @@ namespace Device.Data
             _context.Remove(entity);
         }
 
-        public async Task<DeviceDto> GetDevice(int id) => await GetDevice(id, n => true);
-
-        public async Task<IEnumerable<DeviceDto>> GetDevices() => await GetDevices(n => true);
-
-        private async Task<IEnumerable<DeviceDto>> GetDevices(Expression<Func<DeviceType, bool>> @where)
+        public async Task<IEnumerable<GetDeviceDto>> GetDevices(int? deviceTypeId = null)
         {
+            Expression<Func<DeviceType, bool>> @where = n => true;
+
+            if (deviceTypeId != null)
+                @where = n => n.Id == deviceTypeId;
+
             var devices = await (from device in _context.Devices
                                  join types in _context.DeviceTypes.Where(@where) on device.DeviceTypeId equals types.Id
-                                 select new DeviceDto
+                                 select new GetDeviceDto
                                  {
                                      Id = device.Id,
                                      Created = device.Created,
@@ -50,11 +53,11 @@ namespace Device.Data
             return devices;
         }
 
-        private async Task<DeviceDto> GetDevice(int id, Expression<Func<DeviceType, bool>> @where)
+        public async Task<GetDeviceDto> GetDevice(int id)
         {
             var device = await (from devices in _context.Devices
-                                join types in _context.DeviceTypes.Where(@where) on devices.DeviceTypeId equals types.Id
-                                select new DeviceDto
+                                join types in _context.DeviceTypes on devices.DeviceTypeId equals types.Id
+                                select new GetDeviceDto
                                 {
                                     Id = devices.Id,
                                     Created = devices.Created,
@@ -67,9 +70,24 @@ namespace Device.Data
             return device;
         }
 
-        public async Task<bool> SaveAll()
+        public async Task<DeviceType> GetDeviceType(string type)
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Type == type);
+        }
+
+        public async Task<IEnumerable<DeviceType>> GetDevicesType()
+        {
+            return await _context.DeviceTypes.ToListAsync();
+        }
+
+        public async Task<bool> ExistsDevice(string macAddress)
+        {
+            return await _context.Devices.AnyAsync(x => x.MacAddress == macAddress);
+        }
+
+        public async Task<bool> ExistsDeviceType(short deviceTypeId)
+        {
+            return await _context.DeviceTypes.AnyAsync(x => x.Id == deviceTypeId);
         }
     }
 }

@@ -47,6 +47,8 @@ namespace UpdateDevice.Controllers
                 };
 
                 await _repo.AddDevice(newDevice);
+
+                device = newDevice;
             }
             else
             {

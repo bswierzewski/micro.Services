@@ -60,9 +60,14 @@ namespace UpdateDevice.Data
             return await _context.Versions.Include(x => x.FileData).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<bool> IsVersionExists(short major, short minor, short patch)
+        public async Task<bool> IsDeviceTypeExists(short deviceTypeId)
         {
-            return await _context.Versions.AnyAsync(x => x.Major == major && x.Minor == minor && x.Patch == patch);
+            return await _context.DeviceTypes.AnyAsync(x => x.Id == deviceTypeId);
+        }
+
+        public async Task<bool> IsVersionExists(short major, short minor, short patch, short deviceTypeId)
+        {
+            return await _context.Versions.AnyAsync(x => x.Major == major && x.Minor == minor && x.Patch == patch && x.DeviceTypeId == deviceTypeId);
         }
 
         public async Task<bool> UploadFile(FileData fileDatas)
