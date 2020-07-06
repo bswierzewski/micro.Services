@@ -27,9 +27,9 @@ namespace UpdateDevice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
-        public async Task<IActionResult> GetLatestVersion()
+        public async Task<IActionResult> GetLatestVersion(int deviceTypeId)
         {
-            var latestVersion = await _repo.GetLatestVersion();
+            var latestVersion = await _repo.GetLatestVersion(deviceTypeId);
 
             if (latestVersion != null)
                 return Ok(latestVersion.Id);
@@ -57,8 +57,8 @@ namespace UpdateDevice.Controllers
                           $" - Version Created: {version.Created}{Environment.NewLine}" +
                           $" - Major: {version.Major}{Environment.NewLine}" +
                           $" - Patch: {version.Patch}{Environment.NewLine}" +
-                          $" - File name: {fileDatas.FileName}{Environment.NewLine}" +
-                          $" - File extension: {fileDatas.FileExtension}{Environment.NewLine}" +
+                          $" - File name: {fileDatas.Name}{Environment.NewLine}" +
+                          $" - File extension: {fileDatas.Extension}{Environment.NewLine}" +
                           $" - File created: {fileDatas.Created}{Environment.NewLine}");
 
         }
@@ -70,24 +70,23 @@ namespace UpdateDevice.Controllers
         {
             var device = await _repo.GetDevice(getUpdateDto.MacAddress);
 
+            var deviceType = await _repo.GetDeviceType(getUpdateDto.DeviceType);
+
             if (device == null)
             {
-                var deviceType = await _repo.GetDeviceType(getUpdateDto.DeviceType);
-
                 if (deviceType == null)
-                    return StatusCode((int)HttpStatusCode.NotFound, "DeviceType not exists");
+                    return StatusCode((int)HttpStatusCode.NotFound, "Device Type not exists");
 
                 var newDevice = new Device()
                 {
                     MacAddress = getUpdateDto.MacAddress,
                     Created = DateTime.Now,
-                    DeviceTypeId = deviceType.Id,
                     Name = getUpdateDto.MacAddress,
                 };
 
                 await _repo.AddDevice(newDevice);
 
-                return await GetLatestVersion();
+                return await GetLatestVersion(deviceType.Id);
             }
 
             var deviceVersion = await _repo.GetDeviceVersionByDeviceId(device.Id);
@@ -100,7 +99,7 @@ namespace UpdateDevice.Controllers
                     return Ok(deviceVersion.VersionId);
             }
 
-            var latestVersion = await _repo.GetLatestVersion();
+            var latestVersion = await _repo.GetLatestVersion(deviceType.Id);
 
             if (latestVersion == null)
                 return StatusCode((int)HttpStatusCode.NotFound);
@@ -108,7 +107,7 @@ namespace UpdateDevice.Controllers
             if (device.VersionId == latestVersion.Id)
                 return StatusCode((int)HttpStatusCode.NotFound, "Up to date");
 
-            return await GetLatestVersion();
+            return await GetLatestVersion(deviceType.Id);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -128,7 +127,7 @@ namespace UpdateDevice.Controllers
 
             var content = new MemoryStream(file.Content);
             var contentType = "APPLICATION/octet-stream";
-            var fileName = $"{file.FileName}{file.FileExtension}";
+            var fileName = $"{file.Name}{file.Extension}";
 
             return File(content, contentType, fileName);
         }
@@ -166,8 +165,8 @@ namespace UpdateDevice.Controllers
                 var fileData = new FileData()
                 {
                     Created = DateTime.Now,
-                    FileExtension = Path.GetExtension(uploadDto.File.FileName),
-                    FileName = uploadDto.File.FileName.Replace(Path.GetExtension(uploadDto.File.FileName), ""),
+                    Extension = Path.GetExtension(uploadDto.File.FileName),
+                    Name = uploadDto.File.FileName.Replace(Path.GetExtension(uploadDto.File.FileName), ""),
                 };
 
                 using (var ms = new MemoryStream())

@@ -19,11 +19,13 @@ namespace UpdateDevice.Data
         {
             return await (from version in _context.Versions
                           join file in _context.FileDatas on version.FileDataId equals file.Id
+                          join deviceType in _context.DeviceTypes on version.DeviceTypeId equals deviceType.Id
                           select new VersionInfoDto
                           {
                               FileCreated = file.Created,
+                              DeviceType = deviceType.Name,
                               FileDataId = file.Id,
-                              FileName = file.FileName,
+                              FileName = file.Name,
                               Major = version.Major,
                               Minor = version.Minor,
                               Patch = version.Patch,

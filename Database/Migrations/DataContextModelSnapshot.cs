@@ -66,7 +66,13 @@ namespace Database.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Type")
+                        .IsUnique();
 
                     b.ToTable("DeviceTypes");
                 });
@@ -99,10 +105,10 @@ namespace Database.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("FileExtension")
+                    b.Property<string>("Extension")
                         .HasColumnType("text");
 
-                    b.Property<string>("FileName")
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -120,16 +126,18 @@ namespace Database.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("LocatorMacAddress")
-                        .HasColumnType("text");
-
                     b.Property<int>("Rssi")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ScannerMacAddress")
+                    b.Property<int>("ScannerDeviceId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TrackDeviceMacAddress")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ScannerDeviceId");
 
                     b.ToTable("Registrations");
                 });
@@ -174,6 +182,9 @@ namespace Database.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<short>("DeviceTypeId")
+                        .HasColumnType("smallint");
+
                     b.Property<int?>("FileDataId")
                         .HasColumnType("integer");
 
@@ -183,10 +194,15 @@ namespace Database.Migrations
                     b.Property<short>("Minor")
                         .HasColumnType("smallint");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<short>("Patch")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeviceTypeId");
 
                     b.HasIndex("FileDataId");
 
@@ -221,8 +237,23 @@ namespace Database.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Database.Entities.Registration", b =>
+                {
+                    b.HasOne("Database.Entities.Device", "Device")
+                        .WithMany()
+                        .HasForeignKey("ScannerDeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Database.Entities.Version", b =>
                 {
+                    b.HasOne("Database.Entities.DeviceType", "DeviceType")
+                        .WithMany()
+                        .HasForeignKey("DeviceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Database.Entities.FileData", "FileData")
                         .WithMany()
                         .HasForeignKey("FileDataId");

@@ -2,11 +2,13 @@
   {
     "id": 1,
     "created": "2020-01-06T08:53:45",
-    "name": "esp32"
+    "name": "esp32",
+    "type": "receiver"
   },
   {
     "id": 2,
     "created": "2020-01-02T05:48:13",
-    "name": "esp8266"
+    "name": "itag",
+    "type": "transmitter"
   }
 ]

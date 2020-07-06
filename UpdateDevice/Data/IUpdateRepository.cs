@@ -8,7 +8,7 @@ namespace UpdateDevice.Data
         Task<bool> IsVersionExists(short major, short minor, short patch);
         Task<bool> IsVersionExists(int versionId);
 
-        Task<Version> GetLatestVersion();
+        Task<Version> GetLatestVersion(int deviceTypeId);
         Task<Version> GetVersionById(int id);
         Task<Version> GetVersionByDeviceId(int versionId);
         Task<Device> GetDevice(string macAddress);
