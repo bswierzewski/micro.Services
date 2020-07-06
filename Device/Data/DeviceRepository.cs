@@ -44,7 +44,7 @@ namespace Device.Data
                                      Name = device.Name,
                                      MacAddress = device.MacAddress,
                                      PhotoUrl = device.PhotoUrl,
-                                     Kind = types.Name,
+                                     Kind = types.Type,
                                  }).ToListAsync();
 
             return devices;
@@ -61,7 +61,7 @@ namespace Device.Data
                                     Name = devices.Name,
                                     MacAddress = devices.MacAddress,
                                     PhotoUrl = devices.PhotoUrl,
-                                    Kind = types.Name,
+                                    Kind = types.Type,
                                 }).FirstOrDefaultAsync(x => x.Id == id);
 
             return device;

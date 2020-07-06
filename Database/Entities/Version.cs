@@ -19,7 +19,7 @@ namespace Database.Entities
         public short DeviceTypeId { get; set; }
         public DeviceType DeviceType { get; set; }
 
-        public int? FileDataId { get; set; }
+        public int FileDataId { get; set; }
         public FileData FileData { get; set; }
     }
 }

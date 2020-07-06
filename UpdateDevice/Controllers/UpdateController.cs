@@ -31,10 +31,10 @@ namespace UpdateDevice.Controllers
         {
             var device = await _repo.GetDevice(getUpdateDto.MacAddress);
 
-            var deviceType = await _repo.GetDeviceType(getUpdateDto.DeviceType);
-
             if (device == null)
             {
+                var deviceType = await _repo.GetDeviceType(getUpdateDto.DeviceType);
+
                 if (deviceType == null)
                     return StatusCode((int)HttpStatusCode.NotFound, "Device Type not found!");
 
@@ -52,7 +52,7 @@ namespace UpdateDevice.Controllers
             {
                 var deviceVersion = await _repo.GetDeviceVersionByDeviceId(device.Id);
 
-                if (deviceVersion != null)
+                if (device.VersionId != null)
                 {
                     if (deviceVersion.VersionId == device.VersionId)
                         return StatusCode((int)HttpStatusCode.NotFound, "Up to date!");
@@ -61,7 +61,7 @@ namespace UpdateDevice.Controllers
                 }
             }
 
-            var latestVersion = await _repo.GetLatestDeviceTypeVersion(deviceType.Id);
+            var latestVersion = await _repo.GetLatestDeviceTypeVersion(device.DeviceType.Id);
 
             if (latestVersion == null)
                 return StatusCode((int)HttpStatusCode.NotFound);
@@ -69,7 +69,7 @@ namespace UpdateDevice.Controllers
             if (device.VersionId == latestVersion.Id)
                 return StatusCode((int)HttpStatusCode.NotFound, "Up to date!");
 
-            var versionId = await _repo.GetLatestDeviceTypeVersion(deviceType.Id);
+            var versionId = await _repo.GetLatestDeviceTypeVersion(device.DeviceType.Id);
 
             return Ok(versionId);
         }
@@ -84,10 +84,7 @@ namespace UpdateDevice.Controllers
             if (version == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
 
-            var file = await _repo.DownloadFile(version.FileDataId ?? 0);
-
-            if (file == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "File not found!");
+            var file = version.FileData;
 
             var content = new MemoryStream(file.Content);
             var contentType = "APPLICATION/octet-stream";

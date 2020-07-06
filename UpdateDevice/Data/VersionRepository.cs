@@ -38,7 +38,7 @@ namespace UpdateDevice.Data
                           select new VersionInfoDto
                           {
                               FileCreated = file.Created,
-                              DeviceType = deviceType.Name,
+                              DeviceType = deviceType.Type,
                               FileDataId = file.Id,
                               FileName = file.Name,
                               Major = version.Major,
@@ -55,15 +55,11 @@ namespace UpdateDevice.Data
             return await _context.Devices.FirstOrDefaultAsync(x => x.MacAddress == macAddress);
         }
 
-        public async Task<FileData> GetFileDataById(int fileDataId)
-        {
-            return await _context.FileDatas.FirstOrDefaultAsync(x => x.Id == fileDataId);
-        }
-
         public async Task<Version> GetVersionById(int id)
         {
-            return await _context.Versions.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Versions.Include(x => x.FileData).FirstOrDefaultAsync(x => x.Id == id);
         }
+
         public async Task<bool> IsVersionExists(short major, short minor, short patch)
         {
             return await _context.Versions.AnyAsync(x => x.Major == major && x.Minor == minor && x.Patch == patch);

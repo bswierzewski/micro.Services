@@ -11,7 +11,6 @@ namespace UpdateDevice.Data
         Task<DeviceVersion> GetDeviceVersionByDeviceId(int deviceId);
         Task<DeviceType> GetDeviceType(string deviceType);
         Task<bool> AddDevice(Device device);
-        Task<FileData> DownloadFile(int fileId);
         Task<bool> ConfirmUpdateDevice(Device device, Version version);
     }
 }

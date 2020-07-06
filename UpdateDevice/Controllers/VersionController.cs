@@ -56,19 +56,14 @@ namespace UpdateDevice.Controllers
             if (version == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Version not exists");
 
-            var fileDatas = await _repo.GetFileDataById(version.FileDataId ?? 0);
-
-            if (fileDatas == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "File not exists");
-
             return Ok($"Version info:{Environment.NewLine}" +
                           $" - Id: {version.Id}{Environment.NewLine}" +
                           $" - Version Created: {version.Created}{Environment.NewLine}" +
                           $" - Major: {version.Major}{Environment.NewLine}" +
                           $" - Patch: {version.Patch}{Environment.NewLine}" +
-                          $" - File name: {fileDatas.Name}{Environment.NewLine}" +
-                          $" - File extension: {fileDatas.Extension}{Environment.NewLine}" +
-                          $" - File created: {fileDatas.Created}{Environment.NewLine}");
+                          $" - File name: {version.FileData.Name}{Environment.NewLine}" +
+                          $" - File extension: {version.FileData.Extension}{Environment.NewLine}" +
+                          $" - File created: {version.FileData.Created}{Environment.NewLine}");
 
         }
 

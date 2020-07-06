@@ -9,6 +9,7 @@ namespace UpdateDevice.Data
     public class UpdateRepository : IUpdateRepository
     {
         private readonly DataContext _context;
+
         public UpdateRepository(DataContext context)
         {
             _context = context;
@@ -21,12 +22,12 @@ namespace UpdateDevice.Data
 
         public async Task<Version> GetVersionById(int id)
         {
-            return await _context.Versions.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Versions.Include(x => x.FileData).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Device> GetDevice(string macAddress)
         {
-            return await _context.Devices.FirstOrDefaultAsync(x => x.MacAddress == macAddress);
+            return await _context.Devices.Include(x => x.Version).Include(x => x.DeviceType).FirstOrDefaultAsync(x => x.MacAddress == macAddress);
         }
 
         public async Task<DeviceVersion> GetDeviceVersionByDeviceId(int deviceId)
@@ -36,7 +37,7 @@ namespace UpdateDevice.Data
 
         public async Task<DeviceType> GetDeviceType(string deviceType)
         {
-            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Name == deviceType.ToLower());
+            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Type == deviceType.ToLower());
         }
 
         public async Task<bool> AddDevice(Device device)
@@ -44,11 +45,6 @@ namespace UpdateDevice.Data
             await _context.Devices.AddAsync(device);
 
             return await _context.SaveChangesAsync() > 0;
-        }
-
-        public async Task<FileData> DownloadFile(int fileId)
-        {
-            return await _context.FileDatas.FirstOrDefaultAsync(x => x.Id == fileId);
         }
 
         public async Task<bool> ConfirmUpdateDevice(Device device, Version version)
