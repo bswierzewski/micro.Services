@@ -18,14 +18,18 @@ namespace Device.Data
             _context = context;
         }
 
-        #region Device
+        public async Task<bool> IsDevice(string macAddress)
+        {
+            return await _context.Devices.AnyAsync(x => x.MacAddress == macAddress);
+        }
 
         public async Task<GetDeviceDto> GetDeviceDtoById(int id) => await GetDeviceQueryable(expressionDevice: n => n.Id == id).FirstOrDefaultAsync();
         public async Task<IEnumerable<GetDeviceDto>> GetDevicesDto() => await GetDeviceQueryable().ToListAsync();
         public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByType(short deviceTypeId) => await GetDeviceQueryable(expressionType: n => n.Id == deviceTypeId).ToListAsync();
         public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByKind(short deviceKindId) => await GetDeviceQueryable(expressionKind: n => n.Id == deviceKindId).ToListAsync();
 
-        private IQueryable<GetDeviceDto> GetDeviceQueryable(Expression<Func<Database.Entities.Device, bool>> expressionDevice = null,
+        private IQueryable<GetDeviceDto> GetDeviceQueryable(
+            Expression<Func<Database.Entities.Device, bool>> expressionDevice = null,
             Expression<Func<DeviceType, bool>> expressionType = null,
             Expression<Func<DeviceKind, bool>> expressionKind = null)
         {
@@ -60,54 +64,5 @@ namespace Device.Data
 
             return devices;
         }
-
-        #endregion
-
-        #region DeviceType
-
-        public async Task<bool> IsDeviceType(short deviceTypeId)
-        {
-            return await _context.DeviceTypes.AnyAsync(x => x.Id == deviceTypeId);
-        }
-
-        public async Task<DeviceType> GetDeviceType(string type)
-        {
-            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Type == type);
-        }
-        public async Task<DeviceType> GetDeviceType(int typeId)
-        {
-            return await _context.DeviceTypes.FirstOrDefaultAsync(x => x.Id == typeId);
-        }
-
-        public async Task<IEnumerable<DeviceType>> GetDeviceTypes()
-        {
-            return await _context.DeviceTypes.ToListAsync();
-        }
-
-        #endregion
-
-        #region DeviceKind
-
-        public async Task<bool> IsDeviceKind(short deviceKindId)
-        {
-            return await _context.DeviceKinds.AnyAsync(x => x.Id == deviceKindId);
-        }
-
-        public async Task<DeviceKind> GetDeviceKind(string kind)
-        {
-            return await _context.DeviceKinds.FirstOrDefaultAsync(x => x.Kind == kind);
-        }
-
-        public async Task<DeviceKind> GetDeviceKind(int kindId)
-        {
-            return await _context.DeviceKinds.FirstOrDefaultAsync(x => x.Id == kindId);
-        }
-
-        public async Task<IEnumerable<DeviceKind>> GetDeviceKinds()
-        {
-            return await _context.DeviceKinds.ToListAsync();
-        }
-
-        #endregion
     }
 }

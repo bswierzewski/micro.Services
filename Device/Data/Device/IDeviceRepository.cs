@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 
 namespace Device.Data
 {
-    public interface IDeviceRepository : IAppRepository, IDeviceKindRepository, IDeviceTypeRepository
+    public interface IDeviceRepository : IAppRepository
     {
         Task<GetDeviceDto> GetDeviceDtoById(int id);
         Task<IEnumerable<GetDeviceDto>> GetDevicesDto();
         Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByType(short deviceTypeId);
         Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByKind(short deviceKindId);
+
+        Task<bool> IsDevice(string macAddress);
     }
 }

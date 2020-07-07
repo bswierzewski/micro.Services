@@ -38,6 +38,8 @@ namespace Device
             });
             services.AddCors();
             services.AddScoped<IDeviceRepository, DeviceRepository>();
+            services.AddScoped<IDeviceKindRepository, DeviceKindRepository>();
+            services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {

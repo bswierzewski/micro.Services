@@ -2,7 +2,7 @@
 
 namespace Device.Dtos
 {
-    public class PostDeviceKindDto
+    public class AddDeviceKindDto
     {
         [Required]
         public string Kind { get; set; }

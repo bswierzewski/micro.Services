@@ -10,6 +10,7 @@ namespace Database.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
         public string MacAddress { get; set; }
         public string Name { get; set; }
         public string PhotoUrl { get; set; }

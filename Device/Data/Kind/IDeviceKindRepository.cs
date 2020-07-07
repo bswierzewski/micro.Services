@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Device.Data
 {
-    public interface IDeviceKindRepository
+    public interface IDeviceKindRepository : IAppRepository
     {
-        Task<bool> IsDeviceKind(short deviceKindId);
+        Task<bool> IsDeviceKind(string kind);
 
         Task<DeviceKind> GetDeviceKind(string kind);
         Task<DeviceKind> GetDeviceKind(int kindId);

@@ -16,8 +16,8 @@ namespace Device.Controllers
     public class DeviceTypesController : ControllerBase
     {
         private readonly ILogger<DevicesController> _logger;
-        private readonly IDeviceRepository _repo;
-        public DeviceTypesController(IDeviceRepository repo, ILogger<DevicesController> logger)
+        private readonly IDeviceTypeRepository _repo;
+        public DeviceTypesController(IDeviceTypeRepository repo, ILogger<DevicesController> logger)
         {
             _repo = repo;
             _logger = logger;
@@ -35,11 +35,9 @@ namespace Device.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddDeviceType(PostDeviceTypeDto deviceTypeDto)
+        public async Task<IActionResult> AddDeviceType(AddDeviceTypeDto deviceTypeDto)
         {
-            var type = await _repo.GetDeviceType(deviceTypeDto.Type);
-
-            if (type != null)
+            if (await _repo.IsDeviceType(deviceTypeDto.Type))
                 return StatusCode((int)HttpStatusCode.NotFound, "Device type already exists!");
 
             var deviceType = new DeviceType()

@@ -16,8 +16,8 @@ namespace Device.Controllers
     public class DeviceKindsController : ControllerBase
     {
         private readonly ILogger<DevicesController> _logger;
-        private readonly IDeviceRepository _repo;
-        public DeviceKindsController(IDeviceRepository repo, ILogger<DevicesController> logger)
+        private readonly IDeviceKindRepository _repo;
+        public DeviceKindsController(IDeviceKindRepository repo, ILogger<DevicesController> logger)
         {
             _repo = repo;
             _logger = logger;
@@ -35,11 +35,9 @@ namespace Device.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddDeviceKind(PostDeviceKindDto deviceKindDto)
+        public async Task<IActionResult> AddDeviceKind(AddDeviceKindDto deviceKindDto)
         {
-            var kind = await _repo.GetDeviceKind(deviceKindDto.Kind);
-
-            if (kind != null)
+            if (await _repo.IsDeviceKind(deviceKindDto.Kind))
                 return StatusCode((int)HttpStatusCode.NotFound, "Device kind already exists!");
 
             var deviceKind = new DeviceKind()

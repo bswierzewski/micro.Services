@@ -2,7 +2,7 @@
 
 namespace Device.Dtos
 {
-    public class PostDeviceDto
+    public class AddDeviceDto
     {
 
         [Required]
