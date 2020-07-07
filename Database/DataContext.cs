@@ -24,6 +24,10 @@ namespace Database
             modelBuilder.Entity<DeviceVersion>()
                 .HasKey(x => new { x.DeviceId, x.VersionId });
 
+            modelBuilder.Entity<DeviceVersion>()
+                .HasIndex(x => x.DeviceId)
+                .IsUnique();
+
             modelBuilder.Entity<DeviceType>()
                 .HasIndex(x => x.Type)
                 .IsUnique();
