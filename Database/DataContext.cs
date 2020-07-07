@@ -22,9 +22,7 @@ namespace Database
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<DeviceVersion>()
-                .HasKey(x => new { x.DeviceId, x.VersionId });
-
-            modelBuilder.Entity<DeviceVersion>()
+                .HasNoKey()
                 .HasIndex(x => x.DeviceId)
                 .IsUnique();
 

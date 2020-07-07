@@ -86,7 +86,7 @@ namespace Device.Controllers
             return Ok(device);
         }
 
-        [HttpPost("update/type/{type}")]
+        [HttpPost("update")]
         public async Task<IActionResult> UpdateDeviceKind(UpdateDeviceDto updateDeviceDto)
         {
             var device = await _repo.GetDevice(updateDeviceDto.DeviceId);
@@ -94,26 +94,22 @@ namespace Device.Controllers
             if (device == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
 
-            device.DeviceTypeId = updateDeviceDto.Payload;
+            if (updateDeviceDto.TypeId != null && await _repo.IsDeviceType(updateDeviceDto.TypeId.Value))
+                device.DeviceTypeId = updateDeviceDto.TypeId;
 
-            await _repo.SaveAllChanges();
+            if (updateDeviceDto.KindId != null && await _repo.IsDeviceKind(updateDeviceDto.KindId.Value))
+                device.DeviceKindId = updateDeviceDto.KindId;
 
-            return Ok();
-        }
+            if (!string.IsNullOrEmpty(updateDeviceDto.Name))
+                device.Name = updateDeviceDto.Name;
 
-        [HttpPost("update/kind/{kind}")]
-        public async Task<IActionResult> UpdateDeviceType(UpdateDeviceDto updateDeviceDto)
-        {
-            var device = await _repo.GetDevice(updateDeviceDto.DeviceId);
+            if (!string.IsNullOrEmpty(updateDeviceDto.PhotoUrl))
+                device.PhotoUrl = updateDeviceDto.PhotoUrl;
 
-            if (device == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
-
-            device.DeviceKindId = updateDeviceDto.Payload;
-
-            await _repo.SaveAllChanges();
-
-            return Ok();
+            if (await _repo.SaveAllChanges())
+                return Ok("Update successfully");
+            else
+                return StatusCode((int)HttpStatusCode.NoContent);
         }
     }
 }

@@ -13,5 +13,7 @@ namespace Device.Data
 
         Task<bool> IsDevice(string macAddress);
         Task<Database.Entities.Device> GetDevice(int deviceId);
+        Task<bool> IsDeviceType(short payload);
+        Task<bool> IsDeviceKind(short payload);
     }
 }

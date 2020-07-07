@@ -7,7 +7,9 @@ namespace Device.Dtos
         [Required]
         public int DeviceId { get; set; }
 
-        [Required]
-        public short Payload { get; set; }
+        public string Name { get; set; }
+        public string PhotoUrl { get; set; }
+        public short? TypeId { get; set; }
+        public short? KindId { get; set; }
     }
 }

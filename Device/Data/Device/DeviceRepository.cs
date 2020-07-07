@@ -28,32 +28,22 @@ namespace Device.Data
         public async Task<IEnumerable<GetDeviceDto>> GetDevicesDto()
             => await GetDeviceQueryable().ToListAsync();
         public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByType(short deviceTypeId)
-            => await GetDeviceQueryable(expressionType: n => n.Id == deviceTypeId).ToListAsync();
+            => await GetDeviceQueryable(expressionDevice: n => n.DeviceTypeId == deviceTypeId).ToListAsync();
         public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByKind(short deviceKindId)
-            => await GetDeviceQueryable(expressionKind: n => n.Id == deviceKindId).ToListAsync();
+            => await GetDeviceQueryable(expressionDevice: n => n.DeviceKindId == deviceKindId).ToListAsync();
 
         private IQueryable<GetDeviceDto> GetDeviceQueryable(
-            Expression<Func<Database.Entities.Device, bool>> expressionDevice = null,
-            Expression<Func<DeviceType, bool>> expressionType = null,
-            Expression<Func<DeviceKind, bool>> expressionKind = null)
+            Expression<Func<Database.Entities.Device, bool>> expressionDevice = null)
         {
             Expression<Func<Database.Entities.Device, bool>> @whereDevice = n => true;
-            Expression<Func<DeviceType, bool>> @whereType = n => true;
-            Expression<Func<DeviceKind, bool>> @whereKind = n => true;
 
             if (expressionDevice != null)
                 @whereDevice = expressionDevice;
 
-            if (expressionType != null)
-                @whereType = expressionType;
-
-            if (expressionKind != null)
-                @whereKind = expressionKind;
-
             var devices = (from device in _context.Devices.Where(whereDevice)
-                           join types in _context.DeviceTypes.Where(whereType) on device.DeviceTypeId equals types.Id into typesTemp
+                           join types in _context.DeviceTypes on device.DeviceTypeId equals types.Id into typesTemp
                            from typesDef in typesTemp.DefaultIfEmpty()
-                           join kinds in _context.DeviceKinds.Where(whereKind) on device.DeviceKindId equals kinds.Id into kindsTemp
+                           join kinds in _context.DeviceKinds on device.DeviceKindId equals kinds.Id into kindsTemp
                            from kindsDef in kindsTemp.DefaultIfEmpty()
                            select new GetDeviceDto
                            {
@@ -64,7 +54,7 @@ namespace Device.Data
                                PhotoUrl = device.PhotoUrl,
                                Kind = kindsDef.Kind,
                                Type = typesDef.Type,
-                           }).AsQueryable();
+                           });
 
             return devices;
         }
@@ -72,6 +62,16 @@ namespace Device.Data
         public async Task<Database.Entities.Device> GetDevice(int deviceId)
         {
             return await _context.Devices.FirstOrDefaultAsync(x => x.Id == deviceId);
+        }
+
+        public async Task<bool> IsDeviceType(short payload)
+        {
+            return await _context.DeviceTypes.AnyAsync(x => x.Id == payload);
+        }
+
+        public async Task<bool> IsDeviceKind(short payload)
+        {
+            return await _context.DeviceKinds.AnyAsync(x => x.Id == payload);
         }
     }
 }
