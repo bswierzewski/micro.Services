@@ -22,14 +22,6 @@ namespace Device.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDeviceDto(int id)
-        {
-            var device = await _repo.GetDeviceDtoById(id);
-
-            return Ok(device);
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetDevicesDto()
         {
@@ -38,6 +30,24 @@ namespace Device.Controllers
             return Ok(devices);
         }
 
+        /// <summary>
+        /// Pobiera urz¹dzenie po ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDeviceDto(int id)
+        {
+            var device = await _repo.GetDeviceDtoById(id);
+
+            return Ok(device);
+        }
+
+        /// <summary>
+        /// Dodaje nowe urz¹dzenie
+        /// </summary>
+        /// <param name="addDeviceDto"></param>
+        /// <returns></returns>
         [HttpPost("add")]
         public async Task<IActionResult> AddDevice(AddDeviceDto addDeviceDto)
         {
@@ -58,7 +68,52 @@ namespace Device.Controllers
             await _repo.Add(newDevice);
 
             return Ok(newDevice);
+        }
 
+        [HttpGet("type/{type}")]
+        public async Task<IActionResult> GetDevicesDtoByType(short type)
+        {
+            var device = await _repo.GetDevicesDtoByType(type);
+
+            return Ok(device);
+        }
+
+        [HttpPost("update/type/{type}")]
+        public async Task<IActionResult> UpdateDeviceKind(UpdateDeviceDto updateDeviceDto)
+        {
+            var device = await _repo.GetDevice(updateDeviceDto.DeviceId);
+
+            if (device == null)
+                return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
+
+            device.DeviceTypeId = updateDeviceDto.Payload;
+
+            await _repo.SaveAllChanges();
+
+            return Ok();
+        }
+
+        [HttpGet("kind/{kind}")]
+        public async Task<IActionResult> GetDevicesDtoByKind(short kind)
+        {
+            var device = await _repo.GetDevicesDtoByKind(kind);
+
+            return Ok(device);
+        }
+
+        [HttpPost("update/kind/{kind}")]
+        public async Task<IActionResult> UpdateDeviceType(UpdateDeviceDto updateDeviceDto)
+        {
+            var device = await _repo.GetDevice(updateDeviceDto.DeviceId);
+
+            if (device == null)
+                return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
+
+            device.DeviceKindId = updateDeviceDto.Payload;
+
+            await _repo.SaveAllChanges();
+
+            return Ok();
         }
     }
 }

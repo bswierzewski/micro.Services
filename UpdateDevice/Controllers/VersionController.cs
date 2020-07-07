@@ -63,31 +63,40 @@ namespace UpdateDevice.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPost("set")]
-        public async Task<IActionResult> SetDeviceVersion(SetDeviceVersionDto uploadDto)
+        public async Task<IActionResult> SetDeviceVersion(SetDeviceVersionDto setDeviceVersionDto)
         {
-            var device = await _repo.GetDevice(uploadDto.MacAddress);
+            var device = await _repo.GetDevice(setDeviceVersionDto.DeviceId);
 
             if (device == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
 
-            var version = await _repo.GetVersionById(uploadDto.VersionId);
+            var version = await _repo.GetVersionById(setDeviceVersionDto.VersionId);
 
             if (version == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Version not exists!");
 
+            var deviceVersion = await _repo.GetDeviceVersion(setDeviceVersionDto.DeviceId);
 
-            var deviceVersion = new DeviceVersion
+            if (deviceVersion == null)
             {
-                DeviceId = device.Id,
-                VersionId = version.Id
-            };
+                deviceVersion.VersionId = setDeviceVersionDto.VersionId;
 
-            if (await _repo.AddDeviceVersion(deviceVersion))
-                return StatusCode((int)HttpStatusCode.Created);
+                await _repo.SaveAllChanges();
+            }
+            else
+            {
+                var newDeviceVersion = new DeviceVersion
+                {
+                    DeviceId = device.Id,
+                    VersionId = version.Id
+                };
+
+                if (await _repo.AddDeviceVersion(newDeviceVersion))
+                    return StatusCode((int)HttpStatusCode.Created);
+            }
 
             return StatusCode((int)HttpStatusCode.InternalServerError, "Error Upload");
         }
-
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -126,7 +135,7 @@ namespace UpdateDevice.Controllers
                         Minor = uploadDto.Minor,
                         Patch = uploadDto.Patch,
                         Name = uploadDto.Name ?? fileData.Name,
-                        DeviceTypeId = uploadDto.DeviceTypeId,  
+                        DeviceTypeId = uploadDto.DeviceTypeId,
                         DeviceKindId = uploadDto.DeviceKindId,
                         FileDataId = fileData.Id
                     };

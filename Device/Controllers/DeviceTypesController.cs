@@ -4,7 +4,6 @@ using Device.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -27,9 +26,6 @@ namespace Device.Controllers
         public async Task<IActionResult> GetDeviceTypes()
         {
             var types = await _repo.GetDeviceTypes();
-
-            if (types == null || types.Count() == 0)
-                return StatusCode((int)HttpStatusCode.NotFound, "Not found any types!");
 
             return Ok(types);
         }

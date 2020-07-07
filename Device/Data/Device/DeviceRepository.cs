@@ -23,10 +23,14 @@ namespace Device.Data
             return await _context.Devices.AnyAsync(x => x.MacAddress == macAddress);
         }
 
-        public async Task<GetDeviceDto> GetDeviceDtoById(int id) => await GetDeviceQueryable(expressionDevice: n => n.Id == id).FirstOrDefaultAsync();
-        public async Task<IEnumerable<GetDeviceDto>> GetDevicesDto() => await GetDeviceQueryable().ToListAsync();
-        public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByType(short deviceTypeId) => await GetDeviceQueryable(expressionType: n => n.Id == deviceTypeId).ToListAsync();
-        public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByKind(short deviceKindId) => await GetDeviceQueryable(expressionKind: n => n.Id == deviceKindId).ToListAsync();
+        public async Task<GetDeviceDto> GetDeviceDtoById(int id)
+            => await GetDeviceQueryable(expressionDevice: n => n.Id == id).FirstOrDefaultAsync();
+        public async Task<IEnumerable<GetDeviceDto>> GetDevicesDto()
+            => await GetDeviceQueryable().ToListAsync();
+        public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByType(short deviceTypeId)
+            => await GetDeviceQueryable(expressionType: n => n.Id == deviceTypeId).ToListAsync();
+        public async Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByKind(short deviceKindId)
+            => await GetDeviceQueryable(expressionKind: n => n.Id == deviceKindId).ToListAsync();
 
         private IQueryable<GetDeviceDto> GetDeviceQueryable(
             Expression<Func<Database.Entities.Device, bool>> expressionDevice = null,
@@ -63,6 +67,11 @@ namespace Device.Data
                            }).AsQueryable();
 
             return devices;
+        }
+
+        public async Task<Database.Entities.Device> GetDevice(int deviceId)
+        {
+            return await _context.Devices.FirstOrDefaultAsync(x => x.Id == deviceId);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace UpdateDevice.Dtos
     public class SetDeviceVersionDto
     {
         [Required]
-        public string MacAddress { get; set; }
+        public int DeviceId { get; set; }
 
         [Required]
         public int VersionId { get; set; }

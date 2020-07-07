@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Device.Data
 {
-    public class AppRepository
+    public class AppRepository : IAppRepository
     {
         private readonly DataContext _context;
 
@@ -24,5 +24,9 @@ namespace Device.Data
             _context.Remove(entity);
         }
 
+        public async Task<bool> SaveAllChanges()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace Device.Data
         Task<IEnumerable<GetDeviceDto>> GetDevicesDtoByKind(short deviceKindId);
 
         Task<bool> IsDevice(string macAddress);
+        Task<Database.Entities.Device> GetDevice(int deviceId);
     }
 }

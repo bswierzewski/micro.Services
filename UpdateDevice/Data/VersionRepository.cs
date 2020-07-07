@@ -16,11 +16,21 @@ namespace UpdateDevice.Data
             _context = context;
         }
 
+        public async Task<bool> SaveAllChanges()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> AddDeviceVersion(DeviceVersion deviceVersion)
         {
             await _context.DeviceVersions.AddAsync(deviceVersion);
 
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<DeviceVersion> GetDeviceVersion(int deviceId)
+        {
+            return await _context.DeviceVersions.FirstOrDefaultAsync(x => x.DeviceId == deviceId);
         }
 
         public async Task<bool> AddVersion(Version version)
@@ -55,6 +65,11 @@ namespace UpdateDevice.Data
         public async Task<Device> GetDevice(string macAddress)
         {
             return await _context.Devices.FirstOrDefaultAsync(x => x.MacAddress == macAddress);
+        }
+
+        public async Task<Device> GetDevice(int deviceId)
+        {
+            return await _context.Devices.FirstOrDefaultAsync(x => x.Id == deviceId);
         }
 
         public async Task<Version> GetVersionById(int id)

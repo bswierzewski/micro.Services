@@ -41,37 +41,21 @@ namespace UpdateDevice.Controllers
 
                 await _repo.AddDevice(newDevice);
 
-                return StatusCode((int)HttpStatusCode.NotFound, "Device added but not found version!");
-            }
-
-            var deviceSpecificVersion = await _repo.GetDeviceVersionByDeviceId(device.Id);
-
-            if (device.VersionId != null)
-            {
-                if (deviceSpecificVersion.VersionId == device.VersionId)
-                    return StatusCode((int)HttpStatusCode.NotFound, "Up to date!");
-                else
-                    return Ok(deviceSpecificVersion.VersionId);
-            }
-
-            if (device.DeviceTypeId != null && device.DeviceKindId != null)
-            {
-                var latestVersion = await _repo.GetLatestDeviceTypeVersion(device.DeviceType.Id, device.DeviceKind.Id);
-
-                if (latestVersion == null)
-                    return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
-
-                if (device.VersionId == latestVersion.Id)
-                    return StatusCode((int)HttpStatusCode.NotFound, "Up to date!");
-
-                var versionId = await _repo.GetLatestDeviceTypeVersion(device.DeviceType.Id, device.DeviceKind.Id);
-
-                return Ok(versionId);
-            }
-            else
-            {
                 return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
             }
+
+            var deviceVersion = await _repo.GetDeviceVersionByDeviceId(device.Id);
+
+            if (deviceVersion != null)
+            {
+                if (deviceVersion.VersionId == device.VersionId)
+                    return StatusCode((int)HttpStatusCode.NotFound, "Up to date!");
+                else
+                    return Ok(deviceVersion.VersionId);
+            }
+
+            return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
+
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
