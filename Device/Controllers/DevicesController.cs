@@ -78,6 +78,14 @@ namespace Device.Controllers
             return Ok(device);
         }
 
+        [HttpGet("kind/{kind}")]
+        public async Task<IActionResult> GetDevicesDtoByKind(short kind)
+        {
+            var device = await _repo.GetDevicesDtoByKind(kind);
+
+            return Ok(device);
+        }
+
         [HttpPost("update/type/{type}")]
         public async Task<IActionResult> UpdateDeviceKind(UpdateDeviceDto updateDeviceDto)
         {
@@ -91,14 +99,6 @@ namespace Device.Controllers
             await _repo.SaveAllChanges();
 
             return Ok();
-        }
-
-        [HttpGet("kind/{kind}")]
-        public async Task<IActionResult> GetDevicesDtoByKind(short kind)
-        {
-            var device = await _repo.GetDevicesDtoByKind(kind);
-
-            return Ok(device);
         }
 
         [HttpPost("update/kind/{kind}")]
