@@ -14,7 +14,7 @@ namespace Database.Extensions
             {
                 using (var appContext = scope.ServiceProvider.GetRequiredService<DataContext>())
                 {
-                    if (appContext.Database.GetPendingMigrations().Any())
+                    if (appContext.Database.EnsureCreated())
                     {
                         appContext.Database.Migrate();
                     }
