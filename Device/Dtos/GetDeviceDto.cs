@@ -11,5 +11,6 @@ namespace Device.Dtos
         public string Kind { get; set; }
         public string Type { get; set; }
         public string PhotoUrl { get; set; }
+        public int? VersionId { get; set; }
     }
 }

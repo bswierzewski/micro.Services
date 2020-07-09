@@ -54,6 +54,7 @@ namespace Device.Data
                                PhotoUrl = device.PhotoUrl,
                                Kind = kindsDef.Kind,
                                Type = typesDef.Type,
+                               VersionId = device.VersionId,
                            });
 
             return devices;
