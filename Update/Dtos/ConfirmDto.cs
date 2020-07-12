@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UpdateDevice.Dtos
+namespace Update.Dtos
 {
     public class ConfirmDto
     {

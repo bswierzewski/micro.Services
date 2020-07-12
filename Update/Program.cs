@@ -2,7 +2,7 @@ using Database.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace UpdateDevice
+namespace Update
 {
     public class Program
     {

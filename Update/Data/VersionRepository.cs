@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UpdateDevice.Dtos;
+using Update.Dtos;
 
-namespace UpdateDevice.Data
+namespace Update.Data
 {
     public class VersionRepository : IVersionRepository
     {

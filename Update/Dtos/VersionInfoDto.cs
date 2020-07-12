@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UpdateDevice.Dtos
+namespace Update.Dtos
 {
     public class VersionInfoDto
     {

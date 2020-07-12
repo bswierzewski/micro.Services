@@ -6,10 +6,10 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using UpdateDevice.Data;
-using UpdateDevice.Dtos;
+using Update.Data;
+using Update.Dtos;
 
-namespace UpdateDevice.Controllers
+namespace Update.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

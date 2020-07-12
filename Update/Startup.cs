@@ -14,10 +14,10 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using UpdateDevice.Data;
-using UpdateDevice.Helpers;
+using Update.Data;
+using Update.Helpers;
 
-namespace UpdateDevice
+namespace Update
 {
     public class Startup
     {
@@ -56,8 +56,8 @@ namespace UpdateDevice
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Description = "UpdateDevice API",
-                    Title = "UpdateDevice"
+                    Description = "Update API",
+                    Title = "Update"
                 });
 
                 // Set the comments path for the Swagger JSON and UI.

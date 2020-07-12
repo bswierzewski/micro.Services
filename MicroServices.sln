@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device", "Device\Device.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisBroker", "RedisBroker\RedisBroker.csproj", "{F3500727-7039-456C-A261-F4D63ECBD903}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateDevice", "UpdateDevice\UpdateDevice.csproj", "{4B7E2D82-4B2A-44E9-8FBE-6111D99D16C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Update", "Update\Update.csproj", "{4B7E2D82-4B2A-44E9-8FBE-6111D99D16C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

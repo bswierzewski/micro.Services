@@ -1,8 +1,8 @@
 ﻿using Database.Entities;
 using System.Threading.Tasks;
-using UpdateDevice.Dtos;
+using Update.Dtos;
 
-namespace UpdateDevice.Data
+namespace Update.Data
 {
     public interface IVersionRepository
     {

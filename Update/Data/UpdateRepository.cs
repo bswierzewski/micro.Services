@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UpdateDevice.Data
+namespace Update.Data
 {
     public class UpdateRepository : IUpdateRepository
     {

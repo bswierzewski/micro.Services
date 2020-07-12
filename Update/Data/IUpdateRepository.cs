@@ -1,7 +1,7 @@
 using Database.Entities;
 using System.Threading.Tasks;
 
-namespace UpdateDevice.Data
+namespace Update.Data
 {
     public interface IUpdateRepository
     {

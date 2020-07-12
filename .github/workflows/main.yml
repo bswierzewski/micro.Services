@@ -42,10 +42,10 @@ jobs:
       run: |        
         docker buildx build --file ./Dockerfile-device --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_device:latest --output "type=image,push=true" .
 
-    - name: Run Buildx - UpdateDevice (push image)              
+    - name: Run Buildx - Update (push image)              
       if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$update'))
       run: |        
-        docker buildx build --file ./Dockerfile-updatedevice --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_update_device:latest --output "type=image,push=true" .
+        docker buildx build --file ./Dockerfile-update --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_update:latest --output "type=image,push=true" .
 
     - name: Run Buildx - SocketIO (push image)              
       if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$socket'))
