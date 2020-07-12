@@ -1,5 +1,4 @@
 using Database;
-using Database.Entities;
 using Device.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -49,6 +48,7 @@ namespace Device.Data
                            {
                                Id = device.Id,
                                Created = device.Created,
+                               Modified = device.Modified,
                                Name = device.Name,
                                MacAddress = device.MacAddress,
                                PhotoUrl = device.PhotoUrl,

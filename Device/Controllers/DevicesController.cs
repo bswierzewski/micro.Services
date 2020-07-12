@@ -94,6 +94,8 @@ namespace Device.Controllers
             if (device == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
 
+            device.Modified = DateTime.Now;
+
             if (updateDeviceDto.TypeId != null && await _repo.IsDeviceType(updateDeviceDto.TypeId.Value))
                 device.DeviceTypeId = updateDeviceDto.TypeId;
 
@@ -103,8 +105,8 @@ namespace Device.Controllers
             if (!string.IsNullOrEmpty(updateDeviceDto.Name))
                 device.Name = updateDeviceDto.Name;
 
-            if (!string.IsNullOrEmpty(updateDeviceDto.PhotoUrl))
-                device.PhotoUrl = updateDeviceDto.PhotoUrl;
+            if (updateDeviceDto.VersionId != null)
+                device.VersionId = updateDeviceDto.VersionId;
 
             if (await _repo.SaveAllChanges())
                 return Ok("Update successfully");
