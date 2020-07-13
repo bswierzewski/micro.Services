@@ -11,7 +11,7 @@ namespace Device.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/kinds")]
     public class DeviceKindsController : ControllerBase
     {
         private readonly ILogger<DevicesController> _logger;

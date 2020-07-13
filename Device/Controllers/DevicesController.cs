@@ -70,26 +70,26 @@ namespace Device.Controllers
             return Ok(newDevice);
         }
 
-        [HttpGet("type/{type}")]
-        public async Task<IActionResult> GetDevicesDtoByType(short type)
+        [HttpGet("types/{typeId}")]
+        public async Task<IActionResult> GetDevicesDtoByType(short typeId)
         {
-            var device = await _repo.GetDevicesDtoByType(type);
+            var device = await _repo.GetDevicesDtoByType(typeId);
 
             return Ok(device);
         }
 
-        [HttpGet("kind/{kind}")]
-        public async Task<IActionResult> GetDevicesDtoByKind(short kind)
+        [HttpGet("kinds/{kindId}")]
+        public async Task<IActionResult> GetDevicesDtoByKind(short kindId)
         {
-            var device = await _repo.GetDevicesDtoByKind(kind);
+            var device = await _repo.GetDevicesDtoByKind(kindId);
 
             return Ok(device);
         }
 
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdateDeviceKind(UpdateDeviceDto updateDeviceDto)
+        [HttpPost("{id}/update")]
+        public async Task<IActionResult> UpdateDeviceKind(int id, UpdateDeviceDto updateDeviceDto)
         {
-            var device = await _repo.GetDevice(updateDeviceDto.DeviceId);
+            var device = await _repo.GetDevice(id);
 
             if (device == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
