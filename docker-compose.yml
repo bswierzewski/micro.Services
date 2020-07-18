@@ -47,7 +47,7 @@ services:
     container_name: update
     build:
       context: .
-      dockerfile: Dockerfile-updatedevice
+      dockerfile: Dockerfile-update
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1  
     expose:

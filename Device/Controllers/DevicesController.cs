@@ -1,6 +1,7 @@
 using Device.Data;
 using Device.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
@@ -25,7 +26,7 @@ namespace Device.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDevicesDto()
         {
-            var devices = await _repo.GetDevicesDto();
+            var devices = await _repo.GetDevices().ToListAsync();
 
             return Ok(devices);
         }
@@ -38,7 +39,7 @@ namespace Device.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDeviceDto(int id)
         {
-            var device = await _repo.GetDeviceDtoById(id);
+            var device = await _repo.GetDevices(expressionDevice: n => n.Id == id).FirstOrDefaultAsync();
 
             return Ok(device);
         }
@@ -71,17 +72,23 @@ namespace Device.Controllers
         }
 
         [HttpGet("types/{typeId}")]
-        public async Task<IActionResult> GetDevicesDtoByType(short typeId)
+        public async Task<IActionResult> GetDevicesDtoByType(short? typeId)
         {
-            var device = await _repo.GetDevicesDtoByType(typeId);
+            if (typeId == 0)
+                typeId = null;
+
+            var device = await _repo.GetDevices(expressionDevice: n => n.DeviceTypeId == typeId).ToListAsync();
 
             return Ok(device);
         }
 
         [HttpGet("kinds/{kindId}")]
-        public async Task<IActionResult> GetDevicesDtoByKind(short kindId)
+        public async Task<IActionResult> GetDevicesDtoByKind(short? kindId)
         {
-            var device = await _repo.GetDevicesDtoByKind(kindId);
+            if (kindId == 0)
+                kindId = null;
+
+            var device = await _repo.GetDevices(expressionDevice: n => n.DeviceKindId == kindId).ToListAsync();
 
             return Ok(device);
         }
@@ -109,7 +116,7 @@ namespace Device.Controllers
                 device.VersionId = updateDeviceDto.VersionId;
 
             if (await _repo.SaveAllChanges())
-                return Ok("Update successfully");
+                return Ok(device);
             else
                 return StatusCode((int)HttpStatusCode.NoContent);
         }
