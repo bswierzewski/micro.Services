@@ -36,7 +36,7 @@ namespace Device.Controllers
             if (await _repo.IsDeviceKind(deviceKindDto.Kind))
                 return StatusCode((int)HttpStatusCode.NotFound, "Device kind already exists!");
 
-            var deviceKind = new DeviceKind()
+            var deviceKind = new Kind()
             {
                 Kind = deviceKindDto.Kind,
                 Created = DateTime.Now,

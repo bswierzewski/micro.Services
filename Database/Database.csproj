@@ -5,24 +5,42 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SeedData\Json\Category.json" />
+    <None Remove="SeedData\Json\Component.json" />
     <None Remove="SeedData\Json\Device.json" />
-    <None Remove="SeedData\Json\DeviceKind.json" />
-    <None Remove="SeedData\Json\DeviceType.json" />
+    <None Remove="SeedData\Json\FileData.json" />
+    <None Remove="SeedData\Json\Kind.json" />
     <None Remove="SeedData\Json\User.json" />
+    <None Remove="SeedData\Json\Version.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="SeedData\Json\Kind.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SeedData\Json\Category.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SeedData\Json\Component.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="SeedData\Json\Device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="SeedData\Json\DeviceKind.json">
+    <Content Include="SeedData\Json\FileData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="SeedData\Json\DeviceType.json">
+    <Content Include="SeedData\Json\Version.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

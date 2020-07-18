@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "esp32_v1",
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 1,
+    "FileDataId": 1
+  },
+  {
+    "Name": "esp8266_v1",
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 1,
+    "FileDataId": 2
+  }
+]

@@ -19,17 +19,17 @@ namespace Device.Data
             return await _context.DeviceKinds.AnyAsync(x => x.Kind == kind);
         }
 
-        public async Task<DeviceKind> GetDeviceKind(string kind)
+        public async Task<Kind> GetDeviceKind(string kind)
         {
             return await _context.DeviceKinds.FirstOrDefaultAsync(x => x.Kind == kind);
         }
 
-        public async Task<DeviceKind> GetDeviceKind(int kindId)
+        public async Task<Kind> GetDeviceKind(int kindId)
         {
             return await _context.DeviceKinds.FirstOrDefaultAsync(x => x.Id == kindId);
         }
 
-        public async Task<IEnumerable<DeviceKind>> GetDeviceKinds()
+        public async Task<IEnumerable<Kind>> GetDeviceKinds()
         {
             return await _context.DeviceKinds.ToListAsync();
         }

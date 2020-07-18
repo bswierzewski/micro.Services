@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "HX71",
+    "CategoryId": 1
+  },
+  {
+    "Name": "Hall",
+    "CategoryId": 1
+  },
+  {
+    "Name": "HTU21D",
+    "CategoryId": 1
+  },
+  {
+    "Name": "GPIO",
+    "CategoryId": 2
+  },
+  {
+    "Name": "PCA9685",
+    "CategoryId": 2
+  },
+  {
+    "Name": "RGB",
+    "CategoryId": 3
+  },
+  {
+    "Name": "RGBW",
+    "CategoryId": 3
+  },
+  {
+    "Name": "UART",
+    "CategoryId": 4
+  },
+  {
+    "Name": "GPIO",
+    "CategoryId": 4
+  },
+  {
+    "Name": "Speed",
+    "CategoryId": 5
+  },
+  {
+    "Name": "Binary",
+    "CategoryId": 5
+  },
+  {
+    "Name": "LCD",
+    "CategoryId": 6
+  },
+  {
+    "Name": "MAX7219",
+    "CategoryId": 6
+  },
+  {
+    "Name": "BLE Tracker",
+    "CategoryId": 7
+  },
+  {
+    "Name": "BLE Beacon",
+    "CategoryId": 7
+  },
+  {
+    "Name": "Servo",
+    "CategoryId": 7
+  },
+  {
+    "Name": "GPS",
+    "CategoryId": 7
+  },
+  {
+    "Name": "SUN",
+    "CategoryId": 7
+  }
+]

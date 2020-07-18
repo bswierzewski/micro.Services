@@ -1,0 +1,12 @@
+[
+  {
+    "Id": 1,
+    "Name": "esp32_v1",
+    "Extension": "bin"
+  },
+  {
+    "Id": 2,
+    "Name": "esp32_v2",
+    "Extension": "bin"
+  }
+]

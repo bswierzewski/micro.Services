@@ -8,8 +8,8 @@ namespace Device.Data
     {
         Task<bool> IsDeviceKind(string kind);
 
-        Task<DeviceKind> GetDeviceKind(string kind);
-        Task<DeviceKind> GetDeviceKind(int kindId);
-        Task<IEnumerable<DeviceKind>> GetDeviceKinds();
+        Task<Kind> GetDeviceKind(string kind);
+        Task<Kind> GetDeviceKind(int kindId);
+        Task<IEnumerable<Kind>> GetDeviceKinds();
     }
 }

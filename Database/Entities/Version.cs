@@ -1,3 +1,4 @@
+using Database.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,11 +16,11 @@ namespace Database.Entities
         public short Minor { get; set; }
         public short Patch { get; set; }
 
-        public short? DeviceTypeId { get; set; }
-        public DeviceType DeviceType { get; set; }
+        public short? ComponentTypeId { get; set; } = (short)TypeEnum.Component;
+        public int? ComponentId { get; set; }
 
-        public short? DeviceKindId { get; set; }
-        public DeviceKind DeviceKind { get; set; }
+        public short? KindTypeId { get; set; } = (short)TypeEnum.Kind;
+        public int? KindId { get; set; }
 
         public int FileDataId { get; set; }
         public FileData FileData { get; set; }

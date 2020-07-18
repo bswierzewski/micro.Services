@@ -1,4 +1,5 @@
 ﻿using Database.Entities;
+using Database.Entities.DeviceInfo;
 using Microsoft.EntityFrameworkCore;
 
 namespace Database
@@ -13,7 +14,7 @@ namespace Database
 
             optionsBuilder.UseNpgsql("Username=postgres;" +
                                      "Password=mysecretpassword;" +
-                                     "Server=db;" +
+                                     "Server=localhost;" +
                                      "Database=micro");
         }
 
@@ -21,28 +22,15 @@ namespace Database
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<DeviceVersion>()
-                .HasNoKey()
-                .HasIndex(x => x.DeviceId)
-                .IsUnique();
-
-            modelBuilder.Entity<DeviceType>()
-                .HasIndex(x => x.Type)
-                .IsUnique();
-
-            modelBuilder.Entity<DeviceKind>()
-                .HasIndex(x => x.Kind)
-                .IsUnique();
-
             modelBuilder.Entity<Device>()
                 .HasIndex(x => x.MacAddress)
                 .IsUnique();
         }
 
         public DbSet<Device> Devices { get; set; }
-        public DbSet<DeviceType> DeviceTypes { get; set; }
-        public DbSet<DeviceKind> DeviceKinds { get; set; }
-        public DbSet<DeviceVersion> DeviceVersions { get; set; }
+        public DbSet<Kind> Kinds { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Component> Components { get; set; }
         public DbSet<FileData> FileDatas { get; set; }
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<User> Users { get; set; }
