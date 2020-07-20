@@ -11,6 +11,5 @@ namespace Database.Enums
         Kind = 2,
         Category = 3,
         Component = 4,
-
     }
 }

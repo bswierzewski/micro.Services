@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200718120226_InitialMigrations")]
+    [Migration("20200720173907_InitialMigrations")]
     partial class InitialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,10 @@ namespace Database.Migrations
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("KindId");
 
                     b.HasIndex("MacAddress")
                         .IsUnique();
@@ -122,6 +126,27 @@ namespace Database.Migrations
                     b.ToTable("Components");
                 });
 
+            modelBuilder.Entity("Database.Entities.DeviceInfo.Kind", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<short>("TypeId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kinds");
+                });
+
             modelBuilder.Entity("Database.Entities.FileData", b =>
                 {
                     b.Property<int>("Id")
@@ -144,27 +169,6 @@ namespace Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FileDatas");
-                });
-
-            modelBuilder.Entity("Database.Entities.Kind", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<short>("TypeId")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Kinds");
                 });
 
             modelBuilder.Entity("Database.Entities.Registration", b =>
@@ -265,6 +269,17 @@ namespace Database.Migrations
                     b.HasIndex("FileDataId");
 
                     b.ToTable("Versions");
+                });
+
+            modelBuilder.Entity("Database.Entities.Device", b =>
+                {
+                    b.HasOne("Database.Entities.DeviceInfo.Component", "Component")
+                        .WithMany()
+                        .HasForeignKey("ComponentId");
+
+                    b.HasOne("Database.Entities.DeviceInfo.Kind", "Kind")
+                        .WithMany()
+                        .HasForeignKey("KindId");
                 });
 
             modelBuilder.Entity("Database.Entities.DeviceInfo.Component", b =>

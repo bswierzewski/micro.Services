@@ -1,3 +1,4 @@
+using Database.Entities.DeviceInfo;
 using Database.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -19,8 +20,10 @@ namespace Database.Entities
 
         public short? KindTypeId { get; set; } = (short)TypeEnum.Kind;
         public int? KindId { get; set; }
+        public virtual Kind Kind { get; set; }
         public short? ComponentTypeId { get; set; } = (short)TypeEnum.Component;
         public int? ComponentId { get; set; }
+        public virtual Component Component { get; set; }
 
         public int? ActuallVersionId { get; set; }
         public int? SpecificVersionId { get; set; }

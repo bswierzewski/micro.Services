@@ -59,18 +59,6 @@ namespace Database
                 context.SaveChanges();
             }
 
-            if (!context.Devices.Any())
-            {
-                var deviceData = File.ReadAllText(Path.Combine(pathToJson, "Device.json"));
-                var devices = JsonConvert.DeserializeObject<List<Device>>(deviceData);
-                foreach (var device in devices)
-                {
-                    device.Created = DateTime.Now;
-                    context.Devices.Add(device);
-                }
-                context.SaveChanges();
-            }
-
             if (!context.Kinds.Any())
             {
                 var kindData = File.ReadAllText(Path.Combine(pathToJson, "Kind.json"));
@@ -103,6 +91,18 @@ namespace Database
                 {
                     component.Created = DateTime.Now;
                     context.Components.Add(component);
+                }
+                context.SaveChanges();
+            }
+
+            if (!context.Devices.Any())
+            {
+                var deviceData = File.ReadAllText(Path.Combine(pathToJson, "Device.json"));
+                var devices = JsonConvert.DeserializeObject<List<Device>>(deviceData);
+                foreach (var device in devices)
+                {
+                    device.Created = DateTime.Now;
+                    context.Devices.Add(device);
                 }
                 context.SaveChanges();
             }

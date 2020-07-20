@@ -2,9 +2,9 @@
 
 namespace Device.Dtos
 {
-    public class AddDeviceKindDto
+    public class AddDeviceDto
     {
         [Required]
-        public string Kind { get; set; }
+        public string MacAddress { get; set; }
     }
 }
