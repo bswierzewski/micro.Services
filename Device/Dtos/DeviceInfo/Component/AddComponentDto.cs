@@ -1,8 +1,11 @@
-﻿namespace Device.Data.DeviceInfo.Component
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Device.Data.DeviceInfo.Component
 {
     public class AddComponentDto
     {
-        public int? CategoryId { get; internal set; }
-        public string Name { get; internal set; }
+        [Required]
+        public string Name { get; set; }
+        public int? CategoryId { get; set; }
     }
 }
