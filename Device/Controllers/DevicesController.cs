@@ -23,24 +23,6 @@ namespace Device.Controllers
             _logger = logger;
         }
 
-
-        /// <summary>
-        /// Pobiera wszystkie urz퉐zenia
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> GetDevicesDto()
-        {
-            var devices = await _repo.GetDevices().ToListAsync();
-
-            return Ok(devices);
-        }
-
-        /// <summary>
-        /// Pobiera urz퉐zenie po ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDeviceDto(int id)
         {
@@ -49,11 +31,14 @@ namespace Device.Controllers
             return Ok(device);
         }
 
-        /// <summary>
-        /// Pobiera urz퉐zenia po kategorii
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetDevicesDto()
+        {
+            var devices = await _repo.GetDevices().ToListAsync();
+
+            return Ok(devices);
+        }
+
         [HttpGet("categories/{id}")]
         public async Task<IActionResult> GetDeviceDtoByCategory(int id)
         {
@@ -62,12 +47,6 @@ namespace Device.Controllers
             return Ok(device);
         }
 
-
-        /// <summary>
-        /// Pobiera urz퉐zenia po komponentach
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("components/{id}")]
         public async Task<IActionResult> GetDeviceDtoByComponent(int id)
         {
@@ -76,12 +55,6 @@ namespace Device.Controllers
             return Ok(device);
         }
 
-
-        /// <summary>
-        /// Pobiera urz퉐zenia po rodzaju
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("kinds/{id}")]
         public async Task<IActionResult> GetDeviceDtoByKind(int id)
         {
@@ -90,19 +63,21 @@ namespace Device.Controllers
             return Ok(device);
         }
 
-        /// <summary>
-        /// Dodaje nowe urz퉐zenie
-        /// </summary>
-        /// <param name="addDeviceDto"></param>
-        /// <returns></returns>
         [HttpPost("add")]
         public async Task<IActionResult> AddDevice(AddDeviceDto addDeviceDto)
         {
             if (await _repo.ExistsDevice(addDeviceDto.MacAddress))
-                return StatusCode((int)HttpStatusCode.NotFound, "Device exists!");
+                return StatusCode((int)HttpStatusCode.BadRequest, "Device exists!");
 
             var newDevice = new Database.Entities.Device()
             {
+                MacAddress = addDeviceDto.MacAddress,
+                Name = addDeviceDto.Name,
+                Created = DateTime.Now,
+                KindId = addDeviceDto.KindId,
+                ComponentId = addDeviceDto.ComponentId,
+                PhotoUrl = addDeviceDto.PhotoUrl,
+                SpecificVersionId = addDeviceDto.SpecificVersionId,
             };
 
             await _repo.Add(newDevice);
@@ -110,26 +85,36 @@ namespace Device.Controllers
             return Ok(newDevice);
         }
 
-        /// <summary>
-        /// Aktualizuje urz퉐zenie
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="updateDeviceDto"></param>
-        /// <returns></returns>
         [HttpPost("{id}/update")]
         public async Task<IActionResult> UpdateDeviceKind(int id, UpdateDeviceDto updateDeviceDto)
         {
             var device = await _repo.GetDevice(id);
 
             if (device == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
+                return StatusCode((int)HttpStatusCode.BadRequest, "Device not exists!");
+
+            if (!string.IsNullOrEmpty(updateDeviceDto.Name))
+                device.Name = updateDeviceDto.Name;
+
+            if ((updateDeviceDto.SpecificVersionId ?? 0) > 0)
+                device.SpecificVersionId = updateDeviceDto.SpecificVersionId;
+
+            if ((updateDeviceDto.KindId ?? 0) > 0)
+                device.KindId = updateDeviceDto.KindId;
+
+            if ((updateDeviceDto.ComponentId ?? 0) > 0)
+                device.ComponentId = updateDeviceDto.ComponentId;
+
+            if (!string.IsNullOrEmpty(updateDeviceDto.PhotoUrl))
+                device.PhotoUrl = updateDeviceDto.PhotoUrl;
 
             device.Modified = DateTime.Now;
 
-            if (await _repo.SaveAllChanges())
-                return Ok(device);
-            else
-                return StatusCode((int)HttpStatusCode.NoContent);
+            await _repo.SaveAllChanges();
+
+            var result = await _repo.GetDevices(x => x.Id == id).FirstOrDefaultAsync();
+
+            return Ok(result);
         }
     }
 }
