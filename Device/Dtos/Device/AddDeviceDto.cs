@@ -6,5 +6,11 @@ namespace Device.Dtos
     {
         [Required]
         public string MacAddress { get; set; }
+        public string Name { get; set; }
+        public string PhotoUrl { get; set; }
+        public int? KindId { get; set; }
+        public int? ComponentId { get; set; }
+        public int? ActuallVersionId { get; set; }
+        public int? SpecificVersionId { get; set; }
     }
 }
