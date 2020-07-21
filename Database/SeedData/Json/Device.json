@@ -2,21 +2,25 @@
   {
     "Macaddress": "1F:11:16:3E:FB:FB",
     "Name": "Cassie",
-    "KindId": 1
+    "KindId": 1,
+    "ComponentId": 14
   },
   {
     "Macaddress": "42:17:50:97:9C:4B",
     "Name": "Hinton",
-    "KindId": 1
+    "KindId": 1,
+    "ComponentId": 14
   },
   {
     "Macaddress": "03:DE:D4:CE:6D:FA",
     "Name": "Bass",
-    "KindId": 3
+    "KindId": 3,
+    "ComponentId": 15
   },
   {
     "Macaddress": "2B:51:55:BB:F6:E6",
     "Name": "Mays",
-    "KindId": 3
+    "KindId": 3,
+    "ComponentId": 15
   }
 ]
