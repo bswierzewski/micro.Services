@@ -8,7 +8,7 @@ namespace Update.Data
         Task<Device> GetDevice(string macAddress);
         Task<Version> GetLatestDeviceTypeVersion(short deviceTypeId, short deviceKindId);
         Task<Version> GetVersionById(int id);
-        Task<DeviceVersion> GetDeviceVersionByDeviceId(int deviceId);
+        Task<Version> GetDeviceVersionByDeviceId(int deviceId);
         Task<bool> AddDevice(Device device);
         Task<bool> ConfirmUpdateDevice(Device device, Version version);
     }

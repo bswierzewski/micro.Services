@@ -1,5 +1,4 @@
-﻿using Database.Enums;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,11 +12,11 @@ namespace Database.Entities.DeviceInfo
     /// </summary>
     public class Kind
     {
-        public short TypeId { get; set; } = (short)TypeEnum.Kind;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public string Name { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

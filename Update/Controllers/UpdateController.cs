@@ -26,40 +26,6 @@ namespace Update.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("{macAddress}")]
-        public async Task<IActionResult> GetUpdate(string macAddress)
-        {
-            var device = await _repo.GetDevice(macAddress);
-
-            if (device == null)
-            {
-                var newDevice = new Device()
-                {
-                    MacAddress = macAddress,
-                    Created = DateTime.Now,
-                };
-
-                await _repo.AddDevice(newDevice);
-
-                return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
-            }
-
-            var deviceVersion = await _repo.GetDeviceVersionByDeviceId(device.Id);
-
-            if (deviceVersion != null)
-            {
-                if (deviceVersion.VersionId == device.VersionId)
-                    return StatusCode((int)HttpStatusCode.NotFound, "Up to date!");
-                else
-                    return Ok(deviceVersion.VersionId);
-            }
-
-            return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
-
-        }
-
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("download/{versionId}")]
         public async Task<IActionResult> DownloadVersion(int versionId)
         {

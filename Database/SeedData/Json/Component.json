@@ -2,91 +2,109 @@
   {
     "Id": 1,
     "Name": "HX71",
-    "CategoryId": 1
+    "CategoryId": 1,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 2,
     "Name": "Hall",
-    "CategoryId": 1
+    "CategoryId": 1,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 3,
     "Name": "HTU21D",
-    "CategoryId": 1
+    "CategoryId": 1,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 4,
     "Name": "GPIO",
-    "CategoryId": 2
+    "CategoryId": 2,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 5,
     "Name": "PCA9685",
-    "CategoryId": 2
+    "CategoryId": 2,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 6,
     "Name": "RGB",
-    "CategoryId": 3
+    "CategoryId": 3,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 7,
     "Name": "RGBW",
-    "CategoryId": 3
+    "CategoryId": 3,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 8,
     "Name": "UART",
-    "CategoryId": 4
+    "CategoryId": 4,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 9,
     "Name": "GPIO",
-    "CategoryId": 4
+    "CategoryId": 4,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 10,
     "Name": "Speed",
-    "CategoryId": 5
+    "CategoryId": 5,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 11,
     "Name": "Binary",
-    "CategoryId": 5
+    "CategoryId": 5,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 12,
     "Name": "LCD",
-    "CategoryId": 6
+    "CategoryId": 6,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 13,
     "Name": "MAX7219",
-    "CategoryId": 6
+    "CategoryId": 6,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 14,
     "Name": "BLE Tracker",
-    "CategoryId": 7
+    "CategoryId": 7,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 15,
     "Name": "BLE Beacon",
-    "CategoryId": 7
+    "CategoryId": 7,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 16,
     "Name": "Servo",
-    "CategoryId": 7
+    "CategoryId": 7,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 17,
     "Name": "GPS",
-    "CategoryId": 7
+    "CategoryId": 7,
+    "FontAwesome": "fas fa-signal"
   },
   {
     "Id": 18,
     "Name": "SUN",
-    "CategoryId": 7
+    "CategoryId": 7,
+    "FontAwesome": "fas fa-signal"
   }
 ]

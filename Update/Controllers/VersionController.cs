@@ -25,97 +25,12 @@ namespace Update.Controllers
             _logger = logger;
         }
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet]
-        public async Task<IActionResult> GetAllVersion()
-        {
-            try
-            {
-                var versions = await _repo.GetAllVersion();
-
-                if (versions.Any())
-                    return Ok(versions);
-                else
-                    return StatusCode((int)HttpStatusCode.NotFound);
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                throw ex;
-            }
-        }
-
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetVersionInfo(int id)
-        {
-            var version = await _repo.GetVersionById(id);
-
-            if (version == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Version not exists");
-
-            return Ok(version);
-
-        }
-
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPost("set")]
-        public async Task<IActionResult> SetDeviceVersion(SetDeviceVersionDto setDeviceVersionDto)
-        {
-            var device = await _repo.GetDevice(setDeviceVersionDto.DeviceId);
-
-            if (device == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Device not exists!");
-
-            var version = await _repo.GetVersionById(setDeviceVersionDto.VersionId);
-
-            if (version == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Version not exists!");
-
-            var deviceVersion = await _repo.GetDeviceVersion(setDeviceVersionDto.DeviceId);
-
-            if (deviceVersion != null)
-            {
-                if(deviceVersion.VersionId == setDeviceVersionDto.VersionId)
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Up to date!");
-
-                deviceVersion.VersionId = setDeviceVersionDto.VersionId;
-
-                if (await _repo.SaveAllChanges())
-                    return StatusCode((int)HttpStatusCode.Created);
-            }
-            else
-            {
-                var newDeviceVersion = new DeviceVersion
-                {
-                    DeviceId = device.Id,
-                    VersionId = version.Id
-                };
-
-                if (await _repo.AddDeviceVersion(newDeviceVersion))
-                    return StatusCode((int)HttpStatusCode.Created);
-            }
-
-            return StatusCode((int)HttpStatusCode.InternalServerError, "Error Upload");
-        }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadNewVersion([FromForm] UploadDto uploadDto)
         {
-            if (!await _repo.IsDeviceKindExists(uploadDto.KindId.Value))
-                return BadRequest("Device kind not exists!");
-
-            if (!await _repo.IsDeviceTypeExists(uploadDto.TypeId.Value))
-                return BadRequest("Device type not exists!");
-
-            if (await _repo.IsVersionExists(uploadDto.Major, uploadDto.Minor, uploadDto.Patch, uploadDto.TypeId.Value, uploadDto.KindId.Value))
-                return BadRequest("Version already exists!");
-
             if (uploadDto.File.Length > 0)
             {
 
@@ -145,8 +60,6 @@ namespace Update.Controllers
                         Minor = uploadDto.Minor,
                         Patch = uploadDto.Patch,
                         Name = uploadDto.Name ?? fileData.Name,
-                        DeviceTypeId = uploadDto.TypeId,
-                        DeviceKindId = uploadDto.KindId,
                         FileDataId = fileData.Id
                     };
 

@@ -18,7 +18,6 @@ namespace Update.Data
         public async Task<Version> GetLatestDeviceTypeVersion(short deviceTypeId, short deviceKindId)
         {
             return await _context.Versions
-                .Where(x => x.DeviceTypeId == deviceTypeId && x.DeviceKindId == deviceKindId)
                 .OrderByDescending(x => x.Major)
                 .ThenByDescending(x => x.Minor)
                 .ThenByDescending(x => x.Patch)
@@ -33,15 +32,12 @@ namespace Update.Data
         public async Task<Device> GetDevice(string macAddress)
         {
             return await _context.Devices
-                .Include(x => x.Version)
-                .Include(x => x.DeviceType)
-                .Include(x => x.DeviceKind)
                 .FirstOrDefaultAsync(x => x.MacAddress == macAddress);
         }
 
-        public async Task<DeviceVersion> GetDeviceVersionByDeviceId(int deviceId)
+        public async Task<Version> GetDeviceVersionByDeviceId(int deviceId)
         {
-            return await _context.DeviceVersions.FirstOrDefaultAsync(x => x.DeviceId == deviceId);
+            return await _context.Versions.FirstOrDefaultAsync();
         }
 
         public async Task<bool> AddDevice(Device device)
@@ -54,8 +50,6 @@ namespace Update.Data
         public async Task<bool> ConfirmUpdateDevice(Device device, Version version)
         {
             var deviceResult = await _context.Devices.FirstOrDefaultAsync(x => x.Id == device.Id);
-
-            deviceResult.VersionId = version.Id;
 
             return await _context.SaveChangesAsync() > 0;
         }

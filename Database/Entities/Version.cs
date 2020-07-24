@@ -1,4 +1,4 @@
-using Database.Enums;
+using Database.Entities.DeviceInfo;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,13 +16,13 @@ namespace Database.Entities
         public short Minor { get; set; }
         public short Patch { get; set; }
 
-        public short? ComponentTypeId { get; set; } = (short)TypeEnum.Component;
         public int? ComponentId { get; set; }
+        public virtual Component Component { get; set; }
 
-        public short? KindTypeId { get; set; } = (short)TypeEnum.Kind;
         public int? KindId { get; set; }
+        public virtual Kind Kind { get; set; }
 
         public int FileDataId { get; set; }
-        public FileData FileData { get; set; }
+        public virtual FileData FileData { get; set; }
     }
 }
