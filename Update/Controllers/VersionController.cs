@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Linq;
@@ -25,9 +26,40 @@ namespace Update.Controllers
             _logger = logger;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVersion(int id)
+        {
+            var version = await _repo.GetVersions(x => x.Id == id).FirstOrDefaultAsync();
 
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+            return Ok(version);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetVersions()
+        {
+            var versions = await _repo.GetVersions().ToListAsync();
+
+            return Ok(versions);
+        }
+
+
+        [HttpGet("kinds/{id}")]
+        public async Task<IActionResult> GetVersionByKind(int id)
+        {
+            var version = await _repo.GetVersions(x => x.KindId == id).FirstOrDefaultAsync();
+
+            return Ok(version);
+        }
+
+
+        [HttpGet("components/{id}")]
+        public async Task<IActionResult> GetVersionByComponent(int id)
+        {
+            var version = await _repo.GetVersions(x => x.ComponentId == id).FirstOrDefaultAsync();
+
+            return Ok(version);
+        }
+
         [HttpPost("upload")]
         public async Task<IActionResult> UploadNewVersion([FromForm] UploadDto uploadDto)
         {

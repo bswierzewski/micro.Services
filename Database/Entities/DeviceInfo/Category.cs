@@ -18,5 +18,6 @@ namespace Database.Entities.DeviceInfo
         public DateTime Created { get; set; }
         public string Name { get; set; }
         public string FontAwesome { get; set; }
+        public virtual Component[] Components { get; set; }
     }
 }
