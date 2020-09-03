@@ -16,6 +16,7 @@ namespace Database.Entities
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
 
+        public bool? IsAutoUpdate { get; set; }
         public int? KindId { get; set; }
         public virtual Kind Kind { get; set; }
         public int? ComponentId { get; set; }
