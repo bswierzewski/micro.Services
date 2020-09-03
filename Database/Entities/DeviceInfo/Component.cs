@@ -4,6 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Database.Entities.DeviceInfo
 {
+    /// <summary>
+    /// Components 
+    /// Tracker
+    /// Scanner
+    /// Locator
+    /// etc.
+    /// </summary>
     public class Component
     {
         [Key]
