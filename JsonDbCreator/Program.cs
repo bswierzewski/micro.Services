@@ -16,32 +16,45 @@ namespace JsonDbCreator
             int categoryCounter = 0;
 
             var categoryFaker = new Faker<Category>()
-                .RuleFor(x => x.Id, x => categoryCounter++)
-                .RuleFor(x => x.Created, x => x.Date.Soon())
-                .RuleFor(x => x.Name, x => x.Name.FirstName())
-                .RuleFor(x => x.FontAwesome, x => x.PickRandom(Icons.FontAwesome));
+                .RuleFor(x => x.Id, f => categoryCounter++)
+                .RuleFor(x => x.Created, f => f.Date.Soon())
+                .RuleFor(x => x.Name, f => f.Name.FirstName())
+                .RuleFor(x => x.IconName, f => f.PickRandom(Icons.FontAwesome));
 
-            var categories = categoryFaker.Generate(2);
+            var categories = categoryFaker.Generate(10);
 
             int componentCounter = 0;
 
             var componentFaker = new Faker<Component>()
-                .RuleFor(x => x.Id, x => componentCounter++)
-                .RuleFor(x => x.Created, x => x.Date.Soon())
-                .RuleFor(x => x.Name, x => x.Name.FirstName())
-                .RuleFor(x => x.FontAwesome, x => x.PickRandom(Icons.FontAwesome));
+                .RuleFor(x => x.Id, f => componentCounter++)
+                .RuleFor(x => x.Created, f => f.Date.Soon())
+                .RuleFor(x => x.Name, f => f.Name.FirstName())
+                .RuleFor(x => x.IconName, f => f.PickRandom(Icons.FontAwesome));
 
-            var components = componentFaker.Generate(10);
+            var components = componentFaker.Generate(20);
+
+            int kindCounter = 0;
+
+            var kindFaker = new Faker<Kind>()
+                .RuleFor(x => x.Id, f => kindCounter++)
+                .RuleFor(x => x.Created, f => f.Date.Soon())
+                .RuleFor(x => x.Name, f => f.Name.FirstName())
+                .RuleFor(x => x.PhotoUrl, f => f.Image.PicsumUrl());
+
+            var kinds = kindFaker.Generate(10);
+
+
 
             var json = JsonConvert.SerializeObject(new
             {
                 categories = categories,
-                components = components
+                components = components,
+                kinds = kinds
             }, Formatting.Indented);
 
-            //File.WriteAllText("db.json", json);
+            File.WriteAllText("db.json", json);
 
-            Console.WriteLine(json);
+            //Console.WriteLine(json);
         }
     }
 }

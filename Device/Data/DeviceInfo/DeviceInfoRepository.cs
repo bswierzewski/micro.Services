@@ -27,7 +27,7 @@ namespace Device.Data.DeviceInfo
                 @where = n => n.Id == categoryId;
 
             return await _context.Categories
-                .Include(x => x.Component)
+                .Include(x => x.Components)
                 .Where(@where)
                 .Select(x =>
                     new GetCategoryDto()
@@ -35,7 +35,7 @@ namespace Device.Data.DeviceInfo
                         Id = x.Id,
                         Name = x.Name,
                         Created = x.Created,
-                        Components = x.Component.Select(component => new GetComponentDto
+                        Components = x.Components.Select(component => new GetComponentDto
                         {
                             CategoryId = x.Id,
                             CategoryName = x.Name,
