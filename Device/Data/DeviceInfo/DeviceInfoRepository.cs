@@ -27,13 +27,23 @@ namespace Device.Data.DeviceInfo
                 @where = n => n.Id == categoryId;
 
             return await _context.Categories
+                .Include(x => x.Component)
                 .Where(@where)
                 .Select(x =>
                     new GetCategoryDto()
                     {
                         Id = x.Id,
                         Name = x.Name,
-                        Created = x.Created
+                        Created = x.Created,
+                        Components = x.Component.Select(component => new GetComponentDto
+                        {
+                            CategoryId = x.Id,
+                            CategoryName = x.Name,
+                            Id = component.Id,
+                            Name = component.Name,
+                            Created = component.Created
+
+                        }).ToArray()
                     })
                 .ToListAsync();
         }
