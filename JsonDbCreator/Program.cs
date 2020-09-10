@@ -49,6 +49,7 @@ namespace JsonDbCreator
             }, new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore,
                 ContractResolver = new DefaultContractResolver()
                 {
                     NamingStrategy = new CamelCaseNamingStrategy()

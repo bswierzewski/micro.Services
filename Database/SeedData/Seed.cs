@@ -83,14 +83,14 @@ namespace Database
                 context.SaveChanges();
             }
 
-            if (!context.Components.Any())
+            if (!context.DeviceComponents.Any())
             {
                 var componentData = File.ReadAllText(Path.Combine(pathToJson, "Component.json"));
-                var components = JsonConvert.DeserializeObject<List<Component>>(componentData);
+                var components = JsonConvert.DeserializeObject<List<DeviceComponent>>(componentData);
                 foreach (var component in components)
                 {
                     component.Created = DateTime.Now;
-                    context.Components.Add(component);
+                    context.DeviceComponents.Add(component);
                 }
                 context.SaveChanges();
             }
