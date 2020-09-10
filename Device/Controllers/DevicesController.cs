@@ -62,7 +62,7 @@ namespace Device.Controllers
         {
             try
             {
-                var device = await _repo.GetDevices(expressionDevice: n => n.Component.CategoryId == id).ToListAsync();
+                var device = await _repo.GetDevices(expressionDevice: n => n.DeviceComponent.CategoryId == id).ToListAsync();
 
                 return Ok(device);
             }
@@ -79,7 +79,7 @@ namespace Device.Controllers
         {
             try
             {
-                var device = await _repo.GetDevices(expressionDevice: n => n.ComponentId == id).ToListAsync();
+                var device = await _repo.GetDevices(expressionDevice: n => n.DeviceComponentId == id).ToListAsync();
 
                 return Ok(device);
             }
@@ -122,7 +122,7 @@ namespace Device.Controllers
                     Name = addDeviceDto.Name,
                     Created = DateTime.Now,
                     KindId = addDeviceDto.KindId,
-                    ComponentId = addDeviceDto.ComponentId,
+                    DeviceComponentId = addDeviceDto.DeviceComponentId,
                     PhotoUrl = addDeviceDto.PhotoUrl,
                     SpecificVersionId = addDeviceDto.SpecificVersionId,
                 };
@@ -158,8 +158,8 @@ namespace Device.Controllers
                 if (updateDeviceDto.KindId.HasValue)
                     device.KindId = updateDeviceDto.KindId;
 
-                if (updateDeviceDto.ComponentId.HasValue)
-                    device.ComponentId = updateDeviceDto.ComponentId;
+                if (updateDeviceDto.DeviceComponentId.HasValue)
+                    device.DeviceComponentId = updateDeviceDto.DeviceComponentId;
 
                 if (!string.IsNullOrEmpty(updateDeviceDto.PhotoUrl))
                     device.PhotoUrl = updateDeviceDto.PhotoUrl;

@@ -30,7 +30,7 @@ namespace Device.Data
 
             var devices = (from device in _context.Devices
                            .Include(device => device.Kind)
-                           .Include(device => device.Component)
+                           .Include(device => device.DeviceComponent)
                                 .ThenInclude(component => component.Category)
                            .Where(whereDevice)
                            select new GetDeviceDto
@@ -42,8 +42,8 @@ namespace Device.Data
                                MacAddress = device.MacAddress,
                                PhotoUrl = device.PhotoUrl,
                                Kind = device.Kind.Name,
-                               Category = device.Component.Category.Name,
-                               Component = device.Component.Name,
+                               Category = device.DeviceComponent.Category.Name,
+                               DeviceComponent = device.DeviceComponent.Name,
                            });
 
             return devices;

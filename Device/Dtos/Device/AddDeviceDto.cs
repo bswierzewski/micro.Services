@@ -9,7 +9,7 @@ namespace Device.Dtos
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
         public int? KindId { get; set; }
-        public int? ComponentId { get; set; }
+        public int? DeviceComponentId { get; set; }
         public int? ActuallVersionId { get; set; }
         public int? SpecificVersionId { get; set; }
     }

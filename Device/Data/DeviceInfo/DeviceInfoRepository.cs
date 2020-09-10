@@ -1,6 +1,6 @@
 ﻿using Database;
 using Device.Data.DeviceInfo.Category;
-using Device.Data.DeviceInfo.Component;
+using Device.Data.DeviceInfo.DeviceComponent;
 using Device.Dtos.DeviceInfo.Kind;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,7 +27,7 @@ namespace Device.Data.DeviceInfo
                 @where = n => n.Id == categoryId;
 
             return await _context.Categories
-                .Include(x => x.Components)
+                .Include(x => x.DeviceComponents)
                 .Where(@where)
                 .Select(x =>
                     new GetCategoryDto()
@@ -35,7 +35,7 @@ namespace Device.Data.DeviceInfo
                         Id = x.Id,
                         Name = x.Name,
                         Created = x.Created,
-                        Components = x.Components.Select(component => new GetComponentDto
+                        DeviceComponents = x.DeviceComponents.Select(component => new GetDeviceComponentDto
                         {
                             CategoryId = x.Id,
                             CategoryName = x.Name,
@@ -48,18 +48,18 @@ namespace Device.Data.DeviceInfo
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<GetComponentDto>> GetComponents(int? componentId = null)
+        public async Task<IEnumerable<GetDeviceComponentDto>> GetDeviceComponents(int? componentId = null)
         {
-            Expression<Func<Database.Entities.DeviceInfo.Component, bool>> @where = n => true;
+            Expression<Func<Database.Entities.DeviceInfo.DeviceComponent, bool>> @where = n => true;
 
             if (componentId != null)
                 @where = n => n.Id == componentId;
 
-            return await _context.Components
+            return await _context.DeviceComponents
                 .Where(@where)
                 .Include(x => x.Category)
                 .Select(x =>
-                    new GetComponentDto()
+                    new GetDeviceComponentDto()
                     {
                         Id = x.Id,
                         Name = x.Name,

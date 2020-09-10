@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Device.Data.DeviceInfo.Component
+namespace Device.Data.DeviceInfo.DeviceComponent
 {
-    public class AddComponentDto
+    public class AddDeviceComponentDto
     {
         [Required]
         public string Name { get; set; }

@@ -52,10 +52,10 @@ namespace Update.Controllers
         }
 
 
-        [HttpGet("components/{id}")]
-        public async Task<IActionResult> GetVersionByComponent(int id)
+        [HttpGet("deviceComponents/{id}")]
+        public async Task<IActionResult> GetVersionByDeviceComponent(int id)
         {
-            var version = await _repo.GetVersions(x => x.ComponentId == id).FirstOrDefaultAsync();
+            var version = await _repo.GetVersions(x => x.DeviceComponentId == id).FirstOrDefaultAsync();
 
             return Ok(version);
         }

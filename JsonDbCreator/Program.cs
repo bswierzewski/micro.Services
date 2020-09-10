@@ -23,7 +23,7 @@ namespace JsonDbCreator
             var categories = categoryFaker.Generate(10);
             counter = 0;
 
-            var componentFaker = new Faker<Component>()
+            var componentFaker = new Faker<DeviceComponent>()
                 .RuleFor(x => x.Id, f => counter++)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())

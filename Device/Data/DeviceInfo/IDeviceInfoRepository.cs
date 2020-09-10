@@ -1,5 +1,5 @@
 ﻿using Device.Data.DeviceInfo.Category;
-using Device.Data.DeviceInfo.Component;
+using Device.Data.DeviceInfo.DeviceComponent;
 using Device.Dtos.DeviceInfo;
 using Device.Dtos.DeviceInfo.Kind;
 using System;
@@ -12,7 +12,7 @@ namespace Device.Data.DeviceInfo
     public interface IDeviceInfoRepository : IAppRepository
     {
         Task<IEnumerable<GetKindDto>> GetKinds(int? kindId = null);
-        Task<IEnumerable<GetComponentDto>> GetComponents(int? componentId = null);
+        Task<IEnumerable<GetDeviceComponentDto>> GetDeviceComponents(int? deviceComponentId = null);
         Task<IEnumerable<GetCategoryDto>> GetCategories(int? categoryId = null);
     }
 }

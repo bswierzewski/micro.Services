@@ -1,6 +1,6 @@
 ﻿using Database.Entities.DeviceInfo;
 using Device.Data.DeviceInfo;
-using Device.Data.DeviceInfo.Component;
+using Device.Data.DeviceInfo.DeviceComponent;
 using Device.Dtos.DeviceInfo.Category;
 using Device.Dtos.DeviceInfo.Kind;
 using Microsoft.AspNetCore.Mvc;
@@ -59,29 +59,29 @@ namespace Device.Controllers
 
         #endregion Kinds
 
-        #region Components
+        #region DeviceComponents
 
-        [HttpGet("components/{id}")]
-        public async Task<IActionResult> GetComponentDto(int id)
+        [HttpGet("deviceComponents/{id}")]
+        public async Task<IActionResult> GetDeviceComponentDto(int id)
         {
-            var component = await _repo.GetComponents(id);
+            var component = await _repo.GetDeviceComponents(id);
 
             return Ok(component);
         }
 
 
-        [HttpGet("components")]
-        public async Task<IActionResult> GetComponentsDto()
+        [HttpGet("deviceComponents")]
+        public async Task<IActionResult> GetDeviceComponentsDto()
         {
-            var components = await _repo.GetComponents();
+            var components = await _repo.GetDeviceComponents();
 
             return Ok(components);
         }
 
-        [HttpPost("components/add")]
-        public async Task<IActionResult> AddComponentDto(AddComponentDto addComponentDto)
+        [HttpPost("deviceComponents/add")]
+        public async Task<IActionResult> AddDeviceComponentDto(AddDeviceComponentDto addComponentDto)
         {
-            var component = new Component()
+            var component = new DeviceComponent()
             {
                 Created = DateTime.Now,
                 CategoryId = addComponentDto.CategoryId,
@@ -93,7 +93,7 @@ namespace Device.Controllers
             return Ok(component);
         }
 
-        #endregion Components
+        #endregion DeviceComponents
 
         #region Categories
 

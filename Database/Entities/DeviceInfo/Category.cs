@@ -18,6 +18,6 @@ namespace Database.Entities.DeviceInfo
         public DateTime Created { get; set; }
         public string Name { get; set; }
         public string IconName { get; set; }
-        public virtual Component[] Components { get; set; }
+        public virtual DeviceComponent[] DeviceComponents { get; set; }
     }
 }

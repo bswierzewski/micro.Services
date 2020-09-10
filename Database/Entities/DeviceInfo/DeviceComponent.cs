@@ -11,7 +11,7 @@ namespace Database.Entities.DeviceInfo
     /// Locator
     /// etc.
     /// </summary>
-    public class Component
+    public class DeviceComponent
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
