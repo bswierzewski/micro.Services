@@ -1,8 +1,6 @@
 ﻿using Database.Entities.DeviceInfo;
 using Device.Data.DeviceInfo;
-using Device.Data.DeviceInfo.DeviceComponent;
-using Device.Dtos.DeviceInfo.Category;
-using Device.Dtos.DeviceInfo.Kind;
+using Device.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,7 +25,7 @@ namespace Device.Controllers
         #region Kinds
 
         [HttpGet("kinds/{id}")]
-        public async Task<IActionResult> GetKindDto(int id)
+        public async Task<IActionResult> GetKind(int id)
         {
             var kind = await _repo.GetKinds(id);
 
@@ -35,7 +33,7 @@ namespace Device.Controllers
         }
 
         [HttpGet("kinds")]
-        public async Task<IActionResult> GetKindsDto()
+        public async Task<IActionResult> GetKinds()
         {
             var kinds = await _repo.GetKinds();
 
@@ -44,12 +42,12 @@ namespace Device.Controllers
 
 
         [HttpPost("kinds/add")]
-        public async Task<IActionResult> AddKindsDto(AddKindDto addKindDto)
+        public async Task<IActionResult> AddKinds(KindDto kindDto)
         {
             var kind = new Kind()
             {
                 Created = DateTime.Now,
-                Name = addKindDto.Name,
+                Name = kindDto.Name,
             };
 
             await _repo.Add(kind);
@@ -62,7 +60,7 @@ namespace Device.Controllers
         #region DeviceComponents
 
         [HttpGet("deviceComponents/{id}")]
-        public async Task<IActionResult> GetDeviceComponentDto(int id)
+        public async Task<IActionResult> GetDeviceComponent(int id)
         {
             var component = await _repo.GetDeviceComponents(id);
 
@@ -71,7 +69,7 @@ namespace Device.Controllers
 
 
         [HttpGet("deviceComponents")]
-        public async Task<IActionResult> GetDeviceComponentsDto()
+        public async Task<IActionResult> GetDeviceComponents()
         {
             var components = await _repo.GetDeviceComponents();
 
@@ -79,13 +77,13 @@ namespace Device.Controllers
         }
 
         [HttpPost("deviceComponents/add")]
-        public async Task<IActionResult> AddDeviceComponentDto(AddDeviceComponentDto addComponentDto)
+        public async Task<IActionResult> AddDeviceComponent(DeviceComponentDto deviceComponentDto)
         {
             var component = new DeviceComponent()
             {
                 Created = DateTime.Now,
-                CategoryId = addComponentDto.CategoryId,
-                Name = addComponentDto.Name,
+                CategoryId = deviceComponentDto.CategoryId,
+                Name = deviceComponentDto.Name,
             };
 
             await _repo.Add(component);
@@ -98,7 +96,7 @@ namespace Device.Controllers
         #region Categories
 
         [HttpGet("categories/{id}")]
-        public async Task<IActionResult> GetCategoryDto(int id)
+        public async Task<IActionResult> GetCategory(int id)
         {
             var categories = await _repo.GetCategories(id);
 
@@ -106,7 +104,7 @@ namespace Device.Controllers
         }
 
         [HttpGet("categories")]
-        public async Task<IActionResult> GetCategoriesDto()
+        public async Task<IActionResult> GetCategories()
         {
             var categories = await _repo.GetCategories();
 
@@ -114,12 +112,12 @@ namespace Device.Controllers
         }
 
         [HttpPost("categories/add")]
-        public async Task<IActionResult> AddCategoryDto(AddCategoryDto addCategoryDto)
+        public async Task<IActionResult> AddCategory(CategoryDto categoryDto)
         {
             var category = new Category()
             {
                 Created = DateTime.Now,
-                Name = addCategoryDto.Name
+                Name = categoryDto.Name
             };
 
             await _repo.Add(category);

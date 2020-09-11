@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Device.Data.DeviceInfo.DeviceComponent
+namespace Device.Dtos
 {
-    public class GetDeviceComponentDto
+    public class DeviceComponentDto
     {
         public int Id { get; internal set; }
         public string Name { get; internal set; }

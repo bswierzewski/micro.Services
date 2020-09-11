@@ -24,7 +24,7 @@ namespace Device.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetDeviceDto(int id)
+        public async Task<IActionResult> GetDevice(int id)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Device.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDevicesDto()
+        public async Task<IActionResult> GetDevices()
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Device.Controllers
         }
 
         [HttpGet("categories/{id}")]
-        public async Task<IActionResult> GetDeviceDtoByCategory(int id)
+        public async Task<IActionResult> GetDeviceByCategory(int id)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace Device.Controllers
         }
 
         [HttpGet("components/{id}")]
-        public async Task<IActionResult> GetDeviceDtoByComponent(int id)
+        public async Task<IActionResult> GetDeviceByComponent(int id)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Device.Controllers
         }
 
         [HttpGet("kinds/{id}")]
-        public async Task<IActionResult> GetDeviceDtoByKind(int id)
+        public async Task<IActionResult> GetDeviceByKind(int id)
         {
             try
             {
@@ -109,22 +109,22 @@ namespace Device.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddDevice(AddDeviceDto addDeviceDto)
+        public async Task<IActionResult> AddDevice(DeviceDto deviceDto)
         {
             try
             {
-                if (await _repo.ExistsDevice(addDeviceDto.MacAddress))
+                if (await _repo.ExistsDevice(deviceDto.MacAddress))
                     return StatusCode((int)HttpStatusCode.BadRequest, "Device exists!");
 
                 var newDevice = new Database.Entities.Device()
                 {
-                    MacAddress = addDeviceDto.MacAddress,
-                    Name = addDeviceDto.Name,
+                    MacAddress = deviceDto.MacAddress,
+                    Name = deviceDto.Name,
                     Created = DateTime.Now,
-                    KindId = addDeviceDto.KindId,
-                    DeviceComponentId = addDeviceDto.DeviceComponentId,
-                    PhotoUrl = addDeviceDto.PhotoUrl,
-                    SpecificVersionId = addDeviceDto.SpecificVersionId,
+                    KindId = deviceDto.KindId,
+                    DeviceComponentId = deviceDto.DeviceComponentId,
+                    PhotoUrl = deviceDto.PhotoUrl,
+                    SpecificVersionId = deviceDto.SpecificVersionId,
                 };
 
                 await _repo.Add(newDevice);
@@ -140,7 +140,7 @@ namespace Device.Controllers
         }
 
         [HttpPost("{id}/update")]
-        public async Task<IActionResult> UpdateDeviceKind(int id, UpdateDeviceDto updateDeviceDto)
+        public async Task<IActionResult> UpdateDeviceKind(int id, DeviceDto deviceDto)
         {
             try
             {
@@ -149,23 +149,23 @@ namespace Device.Controllers
                 if (device == null)
                     return StatusCode((int)HttpStatusCode.BadRequest, "Device not exists!");
 
-                if (!string.IsNullOrEmpty(updateDeviceDto.Name))
-                    device.Name = updateDeviceDto.Name;
+                if (!string.IsNullOrEmpty(deviceDto.Name))
+                    device.Name = deviceDto.Name;
 
-                if (updateDeviceDto.SpecificVersionId.HasValue)
-                    device.SpecificVersionId = updateDeviceDto.SpecificVersionId;
+                if (deviceDto.SpecificVersionId.HasValue)
+                    device.SpecificVersionId = deviceDto.SpecificVersionId;
 
-                if (updateDeviceDto.KindId.HasValue)
-                    device.KindId = updateDeviceDto.KindId;
+                if (deviceDto.KindId.HasValue)
+                    device.KindId = deviceDto.KindId;
 
-                if (updateDeviceDto.DeviceComponentId.HasValue)
-                    device.DeviceComponentId = updateDeviceDto.DeviceComponentId;
+                if (deviceDto.DeviceComponentId.HasValue)
+                    device.DeviceComponentId = deviceDto.DeviceComponentId;
 
-                if (!string.IsNullOrEmpty(updateDeviceDto.PhotoUrl))
-                    device.PhotoUrl = updateDeviceDto.PhotoUrl;
+                if (!string.IsNullOrEmpty(deviceDto.PhotoUrl))
+                    device.PhotoUrl = deviceDto.PhotoUrl;
 
-                if (updateDeviceDto.IsAutoUpdate.HasValue)
-                    device.IsAutoUpdate = updateDeviceDto.IsAutoUpdate;
+                if (deviceDto.IsAutoUpdate.HasValue)
+                    device.IsAutoUpdate = deviceDto.IsAutoUpdate;
 
                 device.Modified = DateTime.Now;
 

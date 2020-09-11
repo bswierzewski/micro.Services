@@ -1,18 +1,13 @@
-﻿using Device.Data.DeviceInfo.Category;
-using Device.Data.DeviceInfo.DeviceComponent;
-using Device.Dtos.DeviceInfo;
-using Device.Dtos.DeviceInfo.Kind;
-using System;
+﻿using Device.Dtos;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Device.Data.DeviceInfo
 {
     public interface IDeviceInfoRepository : IAppRepository
     {
-        Task<IEnumerable<GetKindDto>> GetKinds(int? kindId = null);
-        Task<IEnumerable<GetDeviceComponentDto>> GetDeviceComponents(int? deviceComponentId = null);
-        Task<IEnumerable<GetCategoryDto>> GetCategories(int? categoryId = null);
+        Task<IEnumerable<KindDto>> GetKinds(int? kindId = null);
+        Task<IEnumerable<DeviceComponentDto>> GetDeviceComponents(int? deviceComponentId = null);
+        Task<IEnumerable<CategoryDto>> GetCategories(int? categoryId = null);
     }
 }

@@ -21,7 +21,7 @@ namespace Device.Data
             return await _context.Devices.AnyAsync(x => x.MacAddress == macAddress);
         }
 
-        public IQueryable<GetDeviceDto> GetDevices(Expression<Func<Database.Entities.Device, bool>> expressionDevice = null)
+        public IQueryable<DeviceDto> GetDevices(Expression<Func<Database.Entities.Device, bool>> expressionDevice = null)
         {
             Expression<Func<Database.Entities.Device, bool>> @whereDevice = n => true;
 
@@ -33,7 +33,7 @@ namespace Device.Data
                            .Include(device => device.DeviceComponent)
                                 .ThenInclude(component => component.Category)
                            .Where(whereDevice)
-                           select new GetDeviceDto
+                           select new DeviceDto
                            {
                                Id = device.Id,
                                Created = device.Created,

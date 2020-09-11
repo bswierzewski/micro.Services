@@ -1,7 +1,5 @@
 ﻿using Database;
-using Device.Data.DeviceInfo.Category;
-using Device.Data.DeviceInfo.DeviceComponent;
-using Device.Dtos.DeviceInfo.Kind;
+using Device.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,7 +17,7 @@ namespace Device.Data.DeviceInfo
             _context = context;
         }
 
-        public async Task<IEnumerable<GetCategoryDto>> GetCategories(int? categoryId = null)
+        public async Task<IEnumerable<CategoryDto>> GetCategories(int? categoryId = null)
         {
             Expression<Func<Database.Entities.DeviceInfo.Category, bool>> @where = n => true;
 
@@ -30,12 +28,12 @@ namespace Device.Data.DeviceInfo
                 .Include(x => x.DeviceComponents)
                 .Where(@where)
                 .Select(x =>
-                    new GetCategoryDto()
+                    new CategoryDto()
                     {
                         Id = x.Id,
                         Name = x.Name,
                         Created = x.Created,
-                        DeviceComponents = x.DeviceComponents.Select(component => new GetDeviceComponentDto
+                        DeviceComponents = x.DeviceComponents.Select(component => new DeviceComponentDto
                         {
                             CategoryId = x.Id,
                             CategoryName = x.Name,
@@ -48,7 +46,7 @@ namespace Device.Data.DeviceInfo
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<GetDeviceComponentDto>> GetDeviceComponents(int? componentId = null)
+        public async Task<IEnumerable<DeviceComponentDto>> GetDeviceComponents(int? componentId = null)
         {
             Expression<Func<Database.Entities.DeviceInfo.DeviceComponent, bool>> @where = n => true;
 
@@ -59,7 +57,7 @@ namespace Device.Data.DeviceInfo
                 .Where(@where)
                 .Include(x => x.Category)
                 .Select(x =>
-                    new GetDeviceComponentDto()
+                    new DeviceComponentDto()
                     {
                         Id = x.Id,
                         Name = x.Name,
@@ -70,7 +68,7 @@ namespace Device.Data.DeviceInfo
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<GetKindDto>> GetKinds(int? kindId = null)
+        public async Task<IEnumerable<KindDto>> GetKinds(int? kindId = null)
         {
             Expression<Func<Database.Entities.DeviceInfo.Kind, bool>> @where = n => true;
 
@@ -80,7 +78,7 @@ namespace Device.Data.DeviceInfo
             return await _context.Kinds
                 .Where(@where)
                 .Select(x =>
-                    new GetKindDto()
+                    new KindDto()
                     {
                         Id = x.Id,
                         Name = x.Name,
