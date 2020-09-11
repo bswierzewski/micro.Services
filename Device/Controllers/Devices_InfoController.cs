@@ -4,6 +4,7 @@ using Device.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Device.Controllers
@@ -55,6 +56,19 @@ namespace Device.Controllers
             return Ok(kind);
         }
 
+        [HttpDelete("kinds/{id}")]
+        public async Task<IActionResult> DeleteKinds(int id)
+        {
+            var kind = await _repo.Find<Kind>(id);
+
+            if (kind == null)
+                return BadRequest("Kind not found");
+
+            await _repo.Delete(kind);
+
+            return Ok();
+        }
+
         #endregion Kinds
 
         #region DeviceComponents
@@ -91,6 +105,19 @@ namespace Device.Controllers
             return Ok(component);
         }
 
+        [HttpDelete("deviceComponents/{id}")]
+        public async Task<IActionResult> DeleteDeviceComponents(int id)
+        {
+            var deviceComponent = await _repo.Find<DeviceComponent>(id);
+
+            if (deviceComponent == null)
+                return BadRequest("DeviceComponent not found");
+
+            await _repo.Delete(deviceComponent);
+
+            return Ok();
+        }
+
         #endregion DeviceComponents
 
         #region Categories
@@ -123,6 +150,19 @@ namespace Device.Controllers
             await _repo.Add(category);
 
             return Ok(category);
+        }
+
+        [HttpDelete("categories/{id}")]
+        public async Task<IActionResult> DeleteCategories(int id)
+        {
+            var category = await _repo.Find<Category>(id);
+
+            if (category == null)
+                return BadRequest("Category not found");
+
+            await _repo.Delete(category);
+
+            return Ok();
         }
 
         #endregion Categories

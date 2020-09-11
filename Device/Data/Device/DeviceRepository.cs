@@ -41,9 +41,14 @@ namespace Device.Data
                                Name = device.Name,
                                MacAddress = device.MacAddress,
                                PhotoUrl = device.PhotoUrl,
+                               IsAutoUpdate = device.IsAutoUpdate,
+                               KindId = device.KindId,
                                Kind = device.Kind.Name,
                                Category = device.DeviceComponent.Category.Name,
+                               DeviceComponentId = device.DeviceComponentId,
                                DeviceComponent = device.DeviceComponent.Name,
+                               ActuallVersionId = device.ActuallVersionId,
+                               SpecificVersionId = device.SpecificVersionId
                            });
 
             return devices;

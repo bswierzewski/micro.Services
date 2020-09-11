@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +19,6 @@ namespace Database.Entities.DeviceInfo
         public DateTime Created { get; set; }
         public string Name { get; set; }
         public string IconName { get; set; }
-        public virtual DeviceComponent[] DeviceComponents { get; set; }
+        public virtual ICollection<DeviceComponent> DeviceComponents { get; set; }
     }
 }

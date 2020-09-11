@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 
 namespace Database.Extensions
 {
@@ -14,7 +15,8 @@ namespace Database.Extensions
                 {
                     appContext.Database.EnsureDeleted();
 
-                    appContext.Database.Migrate();
+                    if (appContext.Database.GetPendingMigrations().Any())
+                        appContext.Database.Migrate();
 
                     Seed.SeedData(appContext);
                 }
