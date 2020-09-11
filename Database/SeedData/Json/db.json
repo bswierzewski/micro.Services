@@ -1,0 +1,751 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "created": "2020-09-11T16:58:59.8011631+02:00",
+      "name": "Jazmin",
+      "iconName": "card_travel"
+    },
+    {
+      "id": 2,
+      "created": "2020-09-11T20:57:19.1525455+02:00",
+      "name": "Cole",
+      "iconName": "donut_small"
+    },
+    {
+      "id": 3,
+      "created": "2020-09-12T07:29:33.5257129+02:00",
+      "name": "Trevor",
+      "iconName": "perm_media"
+    },
+    {
+      "id": 4,
+      "created": "2020-09-12T02:14:43.8398353+02:00",
+      "name": "Chandler",
+      "iconName": "done_all"
+    },
+    {
+      "id": 5,
+      "created": "2020-09-11T09:52:10.8778616+02:00",
+      "name": "Christophe",
+      "iconName": "help_outline"
+    },
+    {
+      "id": 6,
+      "created": "2020-09-11T10:17:55.4594701+02:00",
+      "name": "Curt",
+      "iconName": "event_seat"
+    },
+    {
+      "id": 7,
+      "created": "2020-09-11T23:39:22.8997739+02:00",
+      "name": "Fanny",
+      "iconName": "spellcheck"
+    },
+    {
+      "id": 8,
+      "created": "2020-09-11T11:50:52.0589648+02:00",
+      "name": "Helene",
+      "iconName": "dashboard"
+    },
+    {
+      "id": 9,
+      "created": "2020-09-11T17:35:09.9569868+02:00",
+      "name": "Elsie",
+      "iconName": "perm_device_information"
+    },
+    {
+      "id": 10,
+      "created": "2020-09-11T19:36:02.9810204+02:00",
+      "name": "Brando",
+      "iconName": "card_giftcard"
+    }
+  ],
+  "components": [
+    {
+      "id": 1,
+      "created": "2020-09-12T05:14:32.5365083+02:00",
+      "name": "Eve",
+      "iconName": "track_changes"
+    },
+    {
+      "id": 2,
+      "created": "2020-09-11T10:05:05.8183687+02:00",
+      "name": "Kaley",
+      "iconName": "fingerprint"
+    },
+    {
+      "id": 3,
+      "created": "2020-09-12T07:40:12.3165081+02:00",
+      "name": "Ryley",
+      "iconName": "settings_input_hdmi"
+    },
+    {
+      "id": 4,
+      "created": "2020-09-12T06:10:48.7272562+02:00",
+      "name": "Corbin",
+      "iconName": "loyalty"
+    },
+    {
+      "id": 5,
+      "created": "2020-09-11T11:11:04.1170595+02:00",
+      "name": "Hester",
+      "iconName": "euro_symbol"
+    },
+    {
+      "id": 6,
+      "created": "2020-09-11T20:36:10.0768052+02:00",
+      "name": "Princess",
+      "iconName": "find_replace"
+    },
+    {
+      "id": 7,
+      "created": "2020-09-12T06:27:41.2132675+02:00",
+      "name": "Alexanne",
+      "iconName": "perm_scan_wifi"
+    },
+    {
+      "id": 8,
+      "created": "2020-09-12T09:06:04.1129689+02:00",
+      "name": "Samson",
+      "iconName": "print"
+    },
+    {
+      "id": 9,
+      "created": "2020-09-12T00:43:20.7463709+02:00",
+      "name": "Cristian",
+      "iconName": "all_out"
+    },
+    {
+      "id": 10,
+      "created": "2020-09-12T07:50:36.1281597+02:00",
+      "name": "Brooklyn",
+      "iconName": "turned_in"
+    },
+    {
+      "id": 11,
+      "created": "2020-09-12T02:16:46.6042866+02:00",
+      "name": "Jerod",
+      "iconName": "tab_unselected"
+    },
+    {
+      "id": 12,
+      "created": "2020-09-11T18:39:50.1488416+02:00",
+      "name": "Sean",
+      "iconName": "theaters"
+    },
+    {
+      "id": 13,
+      "created": "2020-09-11T18:16:56.8518073+02:00",
+      "name": "Yvette",
+      "iconName": "room"
+    },
+    {
+      "id": 14,
+      "created": "2020-09-11T10:15:29.5126886+02:00",
+      "name": "Bernhard",
+      "iconName": "get_app"
+    },
+    {
+      "id": 15,
+      "created": "2020-09-11T22:47:46.2390016+02:00",
+      "name": "Monroe",
+      "iconName": "cached"
+    },
+    {
+      "id": 16,
+      "created": "2020-09-11T16:09:11.9200243+02:00",
+      "name": "Alena",
+      "iconName": "zoom_in"
+    },
+    {
+      "id": 17,
+      "created": "2020-09-12T07:42:28.0984039+02:00",
+      "name": "Scotty",
+      "iconName": "open_in_browser"
+    },
+    {
+      "id": 18,
+      "created": "2020-09-11T14:28:42.5940922+02:00",
+      "name": "Kassandra",
+      "iconName": "assignment_late"
+    },
+    {
+      "id": 19,
+      "created": "2020-09-11T23:23:29.9309506+02:00",
+      "name": "Roger",
+      "iconName": "markunread_mailbox"
+    },
+    {
+      "id": 20,
+      "created": "2020-09-11T15:42:18.7783554+02:00",
+      "name": "Gino",
+      "iconName": "find_replace"
+    }
+  ],
+  "kinds": [
+    {
+      "id": 1,
+      "created": "2020-09-11T15:27:50.4588044+02:00",
+      "name": "Zack",
+      "photoUrl": "https://picsum.photos/640/480/?image=780"
+    },
+    {
+      "id": 2,
+      "created": "2020-09-12T04:50:23.7595597+02:00",
+      "name": "Carroll",
+      "photoUrl": "https://picsum.photos/640/480/?image=772"
+    },
+    {
+      "id": 3,
+      "created": "2020-09-12T00:55:03.7998475+02:00",
+      "name": "Martin",
+      "photoUrl": "https://picsum.photos/640/480/?image=599"
+    },
+    {
+      "id": 4,
+      "created": "2020-09-11T19:43:58.4739756+02:00",
+      "name": "Ava",
+      "photoUrl": "https://picsum.photos/640/480/?image=880"
+    },
+    {
+      "id": 5,
+      "created": "2020-09-12T01:21:50.7353504+02:00",
+      "name": "Ronaldo",
+      "photoUrl": "https://picsum.photos/640/480/?image=1002"
+    },
+    {
+      "id": 6,
+      "created": "2020-09-11T14:01:29.2241488+02:00",
+      "name": "Hillard",
+      "photoUrl": "https://picsum.photos/640/480/?image=150"
+    },
+    {
+      "id": 7,
+      "created": "2020-09-11T20:01:30.215995+02:00",
+      "name": "Flo",
+      "photoUrl": "https://picsum.photos/640/480/?image=202"
+    },
+    {
+      "id": 8,
+      "created": "2020-09-11T10:45:32.4968616+02:00",
+      "name": "Abner",
+      "photoUrl": "https://picsum.photos/640/480/?image=288"
+    },
+    {
+      "id": 9,
+      "created": "2020-09-11T18:17:37.2389543+02:00",
+      "name": "Jensen",
+      "photoUrl": "https://picsum.photos/640/480/?image=1028"
+    },
+    {
+      "id": 10,
+      "created": "2020-09-12T02:22:33.3978346+02:00",
+      "name": "Providenci",
+      "photoUrl": "https://picsum.photos/640/480/?image=38"
+    }
+  ],
+  "devices": [
+    {
+      "id": 1,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "5b:1b:99:52:c8:1d",
+      "name": "Louisa",
+      "photoUrl": "https://picsum.photos/640/480/?image=811",
+      "isAutoUpdate": false,
+      "kindId": 5,
+      "deviceComponentId": 13
+    },
+    {
+      "id": 2,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "56:71:7f:c7:b2:8b",
+      "name": "Meda",
+      "photoUrl": "https://picsum.photos/640/480/?image=183",
+      "isAutoUpdate": true,
+      "kindId": 5,
+      "deviceComponentId": 7
+    },
+    {
+      "id": 3,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "d1:08:23:32:fc:74",
+      "name": "Ida",
+      "photoUrl": "https://picsum.photos/640/480/?image=727",
+      "isAutoUpdate": false,
+      "kindId": 10,
+      "deviceComponentId": 18
+    },
+    {
+      "id": 4,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "84:15:fd:35:5b:0f",
+      "name": "Rae",
+      "photoUrl": "https://picsum.photos/640/480/?image=616",
+      "isAutoUpdate": false,
+      "kindId": 6,
+      "deviceComponentId": 1
+    },
+    {
+      "id": 5,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "b8:d8:a0:81:7d:af",
+      "name": "Tyrese",
+      "photoUrl": "https://picsum.photos/640/480/?image=262",
+      "isAutoUpdate": false,
+      "kindId": 5,
+      "deviceComponentId": 13
+    },
+    {
+      "id": 6,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "05:49:91:2e:96:21",
+      "name": "Christelle",
+      "photoUrl": "https://picsum.photos/640/480/?image=334",
+      "isAutoUpdate": false,
+      "kindId": 7,
+      "deviceComponentId": 14
+    },
+    {
+      "id": 7,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "74:ec:69:c9:7c:30",
+      "name": "Lurline",
+      "photoUrl": "https://picsum.photos/640/480/?image=393",
+      "isAutoUpdate": false,
+      "kindId": 8,
+      "deviceComponentId": 16
+    },
+    {
+      "id": 8,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "cb:4f:4a:91:7a:f7",
+      "name": "Nicholas",
+      "photoUrl": "https://picsum.photos/640/480/?image=787",
+      "isAutoUpdate": false,
+      "kindId": 4,
+      "deviceComponentId": 10
+    },
+    {
+      "id": 9,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "e3:10:b3:a4:2c:78",
+      "name": "Marianna",
+      "photoUrl": "https://picsum.photos/640/480/?image=417",
+      "isAutoUpdate": true,
+      "kindId": 7,
+      "deviceComponentId": 8
+    },
+    {
+      "id": 10,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "06:64:b3:17:b3:33",
+      "name": "Nickolas",
+      "photoUrl": "https://picsum.photos/640/480/?image=645",
+      "isAutoUpdate": true,
+      "kindId": 6,
+      "deviceComponentId": 18
+    },
+    {
+      "id": 11,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "42:7e:41:e4:04:a6",
+      "name": "Cyrus",
+      "photoUrl": "https://picsum.photos/640/480/?image=603",
+      "isAutoUpdate": true,
+      "kindId": 2,
+      "deviceComponentId": 7
+    },
+    {
+      "id": 12,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "fb:08:59:16:d7:04",
+      "name": "Chanelle",
+      "photoUrl": "https://picsum.photos/640/480/?image=743",
+      "isAutoUpdate": true,
+      "kindId": 4,
+      "deviceComponentId": 2
+    },
+    {
+      "id": 13,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "6e:48:e5:dd:63:43",
+      "name": "Katlynn",
+      "photoUrl": "https://picsum.photos/640/480/?image=1053",
+      "isAutoUpdate": false,
+      "kindId": 3,
+      "deviceComponentId": 18
+    },
+    {
+      "id": 14,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "fe:ce:35:62:47:74",
+      "name": "Alene",
+      "photoUrl": "https://picsum.photos/640/480/?image=180",
+      "isAutoUpdate": false,
+      "kindId": 6,
+      "deviceComponentId": 5
+    },
+    {
+      "id": 15,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "b8:69:aa:be:9d:5b",
+      "name": "Mustafa",
+      "photoUrl": "https://picsum.photos/640/480/?image=455",
+      "isAutoUpdate": false,
+      "kindId": 2,
+      "deviceComponentId": 11
+    },
+    {
+      "id": 16,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "2c:10:f9:fe:26:42",
+      "name": "Velda",
+      "photoUrl": "https://picsum.photos/640/480/?image=4",
+      "isAutoUpdate": true,
+      "kindId": 3,
+      "deviceComponentId": 3
+    },
+    {
+      "id": 17,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "19:0a:8b:e0:75:bd",
+      "name": "Mireille",
+      "photoUrl": "https://picsum.photos/640/480/?image=713",
+      "isAutoUpdate": true,
+      "kindId": 6,
+      "deviceComponentId": 12
+    },
+    {
+      "id": 18,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "36:90:7c:33:a5:a6",
+      "name": "Clementina",
+      "photoUrl": "https://picsum.photos/640/480/?image=255",
+      "isAutoUpdate": false,
+      "kindId": 8,
+      "deviceComponentId": 15
+    },
+    {
+      "id": 19,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "73:a2:25:69:49:4d",
+      "name": "Nyah",
+      "photoUrl": "https://picsum.photos/640/480/?image=231",
+      "isAutoUpdate": false,
+      "kindId": 4,
+      "deviceComponentId": 1
+    },
+    {
+      "id": 20,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "9d:50:a0:32:bc:e6",
+      "name": "Zena",
+      "photoUrl": "https://picsum.photos/640/480/?image=757",
+      "isAutoUpdate": false,
+      "kindId": 9,
+      "deviceComponentId": 1
+    },
+    {
+      "id": 21,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "98:da:68:81:f3:9d",
+      "name": "Elissa",
+      "photoUrl": "https://picsum.photos/640/480/?image=879",
+      "isAutoUpdate": false,
+      "kindId": 8,
+      "deviceComponentId": 9
+    },
+    {
+      "id": 22,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "5e:97:e9:bb:0b:73",
+      "name": "Heather",
+      "photoUrl": "https://picsum.photos/640/480/?image=966",
+      "isAutoUpdate": true,
+      "kindId": 8,
+      "deviceComponentId": 6
+    },
+    {
+      "id": 23,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "35:f2:2c:93:72:ea",
+      "name": "Eldora",
+      "photoUrl": "https://picsum.photos/640/480/?image=259",
+      "isAutoUpdate": false,
+      "kindId": 9,
+      "deviceComponentId": 17
+    },
+    {
+      "id": 24,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "73:09:4a:00:c7:5a",
+      "name": "Camden",
+      "photoUrl": "https://picsum.photos/640/480/?image=988",
+      "isAutoUpdate": true,
+      "kindId": 4,
+      "deviceComponentId": 6
+    },
+    {
+      "id": 25,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "36:f1:08:49:00:db",
+      "name": "Karianne",
+      "photoUrl": "https://picsum.photos/640/480/?image=302",
+      "isAutoUpdate": false,
+      "kindId": 9,
+      "deviceComponentId": 6
+    },
+    {
+      "id": 26,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "54:a5:76:55:60:2b",
+      "name": "German",
+      "photoUrl": "https://picsum.photos/640/480/?image=560",
+      "isAutoUpdate": false,
+      "kindId": 10,
+      "deviceComponentId": 11
+    },
+    {
+      "id": 27,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "85:23:df:71:0a:ac",
+      "name": "Annamae",
+      "photoUrl": "https://picsum.photos/640/480/?image=804",
+      "isAutoUpdate": true,
+      "kindId": 8,
+      "deviceComponentId": 19
+    },
+    {
+      "id": 28,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "ea:bc:3b:8a:28:ea",
+      "name": "Hunter",
+      "photoUrl": "https://picsum.photos/640/480/?image=754",
+      "isAutoUpdate": false,
+      "kindId": 10,
+      "deviceComponentId": 1
+    },
+    {
+      "id": 29,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "2d:b4:a5:8a:71:f9",
+      "name": "Wiley",
+      "photoUrl": "https://picsum.photos/640/480/?image=570",
+      "isAutoUpdate": true,
+      "kindId": 7,
+      "deviceComponentId": 8
+    },
+    {
+      "id": 30,
+      "created": "0001-01-01T00:00:00",
+      "macAddress": "aa:6b:e5:69:8f:d0",
+      "name": "Santiago",
+      "photoUrl": "https://picsum.photos/640/480/?image=229",
+      "isAutoUpdate": true,
+      "kindId": 7,
+      "deviceComponentId": 11
+    }
+  ],
+  "filesData": [
+    {
+      "id": 1,
+      "created": "2020-09-11T19:02:12.5184889+02:00",
+      "name": "Moriah83",
+      "extension": "exe",
+      "content": "nThDsCs3AdvI0ZOKdDUBnEqUz9/jhQiNH/4f6zM3"
+    },
+    {
+      "id": 2,
+      "created": "2020-09-12T04:42:17.6818135+02:00",
+      "name": "Evangeline.Connelly40",
+      "extension": "dll",
+      "content": "eAV+w4Z3AUwlM3Y4BOxbhGO3GC+1kSwYFqeQMf3+"
+    },
+    {
+      "id": 3,
+      "created": "2020-09-12T04:16:11.5856837+02:00",
+      "name": "Kenneth_Skiles5",
+      "extension": "dll",
+      "content": "G10NB0H6y6mzL0tEESf6Fhu/5thmrd7mz04mcG+C"
+    },
+    {
+      "id": 4,
+      "created": "2020-09-11T19:17:15.7228576+02:00",
+      "name": "Maximus.Moen",
+      "extension": "dll",
+      "content": "Cih0lmFuY3hF7ezWyO+ZaOu26m5/Jjfy1Fo5MFIy"
+    },
+    {
+      "id": 5,
+      "created": "2020-09-11T22:28:03.7748415+02:00",
+      "name": "Lucious.Krajcik80",
+      "extension": "exe",
+      "content": "UHb3SmWh4mFPqH/odC4VSdna4/CBwgc1MiUTdQ/2"
+    },
+    {
+      "id": 6,
+      "created": "2020-09-11T13:21:18.0980212+02:00",
+      "name": "Courtney.Boehm62",
+      "extension": "exe",
+      "content": "IxmEVZCEsrlI3gNhlAfGKAPJjW/CGD+ObFJYgZxC"
+    },
+    {
+      "id": 7,
+      "created": "2020-09-11T13:56:11.1396685+02:00",
+      "name": "Megane82",
+      "extension": "exe",
+      "content": "XprxPVV76UcPFHrvYLqiUw7RLwvZ9uk9LDAdBYdx"
+    },
+    {
+      "id": 8,
+      "created": "2020-09-12T07:25:51.8986009+02:00",
+      "name": "Destin74",
+      "extension": "exe",
+      "content": "2E8aRy74f1jXaSDinwSEAyeq52ixsxEkXeS/noc9"
+    },
+    {
+      "id": 9,
+      "created": "2020-09-11T11:54:00.2713445+02:00",
+      "name": "Oda.Swaniawski",
+      "extension": "dll",
+      "content": "t+fc4XeRZcIQO2aD7IkVph1htiU99elKOOHRmsvE"
+    },
+    {
+      "id": 10,
+      "created": "2020-09-11T12:54:56.3839339+02:00",
+      "name": "Harmony.Ritchie",
+      "extension": "exe",
+      "content": "zgXxIE1OFCJ+PLH9KPc+j4NUgcH9kqiWwMv3S0oA"
+    }
+  ],
+  "versions": [
+    {
+      "id": 1,
+      "created": "2020-09-11T23:27:03.6643111+02:00",
+      "name": "Supervisor",
+      "major": 2,
+      "minor": 3,
+      "patch": 4,
+      "deviceComponentId": 8,
+      "kindId": 9,
+      "fileDataId": 6
+    },
+    {
+      "id": 5,
+      "created": "2020-09-12T02:37:51.4565711+02:00",
+      "name": "Supervisor",
+      "major": 6,
+      "minor": 7,
+      "patch": 8,
+      "deviceComponentId": 6,
+      "kindId": 8,
+      "fileDataId": 8
+    },
+    {
+      "id": 9,
+      "created": "2020-09-11T23:46:04.7474347+02:00",
+      "name": "Director",
+      "major": 10,
+      "minor": 11,
+      "patch": 12,
+      "deviceComponentId": 18,
+      "kindId": 3,
+      "fileDataId": 7
+    },
+    {
+      "id": 13,
+      "created": "2020-09-11T14:18:31.8023056+02:00",
+      "name": "Officer",
+      "major": 14,
+      "minor": 15,
+      "patch": 16,
+      "deviceComponentId": 14,
+      "kindId": 6,
+      "fileDataId": 7
+    },
+    {
+      "id": 17,
+      "created": "2020-09-12T08:57:24.5059296+02:00",
+      "name": "Representative",
+      "major": 18,
+      "minor": 19,
+      "patch": 20,
+      "deviceComponentId": 2,
+      "kindId": 3,
+      "fileDataId": 5
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "Roberto92",
+      "created": "2020-02-19T19:50:36.6520108+01:00",
+      "lastActive": "2019-09-30T06:03:01.2946108+02:00",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "username": "May_Krajcik",
+      "created": "2020-03-09T06:50:42.7360484+01:00",
+      "lastActive": "2019-10-01T15:50:01.0447286+02:00",
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "username": "Mazie52",
+      "created": "2019-12-27T13:27:06.7179349+01:00",
+      "lastActive": "2020-03-05T16:36:08.0115279+01:00",
+      "isActive": true
+    },
+    {
+      "id": 4,
+      "username": "Marielle.Satterfield",
+      "created": "2020-08-15T07:41:34.3732989+02:00",
+      "lastActive": "2020-04-11T16:09:38.7458086+02:00",
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "username": "Andrew81",
+      "created": "2020-03-14T04:24:38.8353995+01:00",
+      "lastActive": "2020-02-05T07:41:37.3983013+01:00",
+      "isActive": true
+    },
+    {
+      "id": 6,
+      "username": "Malvina_Sanford66",
+      "created": "2020-01-03T16:28:19.7583686+01:00",
+      "lastActive": "2019-12-06T14:39:30.9669062+01:00",
+      "isActive": true
+    },
+    {
+      "id": 7,
+      "username": "Ottilie_Rempel85",
+      "created": "2020-01-12T06:54:13.0511957+01:00",
+      "lastActive": "2019-10-18T18:04:55.4367641+02:00",
+      "isActive": true
+    },
+    {
+      "id": 8,
+      "username": "Autumn_Goldner",
+      "created": "2020-05-05T12:50:52.8533248+02:00",
+      "lastActive": "2020-08-13T23:21:39.4211086+02:00",
+      "isActive": true
+    },
+    {
+      "id": 9,
+      "username": "Edmond.Jerde",
+      "created": "2020-08-17T18:00:45.5159891+02:00",
+      "lastActive": "2019-11-24T12:49:22.5183487+01:00",
+      "isActive": true
+    },
+    {
+      "id": 10,
+      "username": "Vivien.Stanton69",
+      "created": "2019-10-24T21:25:45.3939469+02:00",
+      "lastActive": "2019-09-18T18:43:24.762169+02:00",
+      "isActive": true
+    }
+  ]
+}
