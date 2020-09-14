@@ -10,8 +10,10 @@ namespace Device.Dtos
         public string MacAddress { get; set; }
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
+        public string IconName { get; set; }
 
         public bool? IsAutoUpdate { get; set; }
+        public int? CategoryId { get; set; }
         public string Category { get; set; }
         public int? KindId { get; set; }
         public string Kind { get; set; }

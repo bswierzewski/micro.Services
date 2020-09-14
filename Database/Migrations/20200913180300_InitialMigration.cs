@@ -16,7 +16,7 @@ namespace Database.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Created = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    IconName = table.Column<string>(nullable: true)
+                    Icon = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,7 +80,7 @@ namespace Database.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Created = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    IconName = table.Column<string>(nullable: true),
+                    Icon = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -105,8 +105,10 @@ namespace Database.Migrations
                     MacAddress = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     PhotoUrl = table.Column<string>(nullable: true),
+                    Icon = table.Column<string>(nullable: true),
                     IsAutoUpdate = table.Column<bool>(nullable: true),
                     KindId = table.Column<int>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true),
                     DeviceComponentId = table.Column<int>(nullable: true),
                     ActuallVersionId = table.Column<int>(nullable: true),
                     SpecificVersionId = table.Column<int>(nullable: true)
@@ -114,6 +116,12 @@ namespace Database.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Devices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Devices_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Devices_DeviceComponents_DeviceComponentId",
                         column: x => x.DeviceComponentId,
@@ -191,6 +199,11 @@ namespace Database.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DeviceComponents_CategoryId",
                 table: "DeviceComponents",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devices_CategoryId",
+                table: "Devices",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(

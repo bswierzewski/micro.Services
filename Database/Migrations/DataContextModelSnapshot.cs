@@ -29,11 +29,17 @@ namespace Database.Migrations
                     b.Property<int?>("ActuallVersionId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("DeviceComponentId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("text");
 
                     b.Property<bool?>("IsAutoUpdate")
                         .HasColumnType("boolean");
@@ -58,6 +64,8 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("DeviceComponentId");
 
                     b.HasIndex("KindId");
@@ -78,7 +86,7 @@ namespace Database.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("IconName")
+                    b.Property<string>("Icon")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -102,7 +110,7 @@ namespace Database.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("IconName")
+                    b.Property<string>("Icon")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -260,6 +268,10 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Entities.Device", b =>
                 {
+                    b.HasOne("Database.Entities.DeviceInfo.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("Database.Entities.DeviceInfo.DeviceComponent", "DeviceComponent")
                         .WithMany()
                         .HasForeignKey("DeviceComponentId");

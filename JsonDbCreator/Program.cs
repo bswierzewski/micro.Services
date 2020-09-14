@@ -16,26 +16,26 @@ namespace JsonDbCreator
         static void Main(string[] args)
         {
             var categoryFaker = new Faker<Category>()
-                .RuleFor(x => x.Id, f => ++f.IndexVariable)
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
-                .RuleFor(x => x.IconName, f => f.PickRandom(Icons.MaterialDesign));
+                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign));
 
             var categories = categoryFaker.Generate(10);
 
             int[] categoryIds = categories.Select(x => x.Id).ToArray();
 
             var componentFaker = new Faker<DeviceComponent>()
-                .RuleFor(x => x.Id, f => ++f.IndexVariable)
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
-                .RuleFor(x => x.IconName, f => f.PickRandom(Icons.MaterialDesign))
+                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign))
                 .RuleFor(x => x.CategoryId, f => f.PickRandom(categoryIds));
 
             var components = componentFaker.Generate(20);
 
             var kindFaker = new Faker<Kind>()
-                .RuleFor(x => x.Id, f => ++f.IndexVariable)
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
                 .RuleFor(x => x.PhotoUrl, f => f.Image.PicsumUrl());
@@ -46,21 +46,23 @@ namespace JsonDbCreator
             int[] kindIds = kinds.Select(x => x.Id).ToArray();
 
             var deviceFaker = new Faker<Device>()
-                .RuleFor(x => x.Id, f => ++f.IndexVariable)
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.MacAddress, f => f.Internet.Mac())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
                 .RuleFor(x => x.PhotoUrl, f => f.Image.PicsumUrl())
                 .RuleFor(x => x.IsAutoUpdate, f => f.Random.Bool())
                 .RuleFor(x => x.KindId, f => f.PickRandom(kindIds))
-                .RuleFor(x => x.DeviceComponentId, f => f.PickRandom(componentIds));
+                .RuleFor(x => x.DeviceComponentId, f => f.IndexVariable = f.PickRandom(componentIds))
+                .RuleFor(x => x.CategoryId, f => components[f.IndexVariable - 1].CategoryId)
+                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign));
 
             var devices = deviceFaker.Generate(30);
 
             var fileDataFaker = new Faker<FileData>()
-                .RuleFor(x => x.Id, f => ++f.IndexVariable)
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Internet.UserName())
-                .RuleFor(x => x.Extension, f => f.PickRandom(new string[] { "exe", "dll" }))
+                .RuleFor(x => x.Extension, f => f.System.FileExt())
                 .RuleFor(x => x.Content, f => f.Random.Bytes(30));
 
             var filesData = fileDataFaker.Generate(10);
@@ -68,7 +70,7 @@ namespace JsonDbCreator
             int[] fileDataIds = filesData.Select(x => x.Id).ToArray();
 
             var versionFaker = new Faker<Database.Entities.Version>()
-                .RuleFor(x => x.Id, f => ++f.IndexVariable)
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.JobType())
                 .RuleFor(x => x.Major, f => (short)++f.IndexVariable)
@@ -81,7 +83,7 @@ namespace JsonDbCreator
             var versions = versionFaker.Generate(5);
 
             var userFaker = new Faker<User>()
-                .RuleFor(x => x.Id, f => ++f.IndexVariable)
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Username, f => f.Internet.UserName())
                 .RuleFor(x => x.Created, f => f.Date.Past())
                 .RuleFor(x => x.LastActive, f => f.Date.Past())

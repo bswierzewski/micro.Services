@@ -1,9 +1,13 @@
 using Device.Data;
 using Device.Dtos;
+using Device.Params;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -28,7 +32,7 @@ namespace Device.Controllers
         {
             try
             {
-                var device = await _repo.GetDevices(expressionDevice: n => n.Id == id).FirstOrDefaultAsync();
+                var device = await _repo.GetDevice(id);
 
                 return Ok(device);
             }
@@ -41,64 +45,13 @@ namespace Device.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDevices()
+        public async Task<IActionResult> GetDevices([FromQuery]DeviceParams deviceParams)
         {
             try
             {
-                var devices = await _repo.GetDevices().ToListAsync();
+                var devices = await _repo.GetDevices(deviceParams);
 
                 return Ok(devices);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-
-                return StatusCode((int)HttpStatusCode.InternalServerError, "Error!");
-            }
-        }
-
-        [HttpGet("categories/{id}")]
-        public async Task<IActionResult> GetDeviceByCategory(int id)
-        {
-            try
-            {
-                var device = await _repo.GetDevices(expressionDevice: n => n.DeviceComponent.CategoryId == id).ToListAsync();
-
-                return Ok(device);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-
-                return StatusCode((int)HttpStatusCode.InternalServerError, "Error!");
-            }
-        }
-
-        [HttpGet("components/{id}")]
-        public async Task<IActionResult> GetDeviceByComponent(int id)
-        {
-            try
-            {
-                var device = await _repo.GetDevices(expressionDevice: n => n.DeviceComponentId == id).ToListAsync();
-
-                return Ok(device);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-
-                return StatusCode((int)HttpStatusCode.InternalServerError, "Error!");
-            }
-        }
-
-        [HttpGet("kinds/{id}")]
-        public async Task<IActionResult> GetDeviceByKind(int id)
-        {
-            try
-            {
-                var device = await _repo.GetDevices(expressionDevice: n => n.KindId == id).ToListAsync();
-
-                return Ok(device);
             }
             catch (Exception ex)
             {
@@ -171,9 +124,7 @@ namespace Device.Controllers
 
                 await _repo.SaveAllChanges();
 
-                var result = await _repo.GetDevices(x => x.Id == id).FirstOrDefaultAsync();
-
-                return Ok(result);
+                return Ok(device);
             }
             catch (Exception ex)
             {

@@ -1,7 +1,10 @@
 using Database;
 using Device.Dtos;
+using Device.Params;
+using Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -21,42 +24,26 @@ namespace Device.Data
             return await _context.Devices.AnyAsync(x => x.MacAddress == macAddress);
         }
 
-        public IQueryable<DeviceDto> GetDevices(Expression<Func<Database.Entities.Device, bool>> expressionDevice = null)
-        {
-            Expression<Func<Database.Entities.Device, bool>> @whereDevice = n => true;
-
-            if (expressionDevice != null)
-                @whereDevice = expressionDevice;
-
-            var devices = (from device in _context.Devices
-                           .Include(device => device.Kind)
-                           .Include(device => device.DeviceComponent)
-                                .ThenInclude(component => component.Category)
-                           .Where(whereDevice)
-                           select new DeviceDto
-                           {
-                               Id = device.Id,
-                               Created = device.Created,
-                               Modified = device.Modified,
-                               Name = device.Name,
-                               MacAddress = device.MacAddress,
-                               PhotoUrl = device.PhotoUrl,
-                               IsAutoUpdate = device.IsAutoUpdate,
-                               KindId = device.KindId,
-                               Kind = device.Kind.Name,
-                               Category = device.DeviceComponent.Category.Name,
-                               DeviceComponentId = device.DeviceComponentId,
-                               DeviceComponent = device.DeviceComponent.Name,
-                               ActuallVersionId = device.ActuallVersionId,
-                               SpecificVersionId = device.SpecificVersionId
-                           });
-
-            return devices;
-        }
-
         public async Task<Database.Entities.Device> GetDevice(int deviceId)
         {
             return await _context.Devices.FirstOrDefaultAsync(x => x.Id == deviceId);
+        }
+
+        public async Task<ICollection<Database.Entities.Device>> GetDevices(DeviceParams deviceParams = null)
+        {
+            var deviceQuery = _context.Devices.AsQueryable();
+
+            if (deviceParams is null)
+                return await deviceQuery.ToListAsync();
+
+            if (deviceParams.KindId.HasValueGreaterThan(0))
+                deviceQuery = deviceQuery.Where(x => x.KindId == deviceParams.KindId);
+
+            if (deviceParams.CategoryId.HasValueGreaterThan(0))
+                deviceQuery = deviceQuery.Where(x => x.CategoryId == deviceParams.CategoryId);
+
+
+            return await deviceQuery.ToListAsync();
         }
     }
 }
