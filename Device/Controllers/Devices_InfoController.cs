@@ -1,6 +1,7 @@
 ﻿using Database.Entities.DeviceInfo;
 using Device.Data.DeviceInfo;
 using Device.Dtos;
+using Device.Params;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -73,24 +74,24 @@ namespace Device.Controllers
 
         #region DeviceComponents
 
-        [HttpGet("deviceComponents/{id}")]
+        [HttpGet("components/{id}")]
         public async Task<IActionResult> GetDeviceComponent(int id)
         {
-            var component = await _repo.GetDeviceComponents(id);
+            var component = await _repo.GetDeviceComponent(id);
 
             return Ok(component);
         }
 
 
-        [HttpGet("deviceComponents")]
-        public async Task<IActionResult> GetDeviceComponents()
+        [HttpGet("components")]
+        public async Task<IActionResult> GetDeviceComponents([FromQuery] DeviceComponentParams deviceComponentParams)
         {
-            var components = await _repo.GetDeviceComponents();
+            var components = await _repo.GetDeviceComponents(deviceComponentParams);
 
             return Ok(components);
         }
 
-        [HttpPost("deviceComponents/add")]
+        [HttpPost("components/add")]
         public async Task<IActionResult> AddDeviceComponent(DeviceComponentDto deviceComponentDto)
         {
             var component = new DeviceComponent()
@@ -105,7 +106,7 @@ namespace Device.Controllers
             return Ok(component);
         }
 
-        [HttpDelete("deviceComponents/{id}")]
+        [HttpDelete("components/{id}")]
         public async Task<IActionResult> DeleteDeviceComponents(int id)
         {
             var deviceComponent = await _repo.Find<DeviceComponent>(id);

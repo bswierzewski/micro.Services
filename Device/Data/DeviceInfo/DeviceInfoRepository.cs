@@ -1,5 +1,8 @@
 ﻿using Database;
+using Database.Entities.DeviceInfo;
 using Device.Dtos;
+using Device.Params;
+using Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,7 +20,7 @@ namespace Device.Data.DeviceInfo
             _context = context;
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategories(int? categoryId = null)
+        public async Task<IEnumerable<Category>> GetCategories(int? categoryId = null)
         {
             Expression<Func<Database.Entities.DeviceInfo.Category, bool>> @where = n => true;
 
@@ -27,48 +30,25 @@ namespace Device.Data.DeviceInfo
             return await _context.Categories
                 .Include(x => x.DeviceComponents)
                 .Where(@where)
-                .Select(x =>
-                    new CategoryDto()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Created = x.Created,
-                        DeviceComponents = x.DeviceComponents.Select(component => new DeviceComponentDto
-                        {
-                            CategoryId = x.Id,
-                            CategoryName = x.Name,
-                            Id = component.Id,
-                            Name = component.Name,
-                            Created = component.Created
-
-                        }).ToArray()
-                    })
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<DeviceComponentDto>> GetDeviceComponents(int? componentId = null)
+        public async Task<DeviceComponent> GetDeviceComponent(int componentId)
         {
-            Expression<Func<Database.Entities.DeviceInfo.DeviceComponent, bool>> @where = n => true;
-
-            if (componentId != null)
-                @where = n => n.Id == componentId;
-
-            return await _context.DeviceComponents
-                .Where(@where)
-                .Include(x => x.Category)
-                .Select(x =>
-                    new DeviceComponentDto()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Created = x.Created,
-                        CategoryId = x.CategoryId,
-                        CategoryName = x.Category.Name
-                    })
-                .ToListAsync();
+            return await _context.DeviceComponents.FirstOrDefaultAsync(x => x.Id == componentId);
         }
 
-        public async Task<IEnumerable<KindDto>> GetKinds(int? kindId = null)
+        public async Task<IEnumerable<DeviceComponent>> GetDeviceComponents(DeviceComponentParams deviceComponentParams)
+        {
+            var query = _context.DeviceComponents.AsQueryable();
+
+            if (deviceComponentParams.CategoryId.HasValueGreaterThan(0))
+                query = query.Where(x => x.CategoryId == deviceComponentParams.CategoryId);
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Kind>> GetKinds(int? kindId = null)
         {
             Expression<Func<Database.Entities.DeviceInfo.Kind, bool>> @where = n => true;
 
@@ -77,13 +57,6 @@ namespace Device.Data.DeviceInfo
 
             return await _context.Kinds
                 .Where(@where)
-                .Select(x =>
-                    new KindDto()
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Created = x.Created
-                    })
                 .ToListAsync();
         }
     }
