@@ -1,6 +1,5 @@
-version: '3.1'
+version: "3.1"
 services:
-  
   proxy:
     container_name: proxy
     image: nginx
@@ -13,7 +12,7 @@ services:
       - socket
       - auth
       - device
-  
+
   redis:
     container_name: redis
     image: redis
@@ -28,20 +27,15 @@ services:
     ports:
       - 5432:5432
 
-  adminer:
-    image: adminer
-    ports:
-      - 8080:8080
-
   auth:
     container_name: auth
     build:
       context: .
       dockerfile: Dockerfile-auth
       args:
-        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1  
+        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
     expose:
-        - 80
+      - 80
 
   update:
     container_name: update
@@ -49,27 +43,26 @@ services:
       context: .
       dockerfile: Dockerfile-update
       args:
-        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1  
+        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
     expose:
-        - 80
-      
+      - 80
+
   device:
     container_name: device
     build:
       context: .
       dockerfile: Dockerfile-device
       args:
-        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1  
+        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
     expose:
-        - 80
-      
+      - 80
+
   socket:
     container_name: socket
     build:
       context: .
       dockerfile: Dockerfile-socketIO
       args:
-        IMAGE: node:slim  
+        IMAGE: node:slim
     expose:
-        - 80
-    
+      - 80
