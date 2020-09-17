@@ -1,3 +1,4 @@
+using AutoMapper;
 using Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ namespace Update
             services.AddDbContext<DataContext>();
             services.AddControllers();
             services.AddCors();
+            services.AddAutoMapper(typeof(VersionRepository).Assembly);
             services.AddScoped<IUpdateRepository, UpdateRepository>();
             services.AddScoped<IVersionRepository, VersionRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

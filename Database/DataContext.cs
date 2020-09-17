@@ -35,5 +35,6 @@ namespace Database
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Version> Versions { get; set; }
+        public DbSet<TempDevice> TempDevices { get; set; }
     }
 }

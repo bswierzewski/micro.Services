@@ -1,6 +1,8 @@
 ﻿using Database;
 using Database.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -16,56 +18,7 @@ namespace Update.Data
             _context = context;
         }
 
-        public async Task<bool> SaveAllChanges()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public async Task<bool> AddDeviceVersion(Database.Entities.Version deviceVersion)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Database.Entities.Version> GetDeviceVersion(int deviceId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> AddVersion(Database.Entities.Version version)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<GetVersionDto[]> GetAllVersion()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Device> GetDevice(string macAddress)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Device> GetDevice(int deviceId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Database.Entities.Version> GetVersionById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> IsDeviceTypeExists(short deviceTypeId)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<bool> IsDeviceKindExists(short deviceKindId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> IsVersionExists(short major, short minor, short patch, short deviceTypeId, short deviceKindId)
         {
             throw new NotImplementedException();
         }
@@ -75,9 +28,19 @@ namespace Update.Data
             throw new NotImplementedException();
         }
 
-        public IQueryable<GetVersionDto> GetVersions(Expression<Func<Database.Entities.Version, bool>> expression = null)
+        public async Task<IEnumerable<Database.Entities.Version>> GetVersions()
         {
-            throw new NotImplementedException();
+            return await GetVersionsQueryable().ToListAsync();
+        }
+
+        public async Task<Database.Entities.Version> GetVersion(int id)
+        {
+            return await GetVersionsQueryable().Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        private IQueryable<Database.Entities.Version> GetVersionsQueryable()
+        {
+            return _context.Versions.Include(x => x.DeviceComponent).Include(x => x.Kind).Include(x => x.FileData).AsQueryable();
         }
     }
 }

@@ -1,11 +1,14 @@
-﻿using RedisBroker.Static;
+﻿using Broker.Model;
+using Broker.Service;
+using Broker.Static;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace RedisBroker
+namespace Broker
 {
     class Program
     {
@@ -15,7 +18,7 @@ namespace RedisBroker
             RedisValue value;
 
             List<string> names = new List<string> { { "Mays" }, { "Bass" }, { "Hinton" }, { "Cassie" } };
-            
+
             List<string> adresses = new List<string> { { "AB:F8:E6:48:C2:C8" }, { "6D:99:D8:46:09:3A" }, { "01:43:B8:65:35:D1" }, { "C1:98:35:09:29:2F" } };
 
             Random rnd = new Random();
@@ -28,7 +31,7 @@ namespace RedisBroker
             {
                 key2 = names.ElementAt(rnd.Next(0, 4));
 
-                value = $"{{\"time\": \"{DateTime.Now}\",\"name\": \"{key2}\",\"address\": \"{adresses.ElementAt(rnd.Next(0,4))}\",\"rssi\":\"{rnd.Next(50, 100)}\" }}";
+                value = $"{{\"time\": \"{DateTime.Now}\",\"name\": \"{key2}\",\"address\": \"{adresses.ElementAt(rnd.Next(0, 4))}\",\"rssi\":\"{rnd.Next(50, 100)}\" }}";
 
                 db.Publish(key2, value);
 
@@ -38,6 +41,12 @@ namespace RedisBroker
     }
     class Redis
     {
+        private readonly IBrokerService _service;
+
+        public Redis(IBrokerService service)
+        {
+            _service = service;
+        }
         void RedisWorker()
         {
 
@@ -57,9 +66,13 @@ namespace RedisBroker
 
                     values.Add(value);
 
-                    if (values.Count > 9)
+                    if (values.Count > 30)
                     {
-                        Console.WriteLine($"Save to database {values.Count}");
+                        var jsonValues = DeserializeValues(values);
+
+                        _service.SaveValues(jsonValues);
+
+                        _service.AddToTempDevices(jsonValues);
 
                         values.Clear();
                     }
@@ -67,6 +80,18 @@ namespace RedisBroker
 
                 Thread.Sleep(500);
             }
+        }
+
+        private List<RedisValueModel> DeserializeValues(List<RedisValue> values)
+        {
+            var result = new List<RedisValueModel>();
+
+            values.ForEach(value =>
+            {
+                result.Add(JsonConvert.DeserializeObject<RedisValueModel>(value));
+            });
+
+            return result;
         }
     }
 }

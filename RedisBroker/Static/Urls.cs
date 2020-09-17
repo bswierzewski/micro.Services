@@ -1,4 +1,4 @@
-﻿namespace RedisBroker.Static
+﻿namespace Broker.Static
 {
     public static class Urls
     {

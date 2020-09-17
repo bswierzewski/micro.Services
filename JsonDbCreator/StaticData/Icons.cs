@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JsonDbCreator.StaticData
+namespace JsonDbMock.StaticData
 {
     public static class Icons
     {

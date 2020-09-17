@@ -5,6 +5,8 @@ namespace Update.Dtos
 {
     public class UploadDto
     {
+        public string Name { get; set; }
+
         [Required]
         public short Major { get; set; }
 
@@ -15,13 +17,12 @@ namespace Update.Dtos
         public short Patch { get; set; }
 
         [Required]
-        public short? TypeId { get; set; }
+        public int? KindId { get; set; }
 
         [Required]
-        public short? KindId { get; set; }
+        public int? DeviceComponentId { get; set; }
 
         [Required]
         public IFormFile File { get; set; }
-        public string Name { get; set; }
     }
 }

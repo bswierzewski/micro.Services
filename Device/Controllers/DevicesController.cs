@@ -92,12 +92,12 @@ namespace Device.Controllers
             }
         }
 
-        [HttpPost("{id}/update")]
-        public async Task<IActionResult> UpdateDeviceKind(int id, DeviceDto deviceDto)
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateDeviceKind(DeviceDto deviceDto)
         {
             try
             {
-                var device = await _repo.GetDevice(id);
+                var device = await _repo.GetDevice(deviceDto.Id);
 
                 if (device == null)
                     return StatusCode((int)HttpStatusCode.BadRequest, "Device not exists!");

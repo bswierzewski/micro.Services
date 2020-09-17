@@ -1,11 +1,10 @@
-﻿using Database.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Database.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Update.Data;
@@ -15,21 +14,23 @@ namespace Update.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class VersionController : ControllerBase
+    public class VersionsController : ControllerBase
     {
-        private readonly ILogger<VersionController> _logger;
+        private readonly ILogger<VersionsController> _logger;
         private readonly IVersionRepository _repo;
+        private readonly IMapper _mapper;
 
-        public VersionController(ILogger<VersionController> logger, IVersionRepository repo)
+        public VersionsController(ILogger<VersionsController> logger, IVersionRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
             _logger = logger;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVersion(int id)
         {
-            var version = await _repo.GetVersions(x => x.Id == id).FirstOrDefaultAsync();
+            var version = await _repo.GetVersion(id);
 
             return Ok(version);
         }
@@ -37,27 +38,11 @@ namespace Update.Controllers
         [HttpGet]
         public async Task<IActionResult> GetVersions()
         {
-            var versions = await _repo.GetVersions().ToListAsync();
+            var versions = await _repo.GetVersions();
 
-            return Ok(versions);
-        }
+            var versionsToReturn = _mapper.Map<IEnumerable<VersionForListDto>>(versions);
 
-
-        [HttpGet("kinds/{id}")]
-        public async Task<IActionResult> GetVersionByKind(int id)
-        {
-            var version = await _repo.GetVersions(x => x.KindId == id).FirstOrDefaultAsync();
-
-            return Ok(version);
-        }
-
-
-        [HttpGet("deviceComponents/{id}")]
-        public async Task<IActionResult> GetVersionByDeviceComponent(int id)
-        {
-            var version = await _repo.GetVersions(x => x.DeviceComponentId == id).FirstOrDefaultAsync();
-
-            return Ok(version);
+            return Ok(versionsToReturn);
         }
 
         [HttpPost("upload")]
@@ -92,7 +77,9 @@ namespace Update.Controllers
                         Minor = uploadDto.Minor,
                         Patch = uploadDto.Patch,
                         Name = uploadDto.Name ?? fileData.Name,
-                        FileDataId = fileData.Id
+                        FileDataId = fileData.Id,
+                        DeviceComponentId = uploadDto.DeviceComponentId,
+                        KindId = uploadDto.KindId
                     };
 
                     await _repo.AddVersion(newVersion);
