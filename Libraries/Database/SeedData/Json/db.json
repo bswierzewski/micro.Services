@@ -177,59 +177,59 @@
     {
       "created": "2020-09-18T12:08:26.4403223+02:00",
       "icon": "room",
-      "photoUrl": "https://picsum.photos/640/480/?image=928"
+
     },
     {
       "created": "2020-09-19T02:02:40.8207117+02:00",
       "icon": "loyalty",
-      "photoUrl": "https://picsum.photos/640/480/?image=58"
+
     },
     {
       "created": "2020-09-18T17:28:25.0884567+02:00",
       "icon": "theaters",
-      "photoUrl": "https://picsum.photos/640/480/?image=411"
+
     },
     {
       "created": "2020-09-18T12:56:10.3667136+02:00",
       "icon": "toll",
-      "photoUrl": "https://picsum.photos/640/480/?image=1011"
+
     },
     {
       "created": "2020-09-19T07:13:04.7958865+02:00",
       "icon": "class",
-      "photoUrl": "https://picsum.photos/640/480/?image=265"
+
     },
     {
       "created": "2020-09-18T18:58:26.4856065+02:00",
       "icon": "copyright",
-      "photoUrl": "https://picsum.photos/640/480/?image=936"
+
     },
     {
       "created": "2020-09-18T20:10:30.0683968+02:00",
       "icon": "home",
-      "photoUrl": "https://picsum.photos/640/480/?image=1029"
+
     },
     {
       "created": "2020-09-19T02:13:56.8892582+02:00",
       "icon": "account_circle",
-      "photoUrl": "https://picsum.photos/640/480/?image=626"
+
     },
     {
       "created": "2020-09-19T05:49:20.8728387+02:00",
       "icon": "restore",
-      "photoUrl": "https://picsum.photos/640/480/?image=750"
+
     },
     {
       "created": "2020-09-18T15:45:36.3004968+02:00",
       "icon": "input",
-      "photoUrl": "https://picsum.photos/640/480/?image=193"
+
     }
   ],
   "devices": [
     {
       "created": "0001-01-01T00:00:00",
       "name": "Anderson",
-      "photoUrl": "https://picsum.photos/640/480/?image=271",
+
       "icon": "watch_later",
       "addressId": 1,
       "isAutoUpdate": false,
@@ -240,7 +240,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Cristina",
-      "photoUrl": "https://picsum.photos/640/480/?image=481",
+
       "icon": "reorder",
       "addressId": 2,
       "isAutoUpdate": false,
@@ -251,7 +251,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Connie",
-      "photoUrl": "https://picsum.photos/640/480/?image=610",
+
       "icon": "report_problem",
       "addressId": 3,
       "isAutoUpdate": false,
@@ -262,7 +262,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Neva",
-      "photoUrl": "https://picsum.photos/640/480/?image=972",
+
       "icon": "settings_overscan",
       "addressId": 4,
       "isAutoUpdate": false,
@@ -273,7 +273,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Lisandro",
-      "photoUrl": "https://picsum.photos/640/480/?image=374",
+
       "icon": "bookmark_border",
       "addressId": 5,
       "isAutoUpdate": false,
@@ -284,7 +284,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Luis",
-      "photoUrl": "https://picsum.photos/640/480/?image=295",
+
       "icon": "list",
       "addressId": 6,
       "isAutoUpdate": false,
@@ -295,7 +295,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Retta",
-      "photoUrl": "https://picsum.photos/640/480/?image=873",
+
       "icon": "speaker_notes_off",
       "addressId": 7,
       "isAutoUpdate": false,
@@ -306,7 +306,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Raul",
-      "photoUrl": "https://picsum.photos/640/480/?image=3",
+
       "icon": "loyalty",
       "addressId": 8,
       "isAutoUpdate": true,
@@ -317,7 +317,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Thea",
-      "photoUrl": "https://picsum.photos/640/480/?image=253",
+
       "icon": "explore",
       "addressId": 9,
       "isAutoUpdate": false,
@@ -328,7 +328,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Astrid",
-      "photoUrl": "https://picsum.photos/640/480/?image=429",
+
       "icon": "description",
       "addressId": 10,
       "isAutoUpdate": true,
@@ -339,7 +339,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Darrin",
-      "photoUrl": "https://picsum.photos/640/480/?image=367",
+
       "icon": "search",
       "addressId": 11,
       "isAutoUpdate": false,
@@ -350,7 +350,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Agnes",
-      "photoUrl": "https://picsum.photos/640/480/?image=716",
+
       "icon": "commute",
       "addressId": 12,
       "isAutoUpdate": true,
@@ -361,7 +361,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Tina",
-      "photoUrl": "https://picsum.photos/640/480/?image=512",
+
       "icon": "assignment",
       "addressId": 13,
       "isAutoUpdate": true,
@@ -372,7 +372,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Eula",
-      "photoUrl": "https://picsum.photos/640/480/?image=364",
+
       "icon": "done_all",
       "addressId": 14,
       "isAutoUpdate": false,
@@ -383,7 +383,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Jackie",
-      "photoUrl": "https://picsum.photos/640/480/?image=952",
+
       "icon": "3d_rotation",
       "addressId": 15,
       "isAutoUpdate": true,
@@ -394,7 +394,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Eldora",
-      "photoUrl": "https://picsum.photos/640/480/?image=821",
+
       "icon": "dashboard",
       "addressId": 16,
       "isAutoUpdate": true,
@@ -405,7 +405,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Quincy",
-      "photoUrl": "https://picsum.photos/640/480/?image=251",
+
       "icon": "shopping_basket",
       "addressId": 17,
       "isAutoUpdate": true,
@@ -416,7 +416,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Elmo",
-      "photoUrl": "https://picsum.photos/640/480/?image=493",
+
       "icon": "play_for_work",
       "addressId": 18,
       "isAutoUpdate": true,
@@ -427,7 +427,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Vaughn",
-      "photoUrl": "https://picsum.photos/640/480/?image=1012",
+
       "icon": "list",
       "addressId": 19,
       "isAutoUpdate": false,
@@ -438,7 +438,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Elliot",
-      "photoUrl": "https://picsum.photos/640/480/?image=1051",
+
       "icon": "settings_voice",
       "addressId": 20,
       "isAutoUpdate": true,
@@ -449,7 +449,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Irwin",
-      "photoUrl": "https://picsum.photos/640/480/?image=758",
+
       "icon": "date_range",
       "addressId": 21,
       "isAutoUpdate": true,
@@ -460,7 +460,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Chet",
-      "photoUrl": "https://picsum.photos/640/480/?image=502",
+
       "icon": "record_voice_over",
       "addressId": 22,
       "isAutoUpdate": true,
@@ -471,7 +471,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Maude",
-      "photoUrl": "https://picsum.photos/640/480/?image=678",
+
       "icon": "offline_pin",
       "addressId": 23,
       "isAutoUpdate": true,
@@ -482,7 +482,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Zola",
-      "photoUrl": "https://picsum.photos/640/480/?image=1058",
+
       "icon": "pageview",
       "addressId": 24,
       "isAutoUpdate": true,
@@ -493,7 +493,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Izaiah",
-      "photoUrl": "https://picsum.photos/640/480/?image=233",
+
       "icon": "arrow_right_alt",
       "addressId": 25,
       "isAutoUpdate": true,
@@ -504,7 +504,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "River",
-      "photoUrl": "https://picsum.photos/640/480/?image=107",
+
       "icon": "picture_in_picture_alt",
       "addressId": 26,
       "isAutoUpdate": true,
@@ -515,7 +515,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Karine",
-      "photoUrl": "https://picsum.photos/640/480/?image=151",
+
       "icon": "help",
       "addressId": 27,
       "isAutoUpdate": true,
@@ -526,7 +526,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Camilla",
-      "photoUrl": "https://picsum.photos/640/480/?image=900",
+
       "icon": "assignment_returned",
       "addressId": 28,
       "isAutoUpdate": false,
@@ -537,7 +537,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Godfrey",
-      "photoUrl": "https://picsum.photos/640/480/?image=130",
+
       "icon": "camera_enhance",
       "addressId": 29,
       "isAutoUpdate": true,
@@ -548,7 +548,7 @@
     {
       "created": "0001-01-01T00:00:00",
       "name": "Mauricio",
-      "photoUrl": "https://picsum.photos/640/480/?image=870",
+
       "icon": "view_week",
       "addressId": 30,
       "isAutoUpdate": true,

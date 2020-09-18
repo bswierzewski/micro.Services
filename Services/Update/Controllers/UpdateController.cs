@@ -1,8 +1,7 @@
-using Database.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -17,10 +16,12 @@ namespace Update.Controllers
     {
         private readonly ILogger<UpdateController> _logger;
         private readonly IUpdateRepository _repo;
+        private readonly IMapper _mapper;
 
-        public UpdateController(ILogger<UpdateController> logger, IUpdateRepository repo)
+        public UpdateController(ILogger<UpdateController> logger, IUpdateRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
             _logger = logger;
         }
 

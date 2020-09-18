@@ -9,11 +9,11 @@ namespace Device.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RegistrationController : ControllerBase
+    public class RegistrationsController : ControllerBase
     {
-        private readonly ILogger<RegistrationController> _logger;
+        private readonly ILogger<RegistrationsController> _logger;
 
-        public RegistrationController(ILogger<RegistrationController> logger)
+        public RegistrationsController(ILogger<RegistrationsController> logger)
         {
             _logger = logger;
         }

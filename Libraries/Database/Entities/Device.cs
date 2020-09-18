@@ -13,7 +13,6 @@ namespace Database.Entities
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
         public string Name { get; set; }
-        public string PhotoUrl { get; set; }
         public string Icon { get; set; }
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }

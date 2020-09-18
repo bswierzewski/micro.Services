@@ -161,49 +161,49 @@
       "id": 3,
       "created": "2020-09-14T12:26:57.571976+02:00",
       "name": "Akeem",
-      "photoUrl": "https://picsum.photos/640/480/?image=936"
+      
     },
     {
       "id": 4,
       "created": "2020-09-14T17:53:17.1963145+02:00",
       "name": "Dorris",
-      "photoUrl": "https://picsum.photos/640/480/?image=855"
+      
     },
     {
       "id": 5,
       "created": "2020-09-15T05:27:09.7953913+02:00",
       "name": "Laney",
-      "photoUrl": "https://picsum.photos/640/480/?image=223"
+      
     },
     {
       "id": 6,
       "created": "2020-09-15T02:33:17.6330703+02:00",
       "name": "Jadyn",
-      "photoUrl": "https://picsum.photos/640/480/?image=97"
+      
     },
     {
       "id": 7,
       "created": "2020-09-15T05:51:49.8695391+02:00",
       "name": "Daisha",
-      "photoUrl": "https://picsum.photos/640/480/?image=729"
+      
     },
     {
       "id": 8,
       "created": "2020-09-14T13:58:14.5218036+02:00",
       "name": "Carli",
-      "photoUrl": "https://picsum.photos/640/480/?image=787"
+      
     },
     {
       "id": 9,
       "created": "2020-09-14T22:53:19.5636206+02:00",
       "name": "Neoma",
-      "photoUrl": "https://picsum.photos/640/480/?image=436"
+      
     },
     {
       "id": 10,
       "created": "2020-09-14T17:04:23.2459186+02:00",
       "name": "Faye",
-      "photoUrl": "https://picsum.photos/640/480/?image=784"
+      
     }
   ],
   "devices": [
@@ -212,7 +212,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "d2:c4:c5:35:52:f2",
       "name": "Micaela",
-      "photoUrl": "https://picsum.photos/640/480/?image=562",
+      
       "icon": "search",
       "isAutoUpdate": true,
       "kindId": 8,
@@ -224,7 +224,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "87:ca:97:b8:44:d2",
       "name": "Kayley",
-      "photoUrl": "https://picsum.photos/640/480/?image=190",
+      
       "icon": "thumbs_up_down",
       "isAutoUpdate": true,
       "kindId": 10,
@@ -236,7 +236,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "22:ea:7c:94:d7:2c",
       "name": "Mallory",
-      "photoUrl": "https://picsum.photos/640/480/?image=921",
+      
       "icon": "flip_to_front",
       "isAutoUpdate": true,
       "kindId": 10,
@@ -248,7 +248,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "60:75:f3:56:03:58",
       "name": "Christopher",
-      "photoUrl": "https://picsum.photos/640/480/?image=58",
+      
       "icon": "perm_data_setting",
       "isAutoUpdate": true,
       "kindId": 10,
@@ -260,7 +260,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "13:8c:7d:a9:74:ae",
       "name": "Bart",
-      "photoUrl": "https://picsum.photos/640/480/?image=207",
+      
       "icon": "favorite",
       "isAutoUpdate": true,
       "kindId": 6,
@@ -272,7 +272,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "11:7f:ea:6b:b2:9c",
       "name": "Elian",
-      "photoUrl": "https://picsum.photos/640/480/?image=683",
+      
       "icon": "update",
       "isAutoUpdate": true,
       "kindId": 4,
@@ -284,7 +284,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "81:21:be:e5:02:3b",
       "name": "Reva",
-      "photoUrl": "https://picsum.photos/640/480/?image=991",
+      
       "icon": "view_column",
       "isAutoUpdate": false,
       "kindId": 5,
@@ -296,7 +296,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "45:b9:a2:94:d2:ae",
       "name": "Oren",
-      "photoUrl": "https://picsum.photos/640/480/?image=926",
+      
       "icon": "open_with",
       "isAutoUpdate": true,
       "kindId": 7,
@@ -308,7 +308,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "fa:b7:cf:bd:89:e2",
       "name": "Noah",
-      "photoUrl": "https://picsum.photos/640/480/?image=934",
+      
       "icon": "dns",
       "isAutoUpdate": false,
       "kindId": 3,
@@ -320,7 +320,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "df:39:49:80:4d:a8",
       "name": "Betsy",
-      "photoUrl": "https://picsum.photos/640/480/?image=737",
+      
       "icon": "record_voice_over",
       "isAutoUpdate": false,
       "kindId": 4,
@@ -332,7 +332,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "80:ff:27:bc:3d:9f",
       "name": "Ilene",
-      "photoUrl": "https://picsum.photos/640/480/?image=477",
+      
       "icon": "vertical_split",
       "isAutoUpdate": false,
       "kindId": 4,
@@ -344,7 +344,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "96:61:39:ed:d4:4b",
       "name": "Jalen",
-      "photoUrl": "https://picsum.photos/640/480/?image=774",
+      
       "icon": "markunread_mailbox",
       "isAutoUpdate": false,
       "kindId": 10,
@@ -356,7 +356,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "ba:05:9f:3d:c8:06",
       "name": "Lizeth",
-      "photoUrl": "https://picsum.photos/640/480/?image=526",
+      
       "icon": "view_carousel",
       "isAutoUpdate": false,
       "kindId": 4,
@@ -368,7 +368,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "6e:30:d9:46:d8:ed",
       "name": "Serena",
-      "photoUrl": "https://picsum.photos/640/480/?image=610",
+      
       "icon": "flight_takeoff",
       "isAutoUpdate": true,
       "kindId": 7,
@@ -380,7 +380,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "ac:39:ed:b6:4f:6b",
       "name": "Seamus",
-      "photoUrl": "https://picsum.photos/640/480/?image=799",
+      
       "icon": "settings_brightness",
       "isAutoUpdate": false,
       "kindId": 5,
@@ -392,7 +392,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "9f:20:d1:25:50:ad",
       "name": "Ignacio",
-      "photoUrl": "https://picsum.photos/640/480/?image=53",
+      
       "icon": "speaker_notes_off",
       "isAutoUpdate": true,
       "kindId": 3,
@@ -404,7 +404,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "ff:2a:40:ad:ce:e2",
       "name": "Evangeline",
-      "photoUrl": "https://picsum.photos/640/480/?image=930",
+      
       "icon": "today",
       "isAutoUpdate": true,
       "kindId": 9,
@@ -416,7 +416,7 @@
       "created": "0001-01-01T00:00:00",
       "macAddress": "6c:c3:3e:84:f2:1a",
       "name": "Minerva",
-      "photoUrl": "https://picsum.photos/640/480/?image=633",
+      
       "icon": "toll",
       "isAutoUpdate": false,
       "kindId": 7,

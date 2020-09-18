@@ -1,5 +1,7 @@
+using AutoMapper;
 using Database;
 using Device.Data;
+using Device.Data.Address;
 using Device.Data.DeviceInfo;
 using Device.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,8 +40,10 @@ namespace Device
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+            services.AddAutoMapper(typeof(DeviceRepository).Assembly);
             services.AddScoped<IDeviceRepository, DeviceRepository>();
             services.AddScoped<IDeviceInfoRepository, DeviceInfoRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {

@@ -1,12 +1,10 @@
 using Database;
-using Device.Dtos;
 using Device.Params;
 using Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Device.Data
@@ -19,9 +17,24 @@ namespace Device.Data
             _context = context;
         }
 
-        public async Task<bool> ExistsDevice(int addressId)
+        public async Task<int?> AddAddress(string macAddress)
         {
-            return await _context.Devices.AnyAsync(x => x.AddressId == addressId);
+            var address = new Database.Entities.Address()
+            {
+                Created = DateTime.Now,
+                MacAddress = macAddress,
+                IsConfirmed = true,
+            };
+
+            await _context.Addresses.AddAsync(address);
+            await _context.SaveChangesAsync();
+
+            return address.Id;
+        }
+
+        public async Task<int?> GetAddressId(string address)
+        {
+            return await _context.Addresses.Where(x => x.MacAddress == address).Select(x => x.Id).FirstOrDefaultAsync();
         }
 
         public async Task<Database.Entities.Device> GetDevice(int deviceId)

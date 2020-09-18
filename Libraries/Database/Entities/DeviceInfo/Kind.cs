@@ -18,6 +18,5 @@ namespace Database.Entities.DeviceInfo
         public DateTime Created { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
-        public string PhotoUrl { get; set; }
     }
 }
