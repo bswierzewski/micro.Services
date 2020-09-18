@@ -21,9 +21,9 @@ services:
 
   db:
     container_name: db
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: mysecretpassword
+    build:
+      context: .
+      dockerfile: Dockerfile-sqlite
     ports:
       - 5432:5432
 
