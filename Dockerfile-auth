@@ -5,7 +5,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["./Services/Authentication/Authentication.csproj", ""]
+COPY ["./Authentication/Authentication.csproj", ""]
 RUN dotnet restore "./Services/Authentication.csproj"
 COPY . .
 WORKDIR "/src/."

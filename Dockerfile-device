@@ -5,7 +5,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["./Services/Device/Device.csproj", ""]
+COPY ["./Device/Device.csproj", ""]
 RUN dotnet restore "./Services/Device.csproj"
 COPY . .
 WORKDIR "/src/."
