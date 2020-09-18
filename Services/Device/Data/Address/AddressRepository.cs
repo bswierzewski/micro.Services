@@ -9,14 +9,9 @@ using System.Threading.Tasks;
 
 namespace Device.Data.Address
 {
-    public class AddressRepository : IAddressRepository
+    public class AddressRepository : AppRepository, IAddressRepository
     {
-        private readonly DataContext _context;
-
-        public AddressRepository(DataContext context)
-        {
-            _context = context;
-        }
+        public AddressRepository(DataContext context) : base(context) { }
 
         public async Task<Database.Entities.Address> GetAddress(int id)
         {

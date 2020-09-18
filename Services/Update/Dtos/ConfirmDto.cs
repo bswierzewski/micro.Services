@@ -6,9 +6,9 @@ namespace Update.Dtos
     {
         [Required]
 
-        public string MacAddress { get; set; }
+        public string Address { get; set; }
 
         [Required]
-        public int VersionId { get; set; }
+        public int? VersionId { get; set; }
     }
 }

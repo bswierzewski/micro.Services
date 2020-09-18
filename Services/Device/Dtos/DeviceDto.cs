@@ -1,8 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Device.Dtos
 {
-    public class DeviceToAddDto
+    public class DeviceDto
     {
         public int Id { get; set; }
         public string Address { get; set; }

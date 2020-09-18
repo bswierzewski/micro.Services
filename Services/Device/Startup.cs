@@ -3,6 +3,7 @@ using Database;
 using Device.Data;
 using Device.Data.Address;
 using Device.Data.DeviceInfo;
+using Device.Data.Registrations;
 using Device.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,7 @@ namespace Device
             services.AddScoped<IDeviceRepository, DeviceRepository>();
             services.AddScoped<IDeviceInfoRepository, DeviceInfoRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IRegistrationRepository, RegistrationRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {

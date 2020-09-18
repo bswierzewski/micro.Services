@@ -11,18 +11,14 @@ namespace Device.Data
 {
     public class DeviceRepository : AppRepository, IDeviceRepository
     {
-        private readonly DataContext _context;
-        public DeviceRepository(DataContext context) : base(context)
-        {
-            _context = context;
-        }
+        public DeviceRepository(DataContext context) : base(context) { }
 
         public async Task<int?> AddAddress(string macAddress)
         {
             var address = new Database.Entities.Address()
             {
                 Created = DateTime.Now,
-                MacAddress = macAddress,
+                Label = macAddress,
                 IsConfirmed = true,
             };
 
@@ -34,12 +30,7 @@ namespace Device.Data
 
         public async Task<int?> GetAddressId(string address)
         {
-            return await _context.Addresses.Where(x => x.MacAddress == address).Select(x => x.Id).FirstOrDefaultAsync();
-        }
-
-        public async Task<Database.Entities.Device> GetDevice(int deviceId)
-        {
-            return await _context.Devices.FirstOrDefaultAsync(x => x.Id == deviceId);
+            return await _context.Addresses.Where(x => x.Label == address).Select(x => x.Id).FirstOrDefaultAsync();
         }
 
         public async Task<ICollection<Database.Entities.Device>> GetDevices(DeviceParams deviceParams = null)

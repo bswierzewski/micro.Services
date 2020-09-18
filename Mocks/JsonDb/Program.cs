@@ -38,7 +38,7 @@ namespace JsonDb
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign))
-                .RuleFor(x => x.PhotoUrl, f => f.Image.PicsumUrl());
+                .RuleFor(x => x.Name, f => f.Vehicle.Type());
 
             var kinds = kindFaker.Generate(10);
 
@@ -46,7 +46,7 @@ namespace JsonDb
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.IsConfirmed, f => f.Random.Bool())
-                .RuleFor(x => x.MacAddress, f => f.Internet.Mac());
+                .RuleFor(x => x.Label, f => f.Internet.Mac());
 
             var addresses = addressFaker.Generate(50);
 
@@ -57,7 +57,6 @@ namespace JsonDb
             var deviceFaker = new Faker<Device>()
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
-                .RuleFor(x => x.PhotoUrl, f => f.Image.PicsumUrl())
                 .RuleFor(x => x.IsAutoUpdate, f => f.Random.Bool())
                 .RuleFor(x => x.KindId, f => f.PickRandom(kindIds))
                 .RuleFor(x => x.DeviceComponentId, f => f.IndexVariable = f.PickRandom(componentIds))

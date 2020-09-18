@@ -11,13 +11,13 @@ namespace Database.Entities
         public int Id { get; set; }
         public DateTime Created { get; set; }
 
-        [ForeignKey("ScannerAddress")]
-        public int ScannerAddressId { get; set; }
-        public Address ScannerAddress { get; set; }
+        [ForeignKey("MacAddress")]
+        public int MacAddressId { get; set; }
+        public Address MacAddress { get; set; }
 
-        [ForeignKey("TrackerAddress")]
-        public int TrackerAddressId { get; set; }
-        public Address TrackerAddress { get; set; }
+        [ForeignKey("BleAddress")]
+        public int BleAddressId { get; set; }
+        public Address BleAddress { get; set; }
         public int Rssi { get; set; }
 
     }

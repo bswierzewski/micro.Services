@@ -8,13 +8,13 @@ namespace Update.Dtos
         public string Name { get; set; }
 
         [Required]
-        public short Major { get; set; }
+        public short? Major { get; set; }
 
         [Required]
-        public short Minor { get; set; }
+        public short? Minor { get; set; }
 
         [Required]
-        public short Patch { get; set; }
+        public short? Patch { get; set; }
 
         [Required]
         public int? KindId { get; set; }

@@ -24,7 +24,7 @@ namespace Broker.Service
         {
             return _dataContext.Addresses.Select(x => new AddressModel
             {
-                MacAddress = x.MacAddress,
+                MacAddress = x.Label,
                 Id = x.Id,
             }).ToList();
         }
@@ -48,7 +48,7 @@ namespace Broker.Service
             var addressToAdd = values.Where(value => !Addresses.Any(x => x.MacAddress == value)).Select(x => new Address()
             {
                 Created = DateTime.Now,
-                MacAddress = x,
+                Label = x,
                 IsConfirmed = false,
             }).ToList();
 
@@ -75,8 +75,8 @@ namespace Broker.Service
                     {
                         Created = value.Time,
                         Rssi = value.Rssi,
-                        ScannerAddressId = scannerAddressId.Value,
-                        TrackerAddressId = trackerAddressId.Value,
+                        MacAddressId = scannerAddressId.Value,
+                        BleAddressId = trackerAddressId.Value,
                     });
             });
 

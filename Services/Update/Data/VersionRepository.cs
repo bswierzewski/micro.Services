@@ -1,12 +1,9 @@
 ﻿using Database;
 using Database.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Update.Dtos;
 
 namespace Update.Data
 {
@@ -20,12 +17,16 @@ namespace Update.Data
 
         public async Task<bool> AddVersion(Database.Entities.Version version)
         {
-            throw new NotImplementedException();
+            await _context.Versions.AddAsync(version);
+
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UploadFile(FileData fileDatas)
         {
-            throw new NotImplementedException();
+            await _context.FileDatas.AddAsync(fileDatas);
+
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<IEnumerable<Database.Entities.Version>> GetVersions()

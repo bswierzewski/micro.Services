@@ -27,7 +27,7 @@ namespace Device.Controllers
         {
             try
             {
-                var address = await _repo.GetAddress(id);
+                var address = await _repo.Find<Database.Entities.Address>(id);
 
                 return Ok(address);
             }
@@ -47,6 +47,28 @@ namespace Device.Controllers
                 var addresses = await _repo.GetAddresses(addressParams);
 
                 return Ok(addresses);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error!");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAddress(int id)
+        {
+            try
+            {
+                var address = await _repo.Find<Database.Entities.Address>(id);
+
+                if (address == null)
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Address not exists!");
+
+                await _repo.Delete(address);
+
+                return Ok();
             }
             catch (Exception ex)
             {

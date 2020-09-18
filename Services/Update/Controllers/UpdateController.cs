@@ -1,4 +1,5 @@
 using AutoMapper;
+using Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -49,12 +50,17 @@ namespace Update.Controllers
         [HttpPost("confirm")]
         public async Task<IActionResult> ConfirmUpdate(ConfirmDto confirmDto)
         {
-            var device = await _repo.GetDevice(confirmDto.MacAddress);
+            var addressId = await _repo.GetAddressId(confirmDto.Address);
+
+            if (!addressId.HasValueGreaterThan(0))
+                return StatusCode((int)HttpStatusCode.NotFound, "Address not found!");
+
+            var device = await _repo.GetDevice(addressId);
 
             if (device == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Device not found!");
 
-            var version = await _repo.GetVersionById(confirmDto.VersionId);
+            var version = await _repo.GetVersionById(confirmDto.VersionId.Value);
 
             if (version == null)
                 return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");

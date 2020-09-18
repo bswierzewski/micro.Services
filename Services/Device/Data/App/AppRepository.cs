@@ -5,7 +5,7 @@ namespace Device.Data
 {
     public class AppRepository : IAppRepository
     {
-        private readonly DataContext _context;
+        protected readonly DataContext _context;
 
         public AppRepository(DataContext context)
         {

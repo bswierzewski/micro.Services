@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Device.Data.Registrations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,22 +13,20 @@ namespace Device.Controllers
     public class RegistrationsController : ControllerBase
     {
         private readonly ILogger<RegistrationsController> _logger;
+        private readonly IRegistrationRepository _repo;
 
-        public RegistrationsController(ILogger<RegistrationsController> logger)
+        public RegistrationsController(ILogger<RegistrationsController> logger, IRegistrationRepository repo)
         {
             _logger = logger;
+            _repo = repo;
         }
 
-        [HttpGet("")]
-        public IActionResult GetRegistrations()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRegistrations(int id)
         {
-            return Ok("");
-        }
+            var registrations = await _repo.GetRegistrations(id);
 
-        [HttpGet("{macaddress}")]
-        public IActionResult GetDeviceRegistration(string macaddress)
-        {
-            return Ok($"{macaddress}");
+            return Ok(registrations);
         }
     }
 }

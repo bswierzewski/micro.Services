@@ -73,9 +73,9 @@ namespace Update.Controllers
                     var newVersion = new Database.Entities.Version
                     {
                         Created = DateTime.Now,
-                        Major = uploadDto.Major,
-                        Minor = uploadDto.Minor,
-                        Patch = uploadDto.Patch,
+                        Major = uploadDto.Major.Value,
+                        Minor = uploadDto.Minor.Value,
+                        Patch = uploadDto.Patch.Value,
                         Name = uploadDto.Name ?? fileData.Name,
                         FileDataId = fileData.Id,
                         DeviceComponentId = uploadDto.DeviceComponentId,

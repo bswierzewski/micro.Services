@@ -2,6 +2,7 @@ using AutoMapper;
 using Device.Data;
 using Device.Dtos;
 using Device.Params;
+using Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -32,7 +33,7 @@ namespace Device.Controllers
         {
             try
             {
-                var device = await _repo.GetDevice(id);
+                var device = await _repo.Find<Database.Entities.Device>(id);
 
                 return Ok(device);
             }
@@ -64,26 +65,31 @@ namespace Device.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddDevice(DeviceToAddDto deviceToAddDto)
+        public async Task<IActionResult> AddDevice(DeviceDto deviceDto)
         {
             try
             {
-                var addressId = await _repo.GetAddressId(deviceToAddDto.Address);
+                if (string.IsNullOrEmpty(deviceDto.Address))
+                    return StatusCode((int)HttpStatusCode.BadRequest, "The Address field is required.");
 
-                if (!addressId.HasValue)
-                    addressId = await _repo.AddAddress(deviceToAddDto.Address);
+                var addressId = await _repo.GetAddressId(deviceDto.Address);
+
+                if (addressId.HasValueGreaterThan(0))
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Device exists!");
+                else
+                    addressId = await _repo.AddAddress(deviceDto.Address);
 
                 var newDevice = new Database.Entities.Device()
                 {
-                    Name = deviceToAddDto.Name,
+                    Name = deviceDto.Name,
                     AddressId = addressId.Value,
                     Created = DateTime.Now,
-                    KindId = deviceToAddDto.KindId,
-                    DeviceComponentId = deviceToAddDto.DeviceComponentId,
-                    CategoryId = deviceToAddDto.CategoryId,
-                    Icon = deviceToAddDto.Icon,
-                    IsAutoUpdate = deviceToAddDto.IsAutoUpdate,
-                    SpecificVersionId = deviceToAddDto.SpecificVersionId,
+                    KindId = deviceDto.KindId,
+                    DeviceComponentId = deviceDto.DeviceComponentId,
+                    CategoryId = deviceDto.CategoryId,
+                    Icon = deviceDto.Icon,
+                    IsAutoUpdate = deviceDto.IsAutoUpdate,
+                    SpecificVersionId = deviceDto.SpecificVersionId,
                 };
 
                 await _repo.Add(newDevice);
@@ -99,41 +105,63 @@ namespace Device.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateDeviceKind(DeviceToAddDto deviceToAddDto)
+        public async Task<IActionResult> UpdateDeviceKind(DeviceDto deviceDto)
         {
             try
             {
-                var device = await _repo.GetDevice(deviceToAddDto.Id);
+                var device = await _repo.Find<Database.Entities.Device>(deviceDto.Id);
 
                 if (device == null)
                     return StatusCode((int)HttpStatusCode.BadRequest, "Device not exists!");
 
-                if (!string.IsNullOrEmpty(deviceToAddDto.Name))
-                    device.Name = deviceToAddDto.Name;
+                if (!string.IsNullOrEmpty(deviceDto.Name))
+                    device.Name = deviceDto.Name;
 
-                if (!string.IsNullOrEmpty(deviceToAddDto.Icon))
-                    device.Icon = deviceToAddDto.Icon;
+                if (!string.IsNullOrEmpty(deviceDto.Icon))
+                    device.Icon = deviceDto.Icon;
 
-                if (deviceToAddDto.SpecificVersionId.HasValue)
-                    device.SpecificVersionId = deviceToAddDto.SpecificVersionId;
+                if (deviceDto.SpecificVersionId.HasValue)
+                    device.SpecificVersionId = deviceDto.SpecificVersionId;
 
-                if (deviceToAddDto.KindId.HasValue)
-                    device.KindId = deviceToAddDto.KindId;
+                if (deviceDto.KindId.HasValue)
+                    device.KindId = deviceDto.KindId;
 
-                if (deviceToAddDto.DeviceComponentId.HasValue)
-                    device.DeviceComponentId = deviceToAddDto.DeviceComponentId;
+                if (deviceDto.DeviceComponentId.HasValue)
+                    device.DeviceComponentId = deviceDto.DeviceComponentId;
 
-                if (deviceToAddDto.CategoryId.HasValue)
-                    device.DeviceComponentId = deviceToAddDto.CategoryId;
+                if (deviceDto.CategoryId.HasValue)
+                    device.DeviceComponentId = deviceDto.CategoryId;
 
-                if (deviceToAddDto.IsAutoUpdate.HasValue)
-                    device.IsAutoUpdate = deviceToAddDto.IsAutoUpdate;
+                if (deviceDto.IsAutoUpdate.HasValue)
+                    device.IsAutoUpdate = deviceDto.IsAutoUpdate;
 
                 device.Modified = DateTime.Now;
 
                 await _repo.SaveAllChanges();
 
                 return Ok(device);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error!");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDevice(int id)
+        {
+            try
+            {
+                var device = await _repo.Find<Database.Entities.Device>(id);
+
+                if (device == null)
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Device not exists!");
+
+                await _repo.Delete(device);
+
+                return Ok();
             }
             catch (Exception ex)
             {
