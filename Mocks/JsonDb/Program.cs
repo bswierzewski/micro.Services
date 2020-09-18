@@ -1,14 +1,14 @@
 ﻿using Bogus;
 using Database.Entities;
 using Database.Entities.DeviceInfo;
-using JsonDbMock.StaticData;
+using JsonDb.StaticData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
 using System.Linq;
 
-namespace JsonDbMock
+namespace JsonDb
 {
     class Program
     {

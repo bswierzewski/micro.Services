@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DeviceMock
+namespace Scanner
 {
     class Program
     {

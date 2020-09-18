@@ -7,10 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="30.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\..\Libraries\Database\Database.csproj" />
   </ItemGroup>
 
 </Project>

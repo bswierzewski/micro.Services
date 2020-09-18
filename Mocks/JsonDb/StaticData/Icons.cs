@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace JsonDbMock.StaticData
+﻿namespace JsonDb.StaticData
 {
     public static class Icons
     {

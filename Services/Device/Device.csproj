@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj" />
-    <ProjectReference Include="..\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\..\Libraries\Database\Database.csproj" />
+    <ProjectReference Include="..\..\Libraries\Extensions\Extensions.csproj" />
   </ItemGroup>
 </Project>

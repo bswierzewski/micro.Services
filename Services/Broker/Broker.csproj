@@ -10,7 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\..\Libraries\Database\Database.csproj" />
+    <ProjectReference Include="..\..\Libraries\Extensions\Extensions.csproj" />
   </ItemGroup>
   
 </Project>
