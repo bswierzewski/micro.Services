@@ -21,7 +21,7 @@ services:
 
   db:
     container_name: db
-    image: postgres:9.6.19-alpine
+    image: postgres:alpine
     environment:
       POSTGRES_PASSWORD: mysecretpassword
     ports:

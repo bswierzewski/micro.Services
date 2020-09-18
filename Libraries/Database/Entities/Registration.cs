@@ -10,8 +10,14 @@ namespace Database.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public DateTime Created { get; set; }
-        public string Name { get; set; }
-        public string MacAddress { get; set; }
+
+        [ForeignKey("ScannerAddress")]
+        public int ScannerAddressId { get; set; }
+        public Address ScannerAddress { get; set; }
+
+        [ForeignKey("TrackerAddress")]
+        public int TrackerAddressId { get; set; }
+        public Address TrackerAddress { get; set; }
         public int Rssi { get; set; }
 
     }

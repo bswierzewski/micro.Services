@@ -2,12 +2,8 @@ using Device.Data;
 using Device.Dtos;
 using Device.Params;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -45,7 +41,7 @@ namespace Device.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDevices([FromQuery]DeviceParams deviceParams)
+        public async Task<IActionResult> GetDevices([FromQuery] DeviceParams deviceParams)
         {
             try
             {
@@ -66,12 +62,12 @@ namespace Device.Controllers
         {
             try
             {
-                if (await _repo.ExistsDevice(deviceDto.MacAddress))
+                if (await _repo.ExistsDevice(deviceDto.AddressId))
                     return StatusCode((int)HttpStatusCode.BadRequest, "Device exists!");
 
                 var newDevice = new Database.Entities.Device()
                 {
-                    MacAddress = deviceDto.MacAddress,
+                    AddressId = deviceDto.AddressId,
                     Name = deviceDto.Name,
                     Created = DateTime.Now,
                     KindId = deviceDto.KindId,

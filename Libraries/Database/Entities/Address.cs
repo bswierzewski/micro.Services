@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Database.Entities
 {
-    public class TempDevice
+    public class Address
     {
-        public short TypeId { get; set; } = (short)Enums.TempDeviceType.undefined;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

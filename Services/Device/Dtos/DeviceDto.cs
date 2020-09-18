@@ -7,11 +7,12 @@ namespace Device.Dtos
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
-        public string MacAddress { get; set; }
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
         public string IconName { get; set; }
 
+
+        public int AddressId { get; set; }
         public bool? IsAutoUpdate { get; set; }
         public int? CategoryId { get; set; }
         public string Category { get; set; }

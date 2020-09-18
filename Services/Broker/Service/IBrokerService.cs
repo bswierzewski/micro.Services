@@ -1,12 +1,13 @@
 ﻿using Broker.Model;
 using StackExchange.Redis;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Broker.Service
 {
     public interface IBrokerService
     {
-        void SaveValues(List<RedisValueModel> jsonValues);
-        void AddToTempDevices(List<RedisValueModel> jsonValues);
+        Task<bool> SaveValues(List<RedisValueModel> jsonValues);
+        Task<bool> AddAddresses(List<RedisValueModel> jsonValues);
     }
 }

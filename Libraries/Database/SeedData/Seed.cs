@@ -66,6 +66,17 @@ namespace Database
                 context.SaveChanges();
             }
 
+            if (!context.Addresses.Any())
+            {
+                var addresses = DeserializeJsonObject<Address>(jsonObject, "addresses");
+                addresses.ForEach(address =>
+                {
+                    context.Addresses.Add(address);
+                });
+
+                context.SaveChanges();
+            }
+
             if (!context.FileDatas.Any())
             {
                 var fileDatas = DeserializeJsonObject<FileData>(jsonObject, "filesData");
@@ -79,7 +90,7 @@ namespace Database
 
             if (!context.Versions.Any())
             {
-                var versions = DeserializeJsonObject<Entities.Version>(jsonObject, "versions");
+                var versions = DeserializeJsonObject<Version>(jsonObject, "versions");
                 versions.ForEach(version =>
                 {
                     context.Versions.Add(version);

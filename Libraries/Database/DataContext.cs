@@ -21,12 +21,9 @@ namespace Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Device>()
-                .HasIndex(x => x.MacAddress)
-                .IsUnique();
         }
 
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<Kind> Kinds { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -35,6 +32,5 @@ namespace Database
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Version> Versions { get; set; }
-        public DbSet<TempDevice> TempDevices { get; set; }
     }
 }

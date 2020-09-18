@@ -19,9 +19,9 @@ namespace Device.Data
             _context = context;
         }
 
-        public async Task<bool> ExistsDevice(string macAddress)
+        public async Task<bool> ExistsDevice(int addressId)
         {
-            return await _context.Devices.AnyAsync(x => x.MacAddress == macAddress);
+            return await _context.Devices.AnyAsync(x => x.AddressId == addressId);
         }
 
         public async Task<Database.Entities.Device> GetDevice(int deviceId)

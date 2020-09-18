@@ -12,6 +12,6 @@ namespace Device.Data
     {
         Task<ICollection<Database.Entities.Device>> GetDevices(DeviceParams deviceParams = null);
         Task<Database.Entities.Device> GetDevice(int deviceId);
-        Task<bool> ExistsDevice(string macAddress);
+        Task<bool> ExistsDevice(int addressId);
     }
 }
