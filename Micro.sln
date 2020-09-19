@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scanner", "Mocks\Scanner\Sc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JsonApi", "JsonApi", "{83CB24BF-C3E0-4D43-98B8-499171CE5CCB}"
 	ProjectSection(SolutionItems) = preProject
-		Mocks\JsonApi\db.json = Mocks\JsonApi\db.json
+		..\..\db.json = ..\..\db.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication", "Services\Authentication\Authentication.csproj", "{AA94C7C1-8419-4FAC-96DE-74942474DDA8}"

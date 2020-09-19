@@ -14,7 +14,7 @@ namespace Device.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class DevicesController : ControllerBase
     {
         private readonly ILogger<DevicesController> _logger;
@@ -28,14 +28,16 @@ namespace Device.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("devices/{id}")]
         public async Task<IActionResult> GetDevice(int id)
         {
             try
             {
-                var device = await _repo.Find<Database.Entities.Device>(id);
+                var device = await _repo.GetDevice(id);
 
-                return Ok(device);
+                var deviceToReturn = _mapper.Map<DeviceForDetailDto>(device);
+
+                return Ok(deviceToReturn);
             }
             catch (Exception ex)
             {
@@ -45,7 +47,7 @@ namespace Device.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("devices")]
         public async Task<IActionResult> GetDevices([FromQuery] DeviceParams deviceParams)
         {
             try
@@ -64,7 +66,7 @@ namespace Device.Controllers
             }
         }
 
-        [HttpPost("add")]
+        [HttpPost("devices/add")]
         public async Task<IActionResult> AddDevice(DeviceDto deviceDto)
         {
             try
@@ -89,7 +91,6 @@ namespace Device.Controllers
                     CategoryId = deviceDto.CategoryId,
                     Icon = deviceDto.Icon,
                     IsAutoUpdate = deviceDto.IsAutoUpdate,
-                    SpecificVersionId = deviceDto.SpecificVersionId,
                 };
 
                 await _repo.Add(newDevice);
@@ -104,7 +105,7 @@ namespace Device.Controllers
             }
         }
 
-        [HttpPost("update")]
+        [HttpPost("devices/update")]
         public async Task<IActionResult> UpdateDeviceKind(DeviceDto deviceDto)
         {
             try
@@ -119,9 +120,6 @@ namespace Device.Controllers
 
                 if (!string.IsNullOrEmpty(deviceDto.Icon))
                     device.Icon = deviceDto.Icon;
-
-                if (deviceDto.SpecificVersionId.HasValue)
-                    device.SpecificVersionId = deviceDto.SpecificVersionId;
 
                 if (deviceDto.KindId.HasValue)
                     device.KindId = deviceDto.KindId;
@@ -149,7 +147,7 @@ namespace Device.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("devices/{id}")]
         public async Task<IActionResult> DeleteDevice(int id)
         {
             try

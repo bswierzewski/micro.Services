@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200918151433_Initial")]
-    partial class Initial
+    [Migration("20200919173733_InitialMigrations")]
+    partial class InitialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,9 +37,6 @@ namespace Database.Migrations
                     b.Property<string>("Label")
                         .HasColumnType("text");
 
-                    b.Property<short>("TypeId")
-                        .HasColumnType("smallint");
-
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
@@ -51,9 +48,6 @@ namespace Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("ActuallVersionId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("AddressId")
                         .HasColumnType("integer");
@@ -82,7 +76,7 @@ namespace Database.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("SpecificVersionId")
+                    b.Property<int?>("VersionId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -94,6 +88,8 @@ namespace Database.Migrations
                     b.HasIndex("DeviceComponentId");
 
                     b.HasIndex("KindId");
+
+                    b.HasIndex("VersionId");
 
                     b.ToTable("Devices");
                 });
@@ -309,6 +305,10 @@ namespace Database.Migrations
                     b.HasOne("Database.Entities.DeviceInfo.Kind", "Kind")
                         .WithMany()
                         .HasForeignKey("KindId");
+
+                    b.HasOne("Database.Entities.Version", "Version")
+                        .WithMany()
+                        .HasForeignKey("VersionId");
                 });
 
             modelBuilder.Entity("Database.Entities.DeviceInfo.DeviceComponent", b =>

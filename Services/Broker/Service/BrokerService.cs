@@ -1,89 +1,73 @@
 ﻿using Broker.Model;
 using Database;
-using Database.Entities;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Broker.Service
 {
     public class BrokerService : IBrokerService
     {
         private DataContext _dataContext;
-        public List<AddressModel> Addresses { get; set; }
         public BrokerService()
         {
             _dataContext = new DataContext();
-
-            Addresses = GetAddress();
         }
 
-        private List<AddressModel> GetAddress()
+        public void SaveAddresses(HashSet<string> addresses)
         {
-            return _dataContext.Addresses.Select(x => new AddressModel
+            var databaseAddresses = _dataContext.Addresses.Select(x => x.Label).ToHashSet();
+
+            addresses.ExceptWith(databaseAddresses);
+
+            var addressesToSave = new List<Database.Entities.Address>();
+
+            addresses.ToList().ForEach(address =>
             {
-                MacAddress = x.Label,
-                Id = x.Id,
-            }).ToList();
-        }
+                addressesToSave.Add(new Database.Entities.Address()
+                {
+                    Created = DateTime.Now,
+                    IsConfirmed = false,
+                    Label = address,
+                });
+            });
 
-        private void RefreshAddress()
-        {
-            if (Addresses.Count != _dataContext.Addresses.Count())
-                Addresses = GetAddress();
-        }
-
-        public async Task<bool> AddAddresses(List<RedisValueModel> jsonValues)
-        {
-            RefreshAddress();
-
-            var scanners = jsonValues.Select(x => x.Name).Distinct().ToArray();
-
-            var trackers = jsonValues.Select(x => x.MacAddress).Distinct().ToArray();
-
-            var values = scanners.Concat(trackers).Distinct().ToList();
-
-            var addressToAdd = values.Where(value => !Addresses.Any(x => x.MacAddress == value)).Select(x => new Address()
+            if (addressesToSave.Any())
             {
-                Created = DateTime.Now,
-                Label = x,
-                IsConfirmed = false,
-            }).ToList();
+                _dataContext.AddRange(addressesToSave);
 
-            if (addressToAdd.Any())
-                await _dataContext.Addresses.AddRangeAsync(addressToAdd);
-
-            return await _dataContext.SaveChangesAsync() > 0;
+                _dataContext.SaveChanges();
+            }
         }
 
-        public async Task<bool> SaveValues(List<RedisValueModel> jsonValues)
+        public void SaveValues(List<ValueModel> jsonValues)
         {
-            RefreshAddress();
+            var addresses = _dataContext.Addresses.ToList();
 
-            var registrations = new List<Registration>();
+            var registrations = new List<Database.Entities.Registration>();
 
-            jsonValues.ForEach(value =>
+            jsonValues.ForEach(json =>
             {
-                var scannerAddressId = Addresses.FirstOrDefault(x => x.MacAddress == value.Name)?.Id;
+                var macAddressId = addresses.FirstOrDefault(x => x.Label == json.MacAddress)?.Id;
 
-                var trackerAddressId = Addresses.FirstOrDefault(x => x.MacAddress == value.MacAddress)?.Id;
+                var bleAddressId = addresses.FirstOrDefault(x => x.Label == json.BleAddress)?.Id;
 
-                if (scannerAddressId.HasValue && trackerAddressId.HasValue)
-                    registrations.Add(new Registration
+                if (macAddressId.HasValue && bleAddressId.HasValue)
+                    registrations.Add(new Database.Entities.Registration()
                     {
-                        Created = value.Time,
-                        Rssi = value.Rssi,
-                        MacAddressId = scannerAddressId.Value,
-                        BleAddressId = trackerAddressId.Value,
+                        Created = json.Time,
+                        BleAddressId = bleAddressId.Value,
+                        MacAddressId = macAddressId.Value,
+                        Rssi = json.Rssi
                     });
             });
 
             if (registrations.Any())
-                await _dataContext.Registrations.AddRangeAsync(registrations);
+            {
+                _dataContext.Registrations.AddRange(registrations);
 
-            return await _dataContext.SaveChangesAsync() > 0;
+                _dataContext.SaveChanges();
+            }
         }
     }
 }

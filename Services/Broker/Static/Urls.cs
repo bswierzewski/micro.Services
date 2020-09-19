@@ -2,6 +2,6 @@
 {
     public static class Urls
     {
-        public const string ConnectionRedis = "localhost"; // micro.io
+        public const string ConnectionRedis = "redis";
     }
 }

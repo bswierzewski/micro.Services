@@ -6,7 +6,6 @@ namespace Database.Entities
 {
     public class Address
     {
-        public short TypeId { get; set; } = (short)Enums.AddressType.undefined;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

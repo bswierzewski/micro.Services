@@ -13,7 +13,9 @@ namespace Device.Data.Registrations
 
         public async Task<ICollection<Database.Entities.Registration>> GetRegistrations(int macAddressId)
         {
-            return await _context.Registrations.Where(x => x.MacAddressId == macAddressId).ToListAsync();
+            return await _context.Registrations
+                .Include(x => x.BleAddress)
+                .Include(x => x.MacAddress).ToListAsync();
         }
     }
 }

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Database.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,6 @@ namespace Database.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TypeId = table.Column<short>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Label = table.Column<string>(nullable: true),
                     IsConfirmed = table.Column<bool>(nullable: false)
@@ -139,53 +138,6 @@ namespace Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Devices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Modified = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Icon = table.Column<string>(nullable: true),
-                    AddressId = table.Column<int>(nullable: false),
-                    IsAutoUpdate = table.Column<bool>(nullable: true),
-                    KindId = table.Column<int>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true),
-                    DeviceComponentId = table.Column<int>(nullable: true),
-                    ActuallVersionId = table.Column<int>(nullable: true),
-                    SpecificVersionId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Devices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Devices_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Devices_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Devices_DeviceComponents_DeviceComponentId",
-                        column: x => x.DeviceComponentId,
-                        principalTable: "DeviceComponents",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Devices_Kinds_KindId",
-                        column: x => x.KindId,
-                        principalTable: "Kinds",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Versions",
                 columns: table => new
                 {
@@ -223,6 +175,58 @@ namespace Database.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Devices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Icon = table.Column<string>(nullable: true),
+                    AddressId = table.Column<int>(nullable: false),
+                    IsAutoUpdate = table.Column<bool>(nullable: true),
+                    KindId = table.Column<int>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true),
+                    DeviceComponentId = table.Column<int>(nullable: true),
+                    VersionId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Devices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Devices_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Devices_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Devices_DeviceComponents_DeviceComponentId",
+                        column: x => x.DeviceComponentId,
+                        principalTable: "DeviceComponents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Devices_Kinds_KindId",
+                        column: x => x.KindId,
+                        principalTable: "Kinds",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Devices_Versions_VersionId",
+                        column: x => x.VersionId,
+                        principalTable: "Versions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DeviceComponents_CategoryId",
                 table: "DeviceComponents",
@@ -247,6 +251,11 @@ namespace Database.Migrations
                 name: "IX_Devices_KindId",
                 table: "Devices",
                 column: "KindId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devices_VersionId",
+                table: "Devices",
+                column: "VersionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Registrations_BleAddressId",

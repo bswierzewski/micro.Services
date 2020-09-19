@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Device.Dtos
 {
@@ -7,7 +8,7 @@ namespace Device.Dtos
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime Created { get; set; }
-        public DeviceComponentDto[] DeviceComponents { get; set; }
+        public IEnumerable<int> DeviceComponentIds { get; set; }
 
     }
 }

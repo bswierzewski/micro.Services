@@ -13,7 +13,7 @@ using Update.Dtos;
 namespace Update.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class VersionsController : ControllerBase
     {
         private readonly ILogger<VersionsController> _logger;
@@ -27,7 +27,7 @@ namespace Update.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("versions/{id}")]
         public async Task<IActionResult> GetVersion(int id)
         {
             var version = await _repo.GetVersion(id);
@@ -35,7 +35,7 @@ namespace Update.Controllers
             return Ok(version);
         }
 
-        [HttpGet]
+        [HttpGet("versions")]
         public async Task<IActionResult> GetVersions()
         {
             var versions = await _repo.GetVersions();
@@ -45,7 +45,7 @@ namespace Update.Controllers
             return Ok(versionsToReturn);
         }
 
-        [HttpPost("upload")]
+        [HttpPost("versions")]
         public async Task<IActionResult> UploadNewVersion([FromForm] UploadDto uploadDto)
         {
             if (uploadDto.File.Length > 0)

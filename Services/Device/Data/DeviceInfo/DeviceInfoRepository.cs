@@ -14,15 +14,11 @@ namespace Device.Data.DeviceInfo
 {
     public class DeviceInfoRepository : AppRepository, IDeviceInfoRepository
     {
-        private readonly DataContext _context;
-        public DeviceInfoRepository(DataContext context) : base(context)
-        {
-            _context = context;
-        }
+        public DeviceInfoRepository(DataContext context) : base(context) { }
 
         public async Task<IEnumerable<Category>> GetCategories(int? categoryId = null)
         {
-            Expression<Func<Database.Entities.DeviceInfo.Category, bool>> @where = n => true;
+            Expression<Func<Category, bool>> @where = n => true;
 
             if (categoryId != null)
                 @where = n => n.Id == categoryId;
@@ -50,7 +46,7 @@ namespace Device.Data.DeviceInfo
 
         public async Task<IEnumerable<Kind>> GetKinds(int? kindId = null)
         {
-            Expression<Func<Database.Entities.DeviceInfo.Kind, bool>> @where = n => true;
+            Expression<Func<Kind, bool>> @where = n => true;
 
             if (kindId != null)
                 @where = n => n.Id == kindId;

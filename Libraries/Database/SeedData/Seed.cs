@@ -20,6 +20,7 @@ namespace Database
                 var users = DeserializeJsonObject<User>(jsonObject, "users");
                 users.ForEach(user =>
                 {
+                    user.Id = 0;
                     byte[] passwordHash, passwordSalt;
                     CreatePasswordHash("password", out passwordHash, out passwordSalt);
 
@@ -38,6 +39,7 @@ namespace Database
                 var kinds = DeserializeJsonObject<Kind>(jsonObject, "kinds");
                 kinds.ForEach(kind =>
                 {
+                    kind.Id = 0;
                     context.Kinds.Add(kind);
                 });
 
@@ -49,6 +51,7 @@ namespace Database
                 var categories = DeserializeJsonObject<Category>(jsonObject, "categories");
                 categories.ForEach(category =>
                 {
+                    category.Id = 0;
                     context.Categories.Add(category);
                 });
 
@@ -60,6 +63,7 @@ namespace Database
                 var components = DeserializeJsonObject<DeviceComponent>(jsonObject, "components");
                 components.ForEach(component =>
                 {
+                    component.Id = 0;
                     context.DeviceComponents.Add(component);
                 });
 
@@ -71,6 +75,7 @@ namespace Database
                 var addresses = DeserializeJsonObject<Address>(jsonObject, "addresses");
                 addresses.ForEach(address =>
                 {
+                    address.Id = 0;
                     context.Addresses.Add(address);
                 });
 
@@ -82,6 +87,7 @@ namespace Database
                 var fileDatas = DeserializeJsonObject<FileData>(jsonObject, "filesData");
                 fileDatas.ForEach(fileData =>
                 {
+                    fileData.Id = 0;
                     context.FileDatas.Add(fileData);
                 });
 
@@ -93,6 +99,7 @@ namespace Database
                 var versions = DeserializeJsonObject<Version>(jsonObject, "versions");
                 versions.ForEach(version =>
                 {
+                    version.Id = 0;
                     context.Versions.Add(version);
                 });
 
@@ -104,6 +111,7 @@ namespace Database
                 var devices = DeserializeJsonObject<Device>(jsonObject, "devices");
                 devices.ForEach(device =>
                 {
+                    device.Id = 0;
                     context.Devices.Add(device);
                 });
 

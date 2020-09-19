@@ -13,8 +13,8 @@ namespace Scanner
         {
             var fakerScan = new Faker<RedisValueModel>()
                 .RuleFor(x => x.time, f => DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
-                .RuleFor(x => x.scanner, f => f.PickRandom(ScannerAddress))
-                .RuleFor(x => x.tracker, f => f.PickRandom(TrackerAddress))
+                .RuleFor(x => x.macAddress, f => f.PickRandom(MacAddress))
+                .RuleFor(x => x.bleAddress, f => f.PickRandom(BleAddress))
                 .RuleFor(x => x.rssi, f => f.Random.Int(-100, -50));
 
             ConnectionMultiplexer redisConn = ConnectionMultiplexer.Connect(Urls.ConnectionRedis);
@@ -29,7 +29,7 @@ namespace Scanner
 
                 Console.WriteLine(json);
 
-                db.Publish(redisValue.scanner, json);
+                db.Publish(redisValue.macAddress, json);
 
                 db.ListRightPushAsync("micro", json);
 
@@ -37,7 +37,7 @@ namespace Scanner
             }
         }
 
-        static string[] ScannerAddress =
+        static string[] MacAddress =
         {
             "52:eb:6c:61:42:fb","d5:a5:c3:41:12:54","6f:6d:71:e8:14:f6","ac:3d:47:b5:63:31","1c:63:89:a4:ac:d4","e9:91:9a:a2:be:dd",
             "a4:d5:90:cc:f6:c5","95:d2:42:9b:50:dc","d1:9e:c2:65:da:40","48:9d:87:3b:44:df","71:30:f9:ee:57:81","b9:cc:af:93:44:3f",
@@ -45,7 +45,7 @@ namespace Scanner
             "f9:c6:7e:f7:4b:c3","cd:c4:5e:eb:dd:d2",
         };
 
-        static string[] TrackerAddress =
+        static string[] BleAddress =
         {
             "e1:17:26:67:e3:ea","3e:2b:66:a5:18:0b","9c:90:6c:d3:c5:77","2d:54:44:73:ae:fd","91:ab:90:83:d4:3a","e1:54:6d:61:b8:08",
             "e3:ec:15:a3:fa:53","92:b8:bd:1e:00:1e","5b:e8:7b:2a:f7:dd","a2:6e:68:28:d5:38","5a:ba:57:2c:c3:c3","9e:3b:d7:63:f0:d9",

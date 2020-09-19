@@ -14,13 +14,17 @@ namespace Database
 
             optionsBuilder.UseNpgsql("Username=postgres;" +
                                      "Password=mysecretpassword;" +
-                                     "Server=localhost;" +
+                                     "Server=db;" +
                                      "Database=micro");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Address>()
+                .HasIndex(x => x.Label)
+                .IsUnique();
         }
 
         public DbSet<Address> Addresses { get; set; }

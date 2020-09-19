@@ -10,7 +10,7 @@ namespace Device.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class AddressesController : ControllerBase
     {
         private readonly ILogger<AddressesController> _logger;
@@ -22,7 +22,7 @@ namespace Device.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("addresses/{id}")]
         public async Task<IActionResult> GetAddress(int id)
         {
             try
@@ -39,7 +39,7 @@ namespace Device.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("addresses")]
         public async Task<IActionResult> GetAddresses([FromQuery] AddressParams addressParams)
         {
             try

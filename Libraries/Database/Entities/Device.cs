@@ -24,8 +24,8 @@ namespace Database.Entities
         public virtual Category Category { get; set; }
         public int? DeviceComponentId { get; set; }
         public virtual DeviceComponent DeviceComponent { get; set; }
-        public int? ActuallVersionId { get; set; }
-        public int? SpecificVersionId { get; set; }
+        public int? VersionId { get; set; }
+        public virtual Version Version { get; set; }
 
     }
 }

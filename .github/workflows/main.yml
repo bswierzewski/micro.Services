@@ -1,53 +1,57 @@
-name: Docker Build/Publish Image 
-on: 
-  push:    
-    branches: [ master ]  
-jobs:   
+name: Docker Build/Publish Image
+on:
+  push:
+    branches: [master]
+jobs:
   build-update:
-    if: contains(github.event.head_commit.message, '$') 
-    runs-on: ubuntu-18.04    
+    if: contains(github.event.head_commit.message, '$')
+    runs-on: ubuntu-18.04
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
-      DOCKER_TARGET_PLATFORM: linux/arm/v7                 
-    steps:    
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DOCKER_TARGET_PLATFORM: linux/arm/v7
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v1
 
-    - name: Checkout the code       
-      uses: actions/checkout@v1   
+      - name: Set up Docker Buildx
+        uses: crazy-max/ghaction-docker-buildx@v3.1.0
+        with:
+          version: latest
 
-    - name: Set up Docker Buildx      
-      uses: crazy-max/ghaction-docker-buildx@v3.1.0      
-      with:        
-        version: latest    
+      - name: Prepare
+        if: success()
+        id: prepare
+        run: |
+          echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}
 
-    - name: Prepare      
-      if: success()      
-      id: prepare      
-      run: |        
-        echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}        
+      - name: Docker Login
+        id: docker
+        if: success()
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
 
-    - name: Docker Login
-      id: docker      
-      if: success()      
-      run: |        
-        echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin   
+      - name: Run Buildx - Authentication (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$auth'))
+        run: |
+          docker buildx build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .
 
-    - name: Run Buildx - Authentication (push image)    
-      if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$auth'))
-      run: |        
-        docker buildx build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .     
+      - name: Run Buildx - Device (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$device'))
+        run: |
+          docker buildx build --file ./Dockerfile-device --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_device:latest --output "type=image,push=true" .
 
-    - name: Run Buildx - Device (push image)              
-      if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$device'))
-      run: |        
-        docker buildx build --file ./Dockerfile-device --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_device:latest --output "type=image,push=true" .
+      - name: Run Buildx - Update (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$update'))
+        run: |
+          docker buildx build --file ./Dockerfile-update --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_update:latest --output "type=image,push=true" .
 
-    - name: Run Buildx - Update (push image)              
-      if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$update'))
-      run: |        
-        docker buildx build --file ./Dockerfile-update --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_update:latest --output "type=image,push=true" .
+      - name: Run Buildx - SocketIO (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$socket'))
+        run: |
+          docker buildx build --file ./Dockerfile-socketIO --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_socket_io:latest --output "type=image,push=true" .
 
-    - name: Run Buildx - SocketIO (push image)              
-      if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$socket'))
-      run: |        
-        docker buildx build --file ./Dockerfile-socketIO --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_socket_io:latest --output "type=image,push=true" .
+      - name: Run Buildx - Broker (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$broker'))
+        run: |
+          docker buildx build --file ./Dockerfile-broker --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_broker:latest --output "type=image,push=true" .

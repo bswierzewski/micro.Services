@@ -12,7 +12,7 @@ using Update.Dtos;
 namespace Update.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class UpdateController : ControllerBase
     {
         private readonly ILogger<UpdateController> _logger;
@@ -28,7 +28,7 @@ namespace Update.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("download/{versionId}")]
+        [HttpGet("update/download/{versionId}")]
         public async Task<IActionResult> DownloadVersion(int versionId)
         {
             var version = await _repo.GetVersionById(versionId);
@@ -47,7 +47,7 @@ namespace Update.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPost("confirm")]
+        [HttpPost("update/confirm")]
         public async Task<IActionResult> ConfirmUpdate(ConfirmDto confirmDto)
         {
             var addressId = await _repo.GetAddressId(confirmDto.Address);

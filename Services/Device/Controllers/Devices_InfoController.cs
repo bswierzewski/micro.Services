@@ -12,7 +12,7 @@ namespace Device.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api")]
     public class Devices_InfoController : ControllerBase
     {
         private readonly ILogger<DevicesController> _logger;
@@ -43,7 +43,7 @@ namespace Device.Controllers
         }
 
 
-        [HttpPost("kinds/add")]
+        [HttpPost("kinds")]
         public async Task<IActionResult> AddKinds(KindDto kindDto)
         {
             var kind = new Kind()
@@ -91,7 +91,7 @@ namespace Device.Controllers
             return Ok(components);
         }
 
-        [HttpPost("components/add")]
+        [HttpPost("components")]
         public async Task<IActionResult> AddDeviceComponent(DeviceComponentDto deviceComponentDto)
         {
             var component = new DeviceComponent()
@@ -139,7 +139,7 @@ namespace Device.Controllers
             return Ok(categories);
         }
 
-        [HttpPost("categories/add")]
+        [HttpPost("categories")]
         public async Task<IActionResult> AddCategory(CategoryDto categoryDto)
         {
             var category = new Category()

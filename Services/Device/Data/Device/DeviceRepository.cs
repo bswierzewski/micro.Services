@@ -33,9 +33,19 @@ namespace Device.Data
             return await _context.Addresses.Where(x => x.Label == address).Select(x => x.Id).FirstOrDefaultAsync();
         }
 
+        public async Task<Database.Entities.Device> GetDevice(int id)
+        {
+            return await _context.Devices
+                .Include(x => x.Address)
+                .Include(x => x.Category)
+                .Include(x => x.Kind)
+                .Include(x => x.DeviceComponent)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<ICollection<Database.Entities.Device>> GetDevices(DeviceParams deviceParams = null)
         {
-            var deviceQuery = _context.Devices.AsQueryable();
+            var deviceQuery = _context.Devices.Include(x => x.DeviceComponent).Include(x => x.Kind).AsQueryable();
 
             if (deviceParams is null)
                 return await deviceQuery.ToListAsync();

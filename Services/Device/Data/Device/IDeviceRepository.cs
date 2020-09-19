@@ -9,5 +9,6 @@ namespace Device.Data
         Task<ICollection<Database.Entities.Device>> GetDevices(DeviceParams deviceParams = null);
         Task<int?> GetAddressId(string address);
         Task<int?> AddAddress(string address);
+        Task<Database.Entities.Device> GetDevice(int id);
     }
 }

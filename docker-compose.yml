@@ -66,3 +66,14 @@ services:
         IMAGE: node:slim
     expose:
       - 80
+
+  broker:
+    container_name: broker
+    build:
+      context: .
+      dockerfile: Dockerfile-broker
+      args:
+        IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    depends_on:
+      - redis
+      - db

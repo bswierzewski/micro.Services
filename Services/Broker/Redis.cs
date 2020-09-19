@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Broker
@@ -32,15 +33,15 @@ namespace Broker
             {
                 while ((value = db.ListRightPop(key)).HasValue)
                 {
-                    Console.WriteLine(value);
-
                     values.Add(value);
 
-                    if (values.Count > 10)
+                    if (values.Count > 9)
                     {
                         var jsonValues = DeserializeValues(values);
 
-                        _service.AddAddresses(jsonValues);
+                        var addresses = GetAddresses(jsonValues);
+
+                        _service.SaveAddresses(addresses);
 
                         _service.SaveValues(jsonValues);
 
@@ -52,16 +53,30 @@ namespace Broker
             }
         }
 
-        private List<RedisValueModel> DeserializeValues(List<RedisValue> values)
+        private HashSet<string> GetAddresses(List<ValueModel> values)
         {
-            var result = new List<RedisValueModel>();
+            HashSet<string> results = new HashSet<string>();
 
-            values.ForEach(value =>
+            values.ForEach(json =>
             {
-                result.Add(JsonConvert.DeserializeObject<RedisValueModel>(value));
+                results.Add(json.MacAddress);
+
+                results.Add(json.BleAddress);
             });
 
-            return result;
+            return results;
+        }
+
+        private List<ValueModel> DeserializeValues(List<RedisValue> redisValue)
+        {
+            var resultValues = new List<ValueModel>();
+
+            redisValue.ForEach(value =>
+            {
+                resultValues.Add(JsonConvert.DeserializeObject<ValueModel>(value));
+            });
+
+            return resultValues;
         }
     }
 }

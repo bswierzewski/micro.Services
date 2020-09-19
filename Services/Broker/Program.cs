@@ -1,4 +1,5 @@
 ﻿using Broker.Service;
+using System;
 
 namespace Broker
 {
@@ -6,7 +7,19 @@ namespace Broker
     {
         static void Main(string[] args)
         {
-            new Redis(new BrokerService()).Work();
+            while (true)
+            {
+                try
+                {
+                    new Redis(new BrokerService()).Work();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+
+                    continue;
+                }
+            }
         }
     }
 }
