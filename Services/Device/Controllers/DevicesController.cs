@@ -135,7 +135,7 @@ namespace Device.Controllers
 
                 device.Modified = DateTime.Now;
 
-                await _repo.SaveAllChanges();
+                await _repo.SaveAllChangesAsync();
 
                 return Ok(device);
             }

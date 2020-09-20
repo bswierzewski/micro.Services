@@ -44,6 +44,11 @@ namespace Device.Data.DeviceInfo
             return await query.ToListAsync();
         }
 
+        public async Task<ICollection<DeviceComponent>> GetDeviceComponentsByIds(IEnumerable<int> deviceComponentIds)
+        {
+            return await _context.DeviceComponents.Where(x => deviceComponentIds.Contains(x.Id)).ToListAsync();
+        }
+
         public async Task<IEnumerable<Kind>> GetKinds(int? kindId = null)
         {
             Expression<Func<Kind, bool>> @where = n => true;
@@ -54,6 +59,26 @@ namespace Device.Data.DeviceInfo
             return await _context.Kinds
                 .Where(@where)
                 .ToListAsync();
+        }
+
+        public async Task<bool> UpdateDeviceComponents(CategoryDto categoryDto)
+        {
+            var deviceComponents = await _context.DeviceComponents.Where(x => categoryDto.DeviceComponentIds.Contains(x.Id) || x.CategoryId == categoryDto.Id).ToListAsync();
+
+            if (deviceComponents.IsAny())
+            {
+                deviceComponents.ForEach(component =>
+                {
+                    if (categoryDto.DeviceComponentIds.Any(componentId => componentId == component.Id))
+                        component.CategoryId = categoryDto.Id;
+                    else
+                        component.CategoryId = null;
+                });
+
+                return await _context.SaveChangesAsync() > 0;
+            }
+
+            return false;
         }
     }
 }

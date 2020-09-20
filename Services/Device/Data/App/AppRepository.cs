@@ -31,7 +31,7 @@ namespace Device.Data
             return await _context.FindAsync<T>(primaryKey);
         }
 
-        public async Task<bool> SaveAllChanges()
+        public async Task<bool> SaveAllChangesAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }

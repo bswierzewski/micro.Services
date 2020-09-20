@@ -9,6 +9,6 @@ namespace Device.Data
         Task<bool> Add<T>(T entity) where T : class;
         Task<bool> Delete<T>(T entity) where T : class;
         Task<T> Find<T>(int primaryKey) where T : class;
-        Task<bool> SaveAllChanges();
+        Task<bool> SaveAllChangesAsync();
     }
 }

@@ -12,5 +12,7 @@ namespace Device.Data.DeviceInfo
         Task<DeviceComponent> GetDeviceComponent(int deviceComponentId);
         Task<IEnumerable<DeviceComponent>> GetDeviceComponents(DeviceComponentParams deviceComponentParams = null);
         Task<IEnumerable<Category>> GetCategories(int? categoryId = null);
+        Task<ICollection<DeviceComponent>> GetDeviceComponentsByIds(IEnumerable<int> deviceComponentIds);
+        Task<bool> UpdateDeviceComponents(CategoryDto categoryDto);
     }
 }
