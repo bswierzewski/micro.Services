@@ -11,14 +11,15 @@ namespace Device.Helpers
         {
             CreateMap<Database.Entities.Device, DeviceForListDto>()
                 .ForMember(dest => dest.Kind, opt => opt.MapFrom(src => src.Kind.Name))
-                .ForMember(dest => dest.DeviceComponent, opt => opt.MapFrom(src => src.Component.Name));
+                .ForMember(dest => dest.Component, opt => opt.MapFrom(src => src.Component.Name))
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<Database.Entities.Device, DeviceForDetailDto>();
 
             CreateMap<Registration, RegistrationForListDto>();
 
             CreateMap<Category, CategoryDto>()
-                .ForMember(dest => dest.DeviceComponentIds, opt => opt.MapFrom(src => src.Components.Select(x => x.Id).ToArray()));
+                .ForMember(dest => dest.Components, opt => opt.MapFrom(src => src.Components.Select(x => x.Id).ToArray()));
         }
     }
 }

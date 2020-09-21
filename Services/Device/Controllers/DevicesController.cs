@@ -66,7 +66,7 @@ namespace Device.Controllers
             }
         }
 
-        [HttpPost("devices/add")]
+        [HttpPost("devices")]
         public async Task<IActionResult> AddDevice(DeviceDto deviceDto)
         {
             try
@@ -74,20 +74,22 @@ namespace Device.Controllers
                 if (string.IsNullOrEmpty(deviceDto.Address))
                     return StatusCode((int)HttpStatusCode.BadRequest, "The Address field is required.");
 
-                var addressId = await _repo.GetAddressId(deviceDto.Address);
+                var address = await _repo.GetAddress(deviceDto.Address);
 
-                if (addressId.HasValueGreaterThan(0))
-                    return StatusCode((int)HttpStatusCode.BadRequest, "Device exists!");
+                if (address == null)
+                    address = await _repo.AddAddress(deviceDto.Address);
+                else if (address.IsConfirmed == false)
+                    address.IsConfirmed = true;
                 else
-                    addressId = await _repo.AddAddress(deviceDto.Address);
+                    return StatusCode((int)HttpStatusCode.BadRequest, "Address exists!");
 
                 var newDevice = new Database.Entities.Device()
                 {
                     Name = deviceDto.Name,
-                    AddressId = addressId.Value,
+                    AddressId = address.Id,
                     Created = DateTime.Now,
                     KindId = deviceDto.KindId,
-                    ComponentId = deviceDto.DeviceComponentId,
+                    ComponentId = deviceDto.ComponentId,
                     CategoryId = deviceDto.CategoryId,
                     Icon = deviceDto.Icon,
                     IsAutoUpdate = deviceDto.IsAutoUpdate,
@@ -105,8 +107,8 @@ namespace Device.Controllers
             }
         }
 
-        [HttpPost("devices/update")]
-        public async Task<IActionResult> UpdateDeviceKind(DeviceDto deviceDto)
+        [HttpPut("devices/{id}")]
+        public async Task<IActionResult> UpdateDevice(int id, DeviceDto deviceDto)
         {
             try
             {
@@ -124,11 +126,11 @@ namespace Device.Controllers
                 if (deviceDto.KindId.HasValue)
                     device.KindId = deviceDto.KindId;
 
-                if (deviceDto.DeviceComponentId.HasValue)
-                    device.ComponentId = deviceDto.DeviceComponentId;
+                if (deviceDto.ComponentId.HasValue)
+                    device.ComponentId = deviceDto.ComponentId;
 
                 if (deviceDto.CategoryId.HasValue)
-                    device.ComponentId = deviceDto.CategoryId;
+                    device.CategoryId = deviceDto.CategoryId;
 
                 if (deviceDto.IsAutoUpdate.HasValue)
                     device.IsAutoUpdate = deviceDto.IsAutoUpdate;

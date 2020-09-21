@@ -13,7 +13,7 @@ namespace Device.Data
     {
         public DeviceRepository(DataContext context) : base(context) { }
 
-        public async Task<int?> AddAddress(string macAddress)
+        public async Task<Database.Entities.Address> AddAddress(string macAddress)
         {
             var address = new Database.Entities.Address()
             {
@@ -25,12 +25,12 @@ namespace Device.Data
             await _context.Addresses.AddAsync(address);
             await _context.SaveChangesAsync();
 
-            return address.Id;
+            return address;
         }
 
-        public async Task<int?> GetAddressId(string address)
+        public async Task<Database.Entities.Address> GetAddress(string address)
         {
-            return await _context.Addresses.Where(x => x.Label == address).Select(x => x.Id).FirstOrDefaultAsync();
+            return await _context.Addresses.Where(x => x.Label == address).FirstOrDefaultAsync();
         }
 
         public async Task<Database.Entities.Device> GetDevice(int id)
@@ -45,7 +45,12 @@ namespace Device.Data
 
         public async Task<ICollection<Database.Entities.Device>> GetDevices(DeviceParams deviceParams = null)
         {
-            var deviceQuery = _context.Devices.Include(x => x.Component).Include(x => x.Kind).AsQueryable();
+            var deviceQuery = _context.Devices
+                .Include(x => x.Component)
+                .Include(x => x.Kind)
+                .Include(x => x.Category)
+                .Include(x => x.Address)
+                .AsQueryable();
 
             if (deviceParams is null)
                 return await deviceQuery.ToListAsync();

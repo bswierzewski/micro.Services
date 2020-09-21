@@ -53,8 +53,8 @@ namespace Device.Controllers
         {
             ICollection<Component> components = null;
 
-            if (categoryDto.DeviceComponentIds.IsAny())
-                components = await _repo.GetComponentsByIds(categoryDto.DeviceComponentIds);
+            if (categoryDto.Components.IsAny())
+                components = await _repo.GetComponentsByIds(categoryDto.Components);
 
             var category = new Category()
             {
