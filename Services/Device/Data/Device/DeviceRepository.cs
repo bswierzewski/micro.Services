@@ -39,13 +39,13 @@ namespace Device.Data
                 .Include(x => x.Address)
                 .Include(x => x.Category)
                 .Include(x => x.Kind)
-                .Include(x => x.DeviceComponent)
+                .Include(x => x.Component)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<ICollection<Database.Entities.Device>> GetDevices(DeviceParams deviceParams = null)
         {
-            var deviceQuery = _context.Devices.Include(x => x.DeviceComponent).Include(x => x.Kind).AsQueryable();
+            var deviceQuery = _context.Devices.Include(x => x.Component).Include(x => x.Kind).AsQueryable();
 
             if (deviceParams is null)
                 return await deviceQuery.ToListAsync();

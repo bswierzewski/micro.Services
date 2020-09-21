@@ -37,7 +37,57 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Label")
+                        .IsUnique();
+
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("Database.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Database.Entities.Component", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Components");
                 });
 
             modelBuilder.Entity("Database.Entities.Device", b =>
@@ -53,11 +103,11 @@ namespace Database.Migrations
                     b.Property<int?>("CategoryId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ComponentId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("DeviceComponentId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Icon")
                         .HasColumnType("text");
@@ -83,81 +133,13 @@ namespace Database.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("DeviceComponentId");
+                    b.HasIndex("ComponentId");
 
                     b.HasIndex("KindId");
 
                     b.HasIndex("VersionId");
 
                     b.ToTable("Devices");
-                });
-
-            modelBuilder.Entity("Database.Entities.DeviceInfo.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Database.Entities.DeviceInfo.DeviceComponent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("DeviceComponents");
-                });
-
-            modelBuilder.Entity("Database.Entities.DeviceInfo.Kind", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Kinds");
                 });
 
             modelBuilder.Entity("Database.Entities.FileData", b =>
@@ -182,6 +164,27 @@ namespace Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FileDatas");
+                });
+
+            modelBuilder.Entity("Database.Entities.Kind", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kinds");
                 });
 
             modelBuilder.Entity("Database.Entities.Registration", b =>
@@ -249,11 +252,11 @@ namespace Database.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int?>("ComponentId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("DeviceComponentId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("FileDataId")
                         .HasColumnType("integer");
@@ -275,13 +278,20 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeviceComponentId");
+                    b.HasIndex("ComponentId");
 
                     b.HasIndex("FileDataId");
 
                     b.HasIndex("KindId");
 
                     b.ToTable("Versions");
+                });
+
+            modelBuilder.Entity("Database.Entities.Component", b =>
+                {
+                    b.HasOne("Database.Entities.Category", "Category")
+                        .WithMany("Components")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Database.Entities.Device", b =>
@@ -292,28 +302,21 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Database.Entities.DeviceInfo.Category", "Category")
+                    b.HasOne("Database.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Database.Entities.DeviceInfo.DeviceComponent", "DeviceComponent")
+                    b.HasOne("Database.Entities.Component", "Component")
                         .WithMany()
-                        .HasForeignKey("DeviceComponentId");
+                        .HasForeignKey("ComponentId");
 
-                    b.HasOne("Database.Entities.DeviceInfo.Kind", "Kind")
+                    b.HasOne("Database.Entities.Kind", "Kind")
                         .WithMany()
                         .HasForeignKey("KindId");
 
                     b.HasOne("Database.Entities.Version", "Version")
                         .WithMany()
                         .HasForeignKey("VersionId");
-                });
-
-            modelBuilder.Entity("Database.Entities.DeviceInfo.DeviceComponent", b =>
-                {
-                    b.HasOne("Database.Entities.DeviceInfo.Category", "Category")
-                        .WithMany("DeviceComponents")
-                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Database.Entities.Registration", b =>
@@ -333,9 +336,9 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Entities.Version", b =>
                 {
-                    b.HasOne("Database.Entities.DeviceInfo.DeviceComponent", "DeviceComponent")
+                    b.HasOne("Database.Entities.Component", "Component")
                         .WithMany()
-                        .HasForeignKey("DeviceComponentId");
+                        .HasForeignKey("ComponentId");
 
                     b.HasOne("Database.Entities.FileData", "FileData")
                         .WithMany()
@@ -343,7 +346,7 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Database.Entities.DeviceInfo.Kind", "Kind")
+                    b.HasOne("Database.Entities.Kind", "Kind")
                         .WithMany()
                         .HasForeignKey("KindId");
                 });

@@ -41,7 +41,7 @@ namespace Update.Data
 
         private IQueryable<Database.Entities.Version> GetVersionsQueryable()
         {
-            return _context.Versions.Include(x => x.DeviceComponent).Include(x => x.Kind).Include(x => x.FileData).AsQueryable();
+            return _context.Versions.Include(x => x.Component).Include(x => x.Kind).Include(x => x.FileData).AsQueryable();
         }
     }
 }

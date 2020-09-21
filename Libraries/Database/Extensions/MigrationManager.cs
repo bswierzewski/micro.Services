@@ -18,7 +18,7 @@ namespace Database.Extensions
                     if (appContext.Database.GetPendingMigrations().Any())
                         appContext.Database.Migrate();
 
-                    //Seed.SeedData(appContext);
+                    Seed.SeedData(appContext);
                 }
             }
 

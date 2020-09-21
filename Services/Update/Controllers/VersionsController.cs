@@ -78,7 +78,7 @@ namespace Update.Controllers
                         Patch = uploadDto.Patch.Value,
                         Name = uploadDto.Name ?? fileData.Name,
                         FileDataId = fileData.Id,
-                        DeviceComponentId = uploadDto.DeviceComponentId,
+                        ComponentId = uploadDto.DeviceComponentId,
                         KindId = uploadDto.KindId
                     };
 

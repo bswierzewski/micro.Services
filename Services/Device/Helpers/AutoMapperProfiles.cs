@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Device.Dtos;
 using System.Linq;
+using Database.Entities;
 
 namespace Device.Helpers
 {
@@ -10,14 +11,14 @@ namespace Device.Helpers
         {
             CreateMap<Database.Entities.Device, DeviceForListDto>()
                 .ForMember(dest => dest.Kind, opt => opt.MapFrom(src => src.Kind.Name))
-                .ForMember(dest => dest.DeviceComponent, opt => opt.MapFrom(src => src.DeviceComponent.Name));
+                .ForMember(dest => dest.DeviceComponent, opt => opt.MapFrom(src => src.Component.Name));
 
             CreateMap<Database.Entities.Device, DeviceForDetailDto>();
 
-            CreateMap<Database.Entities.Registration, RegistrationForListDto>();
+            CreateMap<Registration, RegistrationForListDto>();
 
-            CreateMap<Database.Entities.DeviceInfo.Category, CategoryDto>()
-                .ForMember(dest => dest.DeviceComponentIds, opt => opt.MapFrom(src => src.DeviceComponents.Select(x => x.Id).ToArray()));
+            CreateMap<Category, CategoryDto>()
+                .ForMember(dest => dest.DeviceComponentIds, opt => opt.MapFrom(src => src.Components.Select(x => x.Id).ToArray()));
         }
     }
 }

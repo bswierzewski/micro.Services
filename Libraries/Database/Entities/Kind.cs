@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Database.Entities.DeviceInfo
+namespace Database.Entities
 {
     /// <summary>
     /// Kind of devices 

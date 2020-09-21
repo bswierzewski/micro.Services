@@ -1,5 +1,5 @@
 ﻿using Database;
-using Database.Entities.DeviceInfo;
+using Database.Entities;
 using Device.Dtos;
 using Device.Params;
 using Extensions;
@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Device.Data.DeviceInfo
@@ -16,61 +15,49 @@ namespace Device.Data.DeviceInfo
     {
         public DeviceInfoRepository(DataContext context) : base(context) { }
 
-        public async Task<IEnumerable<Category>> GetCategories(int? categoryId = null)
+        public async Task<IEnumerable<Kind>> GetKinds()
         {
-            Expression<Func<Category, bool>> @where = n => true;
-
-            if (categoryId != null)
-                @where = n => n.Id == categoryId;
-
-            return await _context.Categories
-                .Include(x => x.DeviceComponents)
-                .Where(@where)
-                .ToListAsync();
+            return await _context.Kinds.ToListAsync();
         }
 
-        public async Task<DeviceComponent> GetDeviceComponent(int componentId)
+        public async Task<IEnumerable<Category>> GetCategories()
         {
-            return await _context.DeviceComponents.FirstOrDefaultAsync(x => x.Id == componentId);
+            return await _context.Categories.Include(x => x.Components).ToListAsync();
         }
 
-        public async Task<IEnumerable<DeviceComponent>> GetDeviceComponents(DeviceComponentParams deviceComponentParams)
+        public async Task<Category> GetCategory(int id)
         {
-            var query = _context.DeviceComponents.AsQueryable();
+            return await _context.Categories.Include(x => x.Components).FirstOrDefaultAsync(x => x.Id == id);
+        }
 
-            if (deviceComponentParams.CategoryId.HasValueGreaterThan(0))
-                query = query.Where(x => x.CategoryId == deviceComponentParams.CategoryId);
+        public async Task<IEnumerable<Component>> GetComponents(ComponentParams componentParams)
+        {
+            if (componentParams == null)
+                componentParams = new ComponentParams();
+
+            var query = _context.Components.AsQueryable();
+
+            if (componentParams.CategoryId.HasValueGreaterThan(0))
+                query = query.Where(x => x.CategoryId == componentParams.CategoryId);
 
             return await query.ToListAsync();
         }
 
-        public async Task<ICollection<DeviceComponent>> GetDeviceComponentsByIds(IEnumerable<int> deviceComponentIds)
+        public async Task<ICollection<Component>> GetComponentsByIds(IEnumerable<int> deviceComponentIds)
         {
-            return await _context.DeviceComponents.Where(x => deviceComponentIds.Contains(x.Id)).ToListAsync();
+            return await _context.Components.Where(x => deviceComponentIds.Contains(x.Id)).ToListAsync();
         }
 
-        public async Task<IEnumerable<Kind>> GetKinds(int? kindId = null)
+        public async Task<bool> UpdateComponents(int id, CategoryDto categoryDto)
         {
-            Expression<Func<Kind, bool>> @where = n => true;
-
-            if (kindId != null)
-                @where = n => n.Id == kindId;
-
-            return await _context.Kinds
-                .Where(@where)
-                .ToListAsync();
-        }
-
-        public async Task<bool> UpdateDeviceComponents(CategoryDto categoryDto)
-        {
-            var deviceComponents = await _context.DeviceComponents.Where(x => categoryDto.DeviceComponentIds.Contains(x.Id) || x.CategoryId == categoryDto.Id).ToListAsync();
+            var deviceComponents = await _context.Components.Where(x => categoryDto.DeviceComponentIds.Contains(x.Id) || x.CategoryId == id).ToListAsync();
 
             if (deviceComponents.IsAny())
             {
                 deviceComponents.ForEach(component =>
                 {
                     if (categoryDto.DeviceComponentIds.Any(componentId => componentId == component.Id))
-                        component.CategoryId = categoryDto.Id;
+                        component.CategoryId = id;
                     else
                         component.CategoryId = null;
                 });

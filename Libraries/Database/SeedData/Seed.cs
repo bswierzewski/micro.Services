@@ -1,5 +1,4 @@
 ﻿using Database.Entities;
-using Database.Entities.DeviceInfo;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
@@ -58,13 +57,13 @@ namespace Database
                 context.SaveChanges();
             }
 
-            if (!context.DeviceComponents.Any())
+            if (!context.Components.Any())
             {
-                var components = DeserializeJsonObject<DeviceComponent>(jsonObject, "components");
+                var components = DeserializeJsonObject<Component>(jsonObject, "components");
                 components.ForEach(component =>
                 {
                     component.Id = 0;
-                    context.DeviceComponents.Add(component);
+                    context.Components.Add(component);
                 });
 
                 context.SaveChanges();

@@ -87,7 +87,7 @@ namespace Device.Controllers
                     AddressId = addressId.Value,
                     Created = DateTime.Now,
                     KindId = deviceDto.KindId,
-                    DeviceComponentId = deviceDto.DeviceComponentId,
+                    ComponentId = deviceDto.DeviceComponentId,
                     CategoryId = deviceDto.CategoryId,
                     Icon = deviceDto.Icon,
                     IsAutoUpdate = deviceDto.IsAutoUpdate,
@@ -125,10 +125,10 @@ namespace Device.Controllers
                     device.KindId = deviceDto.KindId;
 
                 if (deviceDto.DeviceComponentId.HasValue)
-                    device.DeviceComponentId = deviceDto.DeviceComponentId;
+                    device.ComponentId = deviceDto.DeviceComponentId;
 
                 if (deviceDto.CategoryId.HasValue)
-                    device.DeviceComponentId = deviceDto.CategoryId;
+                    device.ComponentId = deviceDto.CategoryId;
 
                 if (deviceDto.IsAutoUpdate.HasValue)
                     device.IsAutoUpdate = deviceDto.IsAutoUpdate;

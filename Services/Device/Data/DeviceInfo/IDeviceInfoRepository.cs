@@ -1,4 +1,4 @@
-﻿using Database.Entities.DeviceInfo;
+﻿using Database.Entities;
 using Device.Dtos;
 using Device.Params;
 using System.Collections.Generic;
@@ -8,11 +8,13 @@ namespace Device.Data.DeviceInfo
 {
     public interface IDeviceInfoRepository : IAppRepository
     {
-        Task<IEnumerable<Kind>> GetKinds(int? kindId = null);
-        Task<DeviceComponent> GetDeviceComponent(int deviceComponentId);
-        Task<IEnumerable<DeviceComponent>> GetDeviceComponents(DeviceComponentParams deviceComponentParams = null);
-        Task<IEnumerable<Category>> GetCategories(int? categoryId = null);
-        Task<ICollection<DeviceComponent>> GetDeviceComponentsByIds(IEnumerable<int> deviceComponentIds);
-        Task<bool> UpdateDeviceComponents(CategoryDto categoryDto);
+        Task<Category> GetCategory(int id);
+        Task<IEnumerable<Category>> GetCategories();
+
+        Task<IEnumerable<Component>> GetComponents(ComponentParams componentParams = null);
+        Task<ICollection<Component>> GetComponentsByIds(IEnumerable<int> componentIds);
+        Task<bool> UpdateComponents(int id, CategoryDto categoryDto);
+
+        Task<IEnumerable<Kind>> GetKinds();
     }
 }

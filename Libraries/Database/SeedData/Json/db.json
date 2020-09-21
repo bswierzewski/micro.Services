@@ -275,7 +275,7 @@
       "isAutoUpdate": true,
       "kindId": 8,
       "categoryId": 9,
-      "deviceComponentId": 3
+      "componentId": 3
     },
     {
       "id": 2,
@@ -286,7 +286,7 @@
       "isAutoUpdate": false,
       "kindId": 4,
       "categoryId": 4,
-      "deviceComponentId": 14
+      "componentId": 14
     },
     {
       "id": 3,
@@ -297,7 +297,7 @@
       "isAutoUpdate": false,
       "kindId": 7,
       "categoryId": 3,
-      "deviceComponentId": 10
+      "componentId": 10
     },
     {
       "id": 4,
@@ -308,7 +308,7 @@
       "isAutoUpdate": true,
       "kindId": 5,
       "categoryId": 9,
-      "deviceComponentId": 1
+      "componentId": 1
     },
     {
       "id": 5,
@@ -319,7 +319,7 @@
       "isAutoUpdate": true,
       "kindId": 4,
       "categoryId": 7,
-      "deviceComponentId": 18
+      "componentId": 18
     },
     {
       "id": 6,
@@ -330,7 +330,7 @@
       "isAutoUpdate": false,
       "kindId": 8,
       "categoryId": 9,
-      "deviceComponentId": 6
+      "componentId": 6
     },
     {
       "id": 7,
@@ -341,7 +341,7 @@
       "isAutoUpdate": true,
       "kindId": 2,
       "categoryId": 2,
-      "deviceComponentId": 4
+      "componentId": 4
     },
     {
       "id": 8,
@@ -352,7 +352,7 @@
       "isAutoUpdate": false,
       "kindId": 5,
       "categoryId": 6,
-      "deviceComponentId": 2
+      "componentId": 2
     },
     {
       "id": 9,
@@ -363,7 +363,7 @@
       "isAutoUpdate": false,
       "kindId": 3,
       "categoryId": 8,
-      "deviceComponentId": 16
+      "componentId": 16
     },
     {
       "id": 10,
@@ -374,7 +374,7 @@
       "isAutoUpdate": true,
       "kindId": 3,
       "categoryId": 1,
-      "deviceComponentId": 11
+      "componentId": 11
     },
     {
       "id": 11,
@@ -385,7 +385,7 @@
       "isAutoUpdate": true,
       "kindId": 8,
       "categoryId": 3,
-      "deviceComponentId": 10
+      "componentId": 10
     },
     {
       "id": 12,
@@ -396,7 +396,7 @@
       "isAutoUpdate": true,
       "kindId": 9,
       "categoryId": 2,
-      "deviceComponentId": 19
+      "componentId": 19
     },
     {
       "id": 13,
@@ -407,7 +407,7 @@
       "isAutoUpdate": true,
       "kindId": 1,
       "categoryId": 10,
-      "deviceComponentId": 7
+      "componentId": 7
     },
     {
       "id": 14,
@@ -418,7 +418,7 @@
       "isAutoUpdate": false,
       "kindId": 5,
       "categoryId": 7,
-      "deviceComponentId": 18
+      "componentId": 18
     },
     {
       "id": 15,
@@ -429,7 +429,7 @@
       "isAutoUpdate": false,
       "kindId": 4,
       "categoryId": 3,
-      "deviceComponentId": 10
+      "componentId": 10
     },
     {
       "id": 16,
@@ -440,7 +440,7 @@
       "isAutoUpdate": false,
       "kindId": 6,
       "categoryId": 6,
-      "deviceComponentId": 15
+      "componentId": 15
     },
     {
       "id": 17,
@@ -451,7 +451,7 @@
       "isAutoUpdate": true,
       "kindId": 2,
       "categoryId": 6,
-      "deviceComponentId": 2
+      "componentId": 2
     },
     {
       "id": 18,
@@ -462,7 +462,7 @@
       "isAutoUpdate": true,
       "kindId": 7,
       "categoryId": 3,
-      "deviceComponentId": 10
+      "componentId": 10
     },
     {
       "id": 19,
@@ -473,7 +473,7 @@
       "isAutoUpdate": false,
       "kindId": 6,
       "categoryId": 8,
-      "deviceComponentId": 13
+      "componentId": 13
     },
     {
       "id": 20,
@@ -484,7 +484,7 @@
       "isAutoUpdate": false,
       "kindId": 9,
       "categoryId": 6,
-      "deviceComponentId": 2
+      "componentId": 2
     },
     {
       "id": 21,
@@ -495,7 +495,7 @@
       "isAutoUpdate": false,
       "kindId": 4,
       "categoryId": 8,
-      "deviceComponentId": 16
+      "componentId": 16
     },
     {
       "id": 22,
@@ -506,7 +506,7 @@
       "isAutoUpdate": false,
       "kindId": 3,
       "categoryId": 5,
-      "deviceComponentId": 20
+      "componentId": 20
     },
     {
       "id": 23,
@@ -517,7 +517,7 @@
       "isAutoUpdate": false,
       "kindId": 2,
       "categoryId": 8,
-      "deviceComponentId": 5
+      "componentId": 5
     },
     {
       "id": 24,
@@ -528,7 +528,7 @@
       "isAutoUpdate": false,
       "kindId": 10,
       "categoryId": 4,
-      "deviceComponentId": 14
+      "componentId": 14
     },
     {
       "id": 25,
@@ -539,7 +539,7 @@
       "isAutoUpdate": false,
       "kindId": 1,
       "categoryId": 4,
-      "deviceComponentId": 14
+      "componentId": 14
     },
     {
       "id": 26,
@@ -550,7 +550,7 @@
       "isAutoUpdate": true,
       "kindId": 8,
       "categoryId": 10,
-      "deviceComponentId": 7
+      "componentId": 7
     },
     {
       "id": 27,
@@ -561,7 +561,7 @@
       "isAutoUpdate": true,
       "kindId": 5,
       "categoryId": 8,
-      "deviceComponentId": 16
+      "componentId": 16
     },
     {
       "id": 28,
@@ -572,7 +572,7 @@
       "isAutoUpdate": false,
       "kindId": 5,
       "categoryId": 9,
-      "deviceComponentId": 3
+      "componentId": 3
     },
     {
       "id": 29,
@@ -583,7 +583,7 @@
       "isAutoUpdate": true,
       "kindId": 7,
       "categoryId": 2,
-      "deviceComponentId": 9
+      "componentId": 9
     },
     {
       "id": 30,
@@ -594,7 +594,7 @@
       "isAutoUpdate": false,
       "kindId": 4,
       "categoryId": 6,
-      "deviceComponentId": 8
+      "componentId": 8
     }
   ],
   "filesData": [
@@ -677,7 +677,7 @@
       "major": 1,
       "minor": 2,
       "patch": 3,
-      "deviceComponentId": 8,
+      "componentId": 8,
       "kindId": 3,
       "fileDataId": 10
     },
@@ -688,7 +688,7 @@
       "major": 4,
       "minor": 5,
       "patch": 6,
-      "deviceComponentId": 11,
+      "componentId": 11,
       "kindId": 10,
       "fileDataId": 2
     },
@@ -699,7 +699,7 @@
       "major": 7,
       "minor": 8,
       "patch": 9,
-      "deviceComponentId": 14,
+      "componentId": 14,
       "kindId": 4,
       "fileDataId": 6
     },
@@ -710,7 +710,7 @@
       "major": 10,
       "minor": 11,
       "patch": 12,
-      "deviceComponentId": 19,
+      "componentId": 19,
       "kindId": 3,
       "fileDataId": 2
     },
@@ -721,7 +721,7 @@
       "major": 13,
       "minor": 14,
       "patch": 15,
-      "deviceComponentId": 1,
+      "componentId": 1,
       "kindId": 6,
       "fileDataId": 8
     }

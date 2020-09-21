@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Database.Entities.DeviceInfo
+namespace Database.Entities
 {
     /// <summary>
-    /// Category of devices
-    /// Light
-    /// Sensor
-    /// Misc
+    /// Components 
+    /// Tracker
+    /// Scanner
+    /// Locator
+    /// etc.
     /// </summary>
-    public class Category
+    public class Component
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,6 +19,8 @@ namespace Database.Entities.DeviceInfo
         public DateTime Created { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
-        public virtual ICollection<DeviceComponent> DeviceComponents { get; set; }
+
+        public int? CategoryId { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

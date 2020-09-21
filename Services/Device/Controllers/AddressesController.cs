@@ -1,4 +1,5 @@
-﻿using Device.Data.Address;
+﻿using AutoMapper;
+using Device.Data.Address;
 using Device.Params;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,7 @@ namespace Device.Controllers
         private readonly ILogger<AddressesController> _logger;
         private readonly IAddressRepository _repo;
 
-        public AddressesController(IAddressRepository repo, ILogger<AddressesController> logger)
+        public AddressesController(IAddressRepository repo, ILogger<AddressesController> logger, IMapper mapper)
         {
             _repo = repo;
             _logger = logger;

@@ -26,7 +26,7 @@ namespace JsonDb
 
             int[] categoryIds = categories.Select(x => x.Id).ToArray();
 
-            var componentFaker = new Faker<DeviceComponent>()
+            var componentFaker = new Faker<Component>()
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
@@ -60,7 +60,7 @@ namespace JsonDb
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
                 .RuleFor(x => x.IsAutoUpdate, f => f.Random.Bool())
                 .RuleFor(x => x.KindId, f => f.PickRandom(kindIds))
-                .RuleFor(x => x.DeviceComponentId, f => f.IndexVariable = f.PickRandom(componentIds))
+                .RuleFor(x => x.ComponentId, f => f.IndexVariable = f.PickRandom(componentIds))
                 .RuleFor(x => x.CategoryId, f => components[f.IndexVariable - 1].CategoryId)
                 .RuleFor(x => x.AddressId, f => addressIds[f.IndexFaker])
                 .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign));
@@ -86,7 +86,7 @@ namespace JsonDb
                 .RuleFor(x => x.Minor, f => (short)++f.IndexVariable)
                 .RuleFor(x => x.Patch, f => (short)++f.IndexVariable)
                 .RuleFor(x => x.KindId, f => f.PickRandom(kindIds))
-                .RuleFor(x => x.DeviceComponentId, f => f.PickRandom(componentIds))
+                .RuleFor(x => x.ComponentId, f => f.PickRandom(componentIds))
                 .RuleFor(x => x.FileDataId, f => f.PickRandom(fileDataIds));
 
             var versions = versionFaker.Generate(5);

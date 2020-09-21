@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Database.Migrations
 {
-    public partial class InitialMigrations : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -116,7 +116,7 @@ namespace Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DeviceComponents",
+                name: "Components",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -128,9 +128,9 @@ namespace Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeviceComponents", x => x.Id);
+                    table.PrimaryKey("PK_Components", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DeviceComponents_Categories_CategoryId",
+                        name: "FK_Components_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
@@ -148,7 +148,7 @@ namespace Database.Migrations
                     Major = table.Column<short>(nullable: false),
                     Minor = table.Column<short>(nullable: false),
                     Patch = table.Column<short>(nullable: false),
-                    DeviceComponentId = table.Column<int>(nullable: true),
+                    ComponentId = table.Column<int>(nullable: true),
                     KindId = table.Column<int>(nullable: true),
                     FileDataId = table.Column<int>(nullable: false)
                 },
@@ -156,9 +156,9 @@ namespace Database.Migrations
                 {
                     table.PrimaryKey("PK_Versions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Versions_DeviceComponents_DeviceComponentId",
-                        column: x => x.DeviceComponentId,
-                        principalTable: "DeviceComponents",
+                        name: "FK_Versions_Components_ComponentId",
+                        column: x => x.ComponentId,
+                        principalTable: "Components",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -189,7 +189,7 @@ namespace Database.Migrations
                     IsAutoUpdate = table.Column<bool>(nullable: true),
                     KindId = table.Column<int>(nullable: true),
                     CategoryId = table.Column<int>(nullable: true),
-                    DeviceComponentId = table.Column<int>(nullable: true),
+                    ComponentId = table.Column<int>(nullable: true),
                     VersionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -208,9 +208,9 @@ namespace Database.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Devices_DeviceComponents_DeviceComponentId",
-                        column: x => x.DeviceComponentId,
-                        principalTable: "DeviceComponents",
+                        name: "FK_Devices_Components_ComponentId",
+                        column: x => x.ComponentId,
+                        principalTable: "Components",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -228,8 +228,14 @@ namespace Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeviceComponents_CategoryId",
-                table: "DeviceComponents",
+                name: "IX_Addresses_Label",
+                table: "Addresses",
+                column: "Label",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Components_CategoryId",
+                table: "Components",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
@@ -243,9 +249,9 @@ namespace Database.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Devices_DeviceComponentId",
+                name: "IX_Devices_ComponentId",
                 table: "Devices",
-                column: "DeviceComponentId");
+                column: "ComponentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Devices_KindId",
@@ -268,9 +274,9 @@ namespace Database.Migrations
                 column: "MacAddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Versions_DeviceComponentId",
+                name: "IX_Versions_ComponentId",
                 table: "Versions",
-                column: "DeviceComponentId");
+                column: "ComponentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Versions_FileDataId",
@@ -301,7 +307,7 @@ namespace Database.Migrations
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "DeviceComponents");
+                name: "Components");
 
             migrationBuilder.DropTable(
                 name: "FileDatas");

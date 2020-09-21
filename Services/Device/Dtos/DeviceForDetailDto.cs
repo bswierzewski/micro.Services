@@ -1,5 +1,4 @@
 ﻿using Database.Entities;
-using Database.Entities.DeviceInfo;
 using System;
 
 namespace Device.Dtos
@@ -12,7 +11,7 @@ namespace Device.Dtos
         public string Icon { get; set; }
         public Kind Kind { get; set; }
         public Category Category { get; set; }
-        public DeviceComponent DeviceComponent { get; set; }
+        public Component Component { get; set; }
         public Database.Entities.Version Version { get; set; }
         public Address Address { get; set; }
 

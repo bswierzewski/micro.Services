@@ -1,4 +1,3 @@
-using Database.Entities.DeviceInfo;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,8 +15,8 @@ namespace Database.Entities
         public short Minor { get; set; }
         public short Patch { get; set; }
 
-        public int? DeviceComponentId { get; set; }
-        public virtual DeviceComponent DeviceComponent { get; set; }
+        public int? ComponentId { get; set; }
+        public virtual Component Component { get; set; }
 
         public int? KindId { get; set; }
         public virtual Kind Kind { get; set; }
