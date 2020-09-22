@@ -116,6 +116,18 @@ namespace Database
 
                 context.SaveChanges();
             }
+
+            if (!context.Registrations.Any())
+            {
+                var registrations = DeserializeJsonObject<Registration>(jsonObject, "registrations");
+                registrations.ForEach(registration =>
+                {
+                    registration.Id = 0;
+                    context.Registrations.Add(registration);
+                });
+
+                context.SaveChanges();
+            }
         }
 
         #region Helper Seed Methods

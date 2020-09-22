@@ -62,7 +62,7 @@ namespace Device.Data
                 deviceQuery = deviceQuery.Where(x => x.CategoryId == deviceParams.CategoryId);
 
 
-            return await deviceQuery.ToListAsync();
+            return await deviceQuery.OrderBy(x => x.Name).ToListAsync();
         }
     }
 }

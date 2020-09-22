@@ -1,13 +1,11 @@
 ﻿using Bogus;
 using Database.Entities;
-using Database.Entities.DeviceInfo;
 using JsonDb.StaticData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace JsonDb
 {
@@ -100,6 +98,15 @@ namespace JsonDb
 
             var users = userFaker.Generate(10);
 
+            var registrationFaker = new Faker<Registration>()
+                .RuleFor(x => x.Id, f => f.IndexFaker + 1)
+                .RuleFor(x => x.Created, f => f.Date.Soon(-1))
+                .RuleFor(x => x.MacAddressId, f => f.PickRandom(addressIds))
+                .RuleFor(x => x.BleAddressId, f => f.PickRandom(addressIds))
+                .RuleFor(x => x.Rssi, f => f.Random.Int(-120, -50));
+
+            var registrations = registrationFaker.Generate(100);
+
             var json = JsonConvert.SerializeObject(new
             {
                 categories,
@@ -109,7 +116,8 @@ namespace JsonDb
                 filesData,
                 versions,
                 users,
-                addresses
+                addresses,
+                registrations
             }, new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
