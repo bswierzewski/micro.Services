@@ -5,9 +5,12 @@ namespace Update.Data
 {
     public interface IUpdateRepository
     {
-        Task<Device> GetDevice(int? macAddressId);
-        Task<Version> GetVersionById(int id);
-        Task<bool> ConfirmUpdateDevice(Device device, Version version);
-        Task<int?> GetAddressId(string macAddress);
+        Task<T> Find<T>(int primaryKey) where T : class;
+        Task<bool> Add<T>(T entity) where T : class;
+        Task<bool> SaveAllChangesAsync();
+        Task<int?> GetAddressId(string address);
+        Task<Device> GetDeviceByAddresId(int value);
+        Task<Version> GetLatestVersion(int? kindId, int? componentId);
+
     }
 }

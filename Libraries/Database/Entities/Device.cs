@@ -16,15 +16,17 @@ namespace Database.Entities
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
 
-        public bool? IsAutoUpdate { get; set; }
         public int? KindId { get; set; }
         public virtual Kind Kind { get; set; }
         public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public int? ComponentId { get; set; }
         public virtual Component Component { get; set; }
+
         public int? VersionId { get; set; }
         public virtual Version Version { get; set; }
-
+        public DateTime? Updated { get; set; }
+        public bool? IsUpdated { get; set; }
+        public bool? IsAutoUpdate { get; set; }
     }
 }

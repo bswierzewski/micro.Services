@@ -24,6 +24,10 @@ namespace Database
             modelBuilder.Entity<Address>()
                 .HasIndex(x => x.Label)
                 .IsUnique();
+
+            modelBuilder.Entity<Device>()
+                .HasIndex(x => x.AddressId)
+                .IsUnique();
         }
 
         public DbSet<Address> Addresses { get; set; }

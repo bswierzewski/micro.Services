@@ -115,6 +115,9 @@ namespace Database.Migrations
                     b.Property<bool?>("IsAutoUpdate")
                         .HasColumnType("boolean");
 
+                    b.Property<bool?>("IsUpdated")
+                        .HasColumnType("boolean");
+
                     b.Property<int?>("KindId")
                         .HasColumnType("integer");
 
@@ -124,12 +127,16 @@ namespace Database.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<int?>("VersionId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.HasIndex("CategoryId");
 

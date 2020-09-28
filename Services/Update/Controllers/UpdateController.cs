@@ -1,13 +1,10 @@
 using AutoMapper;
-using Extensions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using Update.Data;
-using Update.Dtos;
 
 namespace Update.Controllers
 {
@@ -26,15 +23,42 @@ namespace Update.Controllers
             _logger = logger;
         }
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("update/download/{versionId}")]
-        public async Task<IActionResult> DownloadVersion(int versionId)
+        [HttpGet("updates/{address}")]
+        public async Task<IActionResult> UpdateDevice(string address)
         {
-            var version = await _repo.GetVersionById(versionId);
+            var addressId = await GetAddressId(address);
+
+            Database.Entities.Device device = await _repo.GetDeviceByAddresId(addressId);
+
+            if (device == null)
+                return BadRequest();
+
+            Database.Entities.Version version = null;
+
+            if (device.IsAutoUpdate.HasValue && device.IsAutoUpdate.Value == true)
+            {
+                if (!device.KindId.HasValue)
+                    return BadRequest();
+
+                if (!device.ComponentId.HasValue)
+                    return BadRequest();
+
+                version = await _repo.GetLatestVersion(device.KindId, device.ComponentId);
+            }
+            else if (!device.IsUpdated.HasValue || device.IsUpdated.Value == false)
+            {
+                if (!device.VersionId.HasValue)
+                    return BadRequest();
+
+                version = await _repo.Find<Database.Entities.Version>(device.VersionId.Value);
+            }
+            else
+            {
+                return BadRequest();
+            }
 
             if (version == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
+                return BadRequest();
 
             var file = version.FileData;
 
@@ -45,29 +69,41 @@ namespace Update.Controllers
             return File(content, contentType, fileName);
         }
 
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPost("update/confirm")]
-        public async Task<IActionResult> ConfirmUpdate(ConfirmDto confirmDto)
+        [HttpPost("updates/{address}")]
+        public async Task<IActionResult> ConfirmUpdate(string address)
         {
-            var addressId = await _repo.GetAddressId(confirmDto.Address);
+            var addressId = await GetAddressId(address);
 
-            if (!addressId.HasValueGreaterThan(0))
-                return StatusCode((int)HttpStatusCode.NotFound, "Address not found!");
-
-            var device = await _repo.GetDevice(addressId);
+            Database.Entities.Device device = await _repo.GetDeviceByAddresId(addressId);
 
             if (device == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Device not found!");
+                return BadRequest();
 
-            var version = await _repo.GetVersionById(confirmDto.VersionId.Value);
+            device.IsUpdated = true;
+            device.Updated = DateTime.Now;
 
-            if (version == null)
-                return StatusCode((int)HttpStatusCode.NotFound, "Version not found!");
-
-            await _repo.ConfirmUpdateDevice(device, version);
+            await _repo.SaveAllChangesAsync();
 
             return Ok();
+        }
+
+        private async Task<int> GetAddressId(string address)
+        {
+            int addressId = await _repo.GetAddressId(address) ?? 0;
+
+            if (addressId == 0)
+            {
+                var newAddress = new Database.Entities.Address()
+                {
+                    Created = DateTime.Now,
+                    IsConfirmed = false,
+                    Label = address,
+                };
+
+                await _repo.Add(newAddress);
+            }
+
+            return addressId;
         }
     }
 }

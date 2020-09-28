@@ -2,7 +2,6 @@ using AutoMapper;
 using Device.Data;
 using Device.Dtos;
 using Device.Params;
-using Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -93,6 +92,7 @@ namespace Device.Controllers
                     CategoryId = deviceDto.CategoryId,
                     Icon = deviceDto.Icon,
                     IsAutoUpdate = deviceDto.IsAutoUpdate,
+                    VersionId = deviceDto.VersionId,
                 };
 
                 await _repo.Add(newDevice);
@@ -134,6 +134,13 @@ namespace Device.Controllers
 
                 if (deviceDto.IsAutoUpdate.HasValue)
                     device.IsAutoUpdate = deviceDto.IsAutoUpdate;
+
+                if (deviceDto.VersionId.HasValue)
+                {
+                    device.VersionId = deviceDto.VersionId;
+                    device.IsUpdated = false;
+                    device.Updated = null;
+                }
 
                 device.Modified = DateTime.Now;
 

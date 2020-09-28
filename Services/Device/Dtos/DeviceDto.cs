@@ -16,11 +16,10 @@ namespace Device.Dtos
         [Required]
         public string Icon { get; set; }
 
-        public bool? IsAutoUpdate { get; set; }
         public int? CategoryId { get; set; }
         public int? KindId { get; set; }
         public int? ComponentId { get; set; }
-        public int? ActuallVersionId { get; set; }
-        public int? SpecificVersionId { get; set; }
+        public bool? IsAutoUpdate { get; set; }
+        public int? VersionId { get; set; }
     }
 }

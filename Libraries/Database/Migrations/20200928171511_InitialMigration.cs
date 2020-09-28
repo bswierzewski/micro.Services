@@ -186,11 +186,13 @@ namespace Database.Migrations
                     Name = table.Column<string>(nullable: true),
                     Icon = table.Column<string>(nullable: true),
                     AddressId = table.Column<int>(nullable: false),
-                    IsAutoUpdate = table.Column<bool>(nullable: true),
                     KindId = table.Column<int>(nullable: true),
                     CategoryId = table.Column<int>(nullable: true),
                     ComponentId = table.Column<int>(nullable: true),
-                    VersionId = table.Column<int>(nullable: true)
+                    VersionId = table.Column<int>(nullable: true),
+                    Updated = table.Column<DateTime>(nullable: true),
+                    IsUpdated = table.Column<bool>(nullable: true),
+                    IsAutoUpdate = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,7 +243,8 @@ namespace Database.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Devices_AddressId",
                 table: "Devices",
-                column: "AddressId");
+                column: "AddressId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Devices_CategoryId",
