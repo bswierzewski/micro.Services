@@ -21,7 +21,7 @@ namespace Device.Helpers
                 .ForMember(dest => dest.BleAddress, opt => opt.MapFrom(src => src.BleAddress.Label));
 
             CreateMap<Category, CategoryDto>()
-                .ForMember(dest => dest.Components, opt => opt.MapFrom(src => src.Components.Select(x => x.Id).ToArray()));
+                .ForMember(dest => dest.ComponentIds, opt => opt.MapFrom(src => src.Components.Select(x => x.Id).ToArray()));
         }
     }
 }

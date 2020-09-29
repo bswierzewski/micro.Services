@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Device.Dtos
@@ -14,7 +13,7 @@ namespace Device.Dtos
         [Required]
         public string Icon { get; set; }
 
-        public IEnumerable<int> Components { get; set; }
+        public IEnumerable<int> ComponentIds { get; set; }
 
     }
 }

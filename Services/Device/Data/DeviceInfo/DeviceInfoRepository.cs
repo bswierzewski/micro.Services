@@ -50,13 +50,13 @@ namespace Device.Data.DeviceInfo
 
         public async Task<bool> UpdateComponents(int id, CategoryDto categoryDto)
         {
-            var deviceComponents = await _context.Components.Where(x => categoryDto.Components.Contains(x.Id) || x.CategoryId == id).ToListAsync();
+            var deviceComponents = await _context.Components.Where(x => categoryDto.ComponentIds.Contains(x.Id) || x.CategoryId == id).ToListAsync();
 
             if (deviceComponents.IsAny())
             {
                 deviceComponents.ForEach(component =>
                 {
-                    if (categoryDto.Components.Any(componentId => componentId == component.Id))
+                    if (categoryDto.ComponentIds.Any(componentId => componentId == component.Id))
                         component.CategoryId = id;
                     else
                         component.CategoryId = null;
