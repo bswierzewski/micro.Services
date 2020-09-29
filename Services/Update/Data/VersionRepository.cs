@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace Update.Data
 {
-    public class VersionRepository : IVersionRepository
+    public class VersionRepository : AppRepository, IVersionRepository
     {
-        private readonly DataContext _context;
-        public VersionRepository(DataContext context)
-        {
-            _context = context;
-        }
+        public VersionRepository(DataContext context) : base(context) { }
 
         public async Task<bool> AddVersion(Database.Entities.Version version)
         {

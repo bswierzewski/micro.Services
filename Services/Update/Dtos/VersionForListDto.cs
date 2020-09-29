@@ -10,7 +10,7 @@ namespace Update.Dtos
         public short Major { get; set; }
         public short Minor { get; set; }
         public short Patch { get; set; }
-        public string DeviceComponent { get; set; }
+        public string Component { get; set; }
         public string Kind { get; set; }
         public string FileData { get; set; }
     }

@@ -10,6 +10,7 @@ namespace Device.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Database.Entities.Device, DeviceForListDto>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address.Label))
                 .ForMember(dest => dest.Kind, opt => opt.MapFrom(src => src.Kind.Name))
                 .ForMember(dest => dest.Component, opt => opt.MapFrom(src => src.Component.Name))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));

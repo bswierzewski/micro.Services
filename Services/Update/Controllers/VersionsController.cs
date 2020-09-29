@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Database.Entities;
+using Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -31,6 +32,9 @@ namespace Update.Controllers
         public async Task<IActionResult> GetVersion(int id)
         {
             var version = await _repo.GetVersion(id);
+
+            if (version == null)
+                return BadRequest();
 
             return Ok(version);
         }
@@ -78,7 +82,7 @@ namespace Update.Controllers
                         Patch = uploadDto.Patch.Value,
                         Name = uploadDto.Name ?? fileData.Name,
                         FileDataId = fileData.Id,
-                        ComponentId = uploadDto.DeviceComponentId,
+                        ComponentId = uploadDto.ComponentId,
                         KindId = uploadDto.KindId
                     };
 
@@ -90,6 +94,37 @@ namespace Update.Controllers
             }
 
             return StatusCode((int)HttpStatusCode.InternalServerError, "Error Upload");
+        }
+
+        [HttpPut("versions/{id}")]
+        public async Task<IActionResult> UpdateVersion(int id, UploadDto uploadDto)
+        {
+            var version = await _repo.Find<Database.Entities.Version>(id);
+
+            if (version == null)
+                return BadRequest();
+
+            if (!string.IsNullOrEmpty(uploadDto.Name))
+                version.Name = uploadDto.Name;
+
+            if (uploadDto.Major.HasValue)
+                version.Major = uploadDto.Major.Value;
+
+            if (uploadDto.Minor.HasValue)
+                version.Minor = uploadDto.Minor.Value;
+
+            if (uploadDto.Patch.HasValue)
+                version.Patch = uploadDto.Patch.Value;
+
+            if (uploadDto.ComponentId.HasValueGreaterThan(0))
+                version.ComponentId = uploadDto.ComponentId.Value;
+
+            if (uploadDto.KindId.HasValueGreaterThan(0))
+                version.KindId = uploadDto.KindId.Value;
+
+            await _repo.SaveAllChangesAsync();
+
+            return Ok();
         }
     }
 }

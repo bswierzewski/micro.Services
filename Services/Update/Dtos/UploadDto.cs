@@ -20,9 +20,8 @@ namespace Update.Dtos
         public int? KindId { get; set; }
 
         [Required]
-        public int? DeviceComponentId { get; set; }
+        public int? ComponentId { get; set; }
 
-        [Required]
         public IFormFile File { get; set; }
     }
 }
