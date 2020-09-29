@@ -35,7 +35,7 @@ namespace Device.Data.DeviceInfo
             if (componentParams == null)
                 componentParams = new ComponentParams();
 
-            var query = _context.Components.AsQueryable();
+            var query = _context.Components.Include(x => x.Category).AsQueryable();
 
             if (componentParams.CategoryId.HasValueGreaterThan(0))
                 query = query.Where(x => x.CategoryId == componentParams.CategoryId);
