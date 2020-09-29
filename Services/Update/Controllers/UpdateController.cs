@@ -50,7 +50,7 @@ namespace Update.Controllers
                 if (!device.VersionId.HasValue)
                     return BadRequest();
 
-                version = await _repo.Find<Database.Entities.Version>(device.VersionId.Value);
+                version = await _repo.GetVersionById(device.VersionId.Value);
             }
             else
             {

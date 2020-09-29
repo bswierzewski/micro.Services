@@ -40,6 +40,7 @@ namespace Device.Data
                 .Include(x => x.Category)
                 .Include(x => x.Kind)
                 .Include(x => x.Component)
+                .Include(x => x.Version)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
