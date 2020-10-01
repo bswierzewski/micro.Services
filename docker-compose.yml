@@ -34,8 +34,8 @@ services:
       dockerfile: Dockerfile-auth
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
-    expose:
-      - 80
+    depends_on:
+      - db
 
   update:
     container_name: update
@@ -44,8 +44,8 @@ services:
       dockerfile: Dockerfile-update
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
-    expose:
-      - 80
+    depends_on:
+      - db
 
   device:
     container_name: device
@@ -54,8 +54,8 @@ services:
       dockerfile: Dockerfile-device
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
-    expose:
-      - 80
+    depends_on:
+      - db
 
   socket:
     container_name: socket
@@ -64,8 +64,8 @@ services:
       dockerfile: Dockerfile-socketIO
       args:
         IMAGE: node:slim
-    expose:
-      - 80
+    depends_on:
+      - db
 
   broker:
     container_name: broker
