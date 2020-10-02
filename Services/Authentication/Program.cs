@@ -1,4 +1,3 @@
-using Database.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -10,7 +9,6 @@ namespace Authentication
         {
             CreateHostBuilder(args)
             .Build()
-            .MigrateDatabase()
             .Run();
         }
 
