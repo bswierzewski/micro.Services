@@ -31,34 +31,29 @@ namespace Update.Controllers
             Database.Entities.Device device = await _repo.GetDeviceByAddresId(addressId);
 
             if (device == null)
-                return BadRequest();
+                return StatusCode(304);
 
             Database.Entities.Version version = null;
 
             if (device.IsAutoUpdate.HasValue && device.IsAutoUpdate.Value == true)
             {
-                if (!device.KindId.HasValue)
-                    return BadRequest();
+                if (!device.KindId.HasValue || !device.ComponentId.HasValue)
+                    return StatusCode(304);
 
-                if (!device.ComponentId.HasValue)
-                    return BadRequest();
+                int versionId = await _repo.GetLatestVersionId(device.KindId, device.ComponentId) ?? 0;
 
-                version = await _repo.GetLatestVersion(device.KindId, device.ComponentId);
+                if (versionId <= 0 || device.VersionId == versionId)
+                    return StatusCode(304);
+
+                version = await _repo.GetVersionById(versionId);
             }
-            else if (!device.IsUpdated.HasValue || device.IsUpdated.Value == false)
-            {
-                if (!device.VersionId.HasValue)
-                    return BadRequest();
-
+            else if (device.IsUpdated.HasValue && device.IsUpdated.Value == true)
+                return StatusCode(304);
+            else if (device.VersionId.HasValue)
                 version = await _repo.GetVersionById(device.VersionId.Value);
-            }
-            else
-            {
-                return BadRequest();
-            }
 
             if (version == null)
-                return BadRequest();
+                return StatusCode(304);
 
             var file = version.FileData;
 

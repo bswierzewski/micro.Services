@@ -7,7 +7,7 @@ namespace Update.Data
     {
         Task<int?> GetAddressId(string address);
         Task<Device> GetDeviceByAddresId(int value);
-        Task<Version> GetLatestVersion(int? kindId, int? componentId);
+        Task<int?> GetLatestVersionId(int? kindId, int? componentId);
         Task<Version> GetVersionById(int versionId);
     }
 }

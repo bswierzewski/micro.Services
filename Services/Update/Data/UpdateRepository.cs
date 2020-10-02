@@ -25,12 +25,13 @@ namespace Update.Data
             return await _context.Versions.Include(x => x.FileData).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Version> GetLatestVersion(int? kindId, int? componentId)
+        public async Task<int?> GetLatestVersionId(int? kindId, int? componentId)
         {
             return await _context.Versions.Where(x => x.KindId == kindId && x.ComponentId == componentId)
                 .OrderByDescending(x => x.Major)
                 .ThenByDescending(x => x.Minor)
                 .ThenByDescending(x => x.Patch)
+                .Select(x => x.Id)
                 .FirstOrDefaultAsync();
         }
     }
