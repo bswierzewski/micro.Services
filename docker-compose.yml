@@ -23,7 +23,10 @@ services:
     container_name: db
     image: postgres:alpine
     environment:
+      POSTGRES_DB: micro
       POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - ./Libraries/Database/Init_Scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5432:5432
 
