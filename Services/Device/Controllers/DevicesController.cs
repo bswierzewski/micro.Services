@@ -112,7 +112,7 @@ namespace Device.Controllers
         {
             try
             {
-                var device = await _repo.Find<Database.Entities.Device>(deviceDto.Id);
+                var device = await _repo.Find<Database.Entities.Device>(id);
 
                 if (device == null)
                     return StatusCode((int)HttpStatusCode.BadRequest, "Device not exists!");
