@@ -126,5 +126,18 @@ namespace Update.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("versions/{id}")]
+        public async Task<IActionResult> DeleteVersion(int id)
+        {
+            var version = await _repo.Find<Database.Entities.Version>(id);
+
+            if (version == null)
+                return BadRequest();
+
+            await _repo.Delete(version);
+
+            return Ok();
+        }
     }
 }
