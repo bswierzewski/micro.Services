@@ -18,6 +18,13 @@ namespace Update.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<T> Find<T>(int primaryKey) where T : class
         {
             return await _context.FindAsync<T>(primaryKey);

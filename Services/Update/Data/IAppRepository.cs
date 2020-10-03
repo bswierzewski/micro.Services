@@ -6,6 +6,7 @@ namespace Update.Data
     {
         Task<T> Find<T>(int primaryKey) where T : class;
         Task<bool> Add<T>(T entity) where T : class;
+        Task<bool> Delete<T>(T entity) where T : class;
         Task<bool> SaveAllChangesAsync();
     }
 }
