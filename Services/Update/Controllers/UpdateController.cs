@@ -33,23 +33,29 @@ namespace Update.Controllers
             if (device == null)
                 return StatusCode(304);
 
-            Database.Entities.Version version = null;
-
             if (device.IsAutoUpdate.HasValue && device.IsAutoUpdate.Value == true)
             {
                 if (!device.KindId.HasValue || !device.ComponentId.HasValue)
                     return StatusCode(304);
 
-                int versionId = await _repo.GetLatestVersionId(device.KindId, device.ComponentId) ?? 0;
+                var versionId = await _repo.GetLatestVersionId(device.KindId, device.ComponentId) ?? 0;
 
-                if (versionId <= 0 || device.VersionId == versionId)
-                    return StatusCode(304);
+                if (versionId > 0 && versionId != device.VersionId)
+                {
+                    device.VersionId = versionId;
+                    device.IsUpdated = false;
+                    device.Updated = null;
 
-                version = await _repo.GetVersionById(versionId);
+                    await _repo.SaveAllChangesAsync();
+                }
             }
-            else if (device.IsUpdated.HasValue && device.IsUpdated.Value == true)
+
+            if (device.IsUpdated.HasValue && device.IsUpdated.Value == true)
                 return StatusCode(304);
-            else if (device.VersionId.HasValue)
+
+            Database.Entities.Version version = null;
+
+            if (device.VersionId.HasValue)
                 version = await _repo.GetVersionById(device.VersionId.Value);
 
             if (version == null)
