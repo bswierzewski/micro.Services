@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication", "Services\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Broker", "Services\Broker\Broker.csproj", "{EE7B2BE6-0069-42A8-BB60-FD48BB624FA8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Device", "Services\Device\Device.csproj", "{FA18CB2F-245F-4F70-87C5-00ABA1B18DD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "Services\Device\App.csproj", "{FA18CB2F-245F-4F70-87C5-00ABA1B18DD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Update", "Services\Update\Update.csproj", "{C522E35B-B70A-49C8-9A61-29DD893E1771}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcontroller", "Services\Update\Microcontroller.csproj", "{C522E35B-B70A-49C8-9A61-29DD893E1771}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
