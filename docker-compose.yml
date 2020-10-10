@@ -41,8 +41,8 @@ services:
     depends_on:
       - db
 
-  app_api:
-    container_name: app_api
+  backend:
+    container_name: backend
     build:
       context: .
       dockerfile: Dockerfile-app
