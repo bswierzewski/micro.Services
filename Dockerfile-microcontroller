@@ -7,16 +7,16 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["./Libraries/Database/Database.csproj", "/Libraries/Database/Database.csproj"]
 COPY ["./Libraries/Extensions/Extensions.csproj", "/Libraries/Extensions/Extensions.csproj"]
-COPY ["./Services/Update/Update.csproj", ""]
-RUN dotnet restore "./Update.csproj"
+COPY ["./Services/Microcontroller/Microcontroller.csproj", ""]
+RUN dotnet restore "./Microcontroller.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./Services/Update/Update.csproj" -c Release -o /app/build
+RUN dotnet build "./Services/Microcontroller/Microcontroller.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./Services/Update/Update.csproj" -c Release -o /app/publish
+RUN dotnet publish "./Services/Microcontroller/Microcontroller.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Update.dll"]
+ENTRYPOINT ["dotnet", "Microcontroller.dll"]

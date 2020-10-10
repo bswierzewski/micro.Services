@@ -1,18 +1,5 @@
 version: "3.1"
 services:
-  proxy:
-    container_name: proxy
-    image: nginx
-    volumes:
-      - ./Services/Reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
-    depends_on:
-      - update
-      - socket
-      - auth
-      - device
-
   redis:
     container_name: redis
     image: redis
@@ -37,26 +24,32 @@ services:
       dockerfile: Dockerfile-auth
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    ports:
+      - 5001:5001
     depends_on:
       - db
 
-  update:
-    container_name: update
+  microcontroller:
+    container_name: microcontroller
     build:
       context: .
-      dockerfile: Dockerfile-update
+      dockerfile: Dockerfile-microcontroller
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    ports:
+      - 5002:5002
     depends_on:
       - db
 
-  device:
-    container_name: device
+  app_api:
+    container_name: app_api
     build:
       context: .
-      dockerfile: Dockerfile-device
+      dockerfile: Dockerfile-app
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
+    ports:
+      - 5003:5003
     depends_on:
       - db
 

@@ -21,9 +21,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authentication", "Services\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Broker", "Services\Broker\Broker.csproj", "{EE7B2BE6-0069-42A8-BB60-FD48BB624FA8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "Services\Device\App.csproj", "{FA18CB2F-245F-4F70-87C5-00ABA1B18DD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "Services\App\App.csproj", "{FA18CB2F-245F-4F70-87C5-00ABA1B18DD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcontroller", "Services\Update\Microcontroller.csproj", "{C522E35B-B70A-49C8-9A61-29DD893E1771}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microcontroller", "Services\Microcontroller\Microcontroller.csproj", "{C522E35B-B70A-49C8-9A61-29DD893E1771}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{9656A0CD-CE11-4308-8070-CA54C79F8859}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{87486246-C73B-47A2-912B-43133ED1F2F2}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main.yml = .github\workflows\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0A9F8C9B-62F5-4A77-B42A-A0BE469D15CE}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Dockerfile-app = Dockerfile-app
+		Dockerfile-auth = Dockerfile-auth
+		Dockerfile-broker = Dockerfile-broker
+		Dockerfile-microcontroller = Dockerfile-microcontroller
+		Dockerfile-socketIO = Dockerfile-socketIO
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +93,7 @@ Global
 		{EE7B2BE6-0069-42A8-BB60-FD48BB624FA8} = {4B4F1F59-9ED4-421E-9F9A-D31C79E6A169}
 		{FA18CB2F-245F-4F70-87C5-00ABA1B18DD9} = {4B4F1F59-9ED4-421E-9F9A-D31C79E6A169}
 		{C522E35B-B70A-49C8-9A61-29DD893E1771} = {4B4F1F59-9ED4-421E-9F9A-D31C79E6A169}
+		{87486246-C73B-47A2-912B-43133ED1F2F2} = {9656A0CD-CE11-4308-8070-CA54C79F8859}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8092B56-B3C9-40D9-B354-53F65858B337}
