@@ -1,5 +1,6 @@
 ﻿using Database.Entities;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,33 @@ namespace Database
 {
     public static class Seed
     {
+        public static void SeedTestUser(DataContext context)
+        {
+            if (!context.Users.Any())
+            {
+                var user = new User()
+                {
+                    Created = DateTime.Now,
+                    IsActive = true,
+                    LastActive = DateTime.Now,
+                    Username = "test"
+                };
+
+                user.Id = 0;
+                byte[] passwordHash, passwordSalt;
+                CreatePasswordHash("test", out passwordHash, out passwordSalt);
+
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+                user.Username = user.Username.ToLower();
+
+                context.Users.Add(user);
+            };
+
+            context.SaveChanges();
+        }
+
+
         public static void SeedData(DataContext context)
         {
             var jsonString = File.ReadAllText(Path.Combine(System.Reflection.Assembly.GetAssembly(typeof(Seed)).Location, "../SeedData/Json/db.json"));
@@ -95,7 +123,7 @@ namespace Database
 
             if (!context.Versions.Any())
             {
-                var versions = DeserializeJsonObject<Version>(jsonObject, "versions");
+                var versions = DeserializeJsonObject<Database.Entities.Version>(jsonObject, "versions");
                 versions.ForEach(version =>
                 {
                     version.Id = 0;
