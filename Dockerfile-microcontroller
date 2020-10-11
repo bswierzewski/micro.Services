@@ -19,4 +19,4 @@ RUN dotnet publish "./Services/Microcontroller/Microcontroller.csproj" -c Releas
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Microcontroller.dll"]
+ENTRYPOINT ["dotnet", "Microcontroller.dll", "--urls=http://*:5003"]
