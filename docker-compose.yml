@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.8"
 services:
   redis:
     container_name: redis
@@ -25,7 +25,7 @@ services:
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
     ports:
-      - 5001:80
+      - 5001:5001
     depends_on:
       - db
 
@@ -37,7 +37,7 @@ services:
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
     ports:
-      - 5002:80
+      - 5002:5002
     depends_on:
       - db
 
@@ -49,7 +49,7 @@ services:
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
     ports:
-      - 5003:80
+      - 5003:5003
     depends_on:
       - db
 
