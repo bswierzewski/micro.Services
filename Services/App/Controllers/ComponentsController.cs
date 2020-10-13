@@ -2,6 +2,7 @@
 using Database.Entities;
 using Device.Data.DeviceInfo;
 using Device.Dtos;
+using Device.Params;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -34,9 +35,9 @@ namespace Device.Controllers
         }
 
         [HttpGet("components")]
-        public async Task<IActionResult> GetComponents()
+        public async Task<IActionResult> GetComponents([FromQuery] ComponentParams componentParams)
         {
-            var components = await _repo.GetComponents();
+            var components = await _repo.GetComponents(componentParams);
 
             return Ok(components);
         }
