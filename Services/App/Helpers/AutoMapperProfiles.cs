@@ -9,20 +9,14 @@ namespace Device.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Database.Entities.Device, DeviceForListDto>()
-                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address.Label))
-                .ForMember(dest => dest.Kind, opt => opt.MapFrom(src => src.Kind.Name))
-                .ForMember(dest => dest.Component, opt => opt.MapFrom(src => src.Component.Name))
-                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
+            CreateMap<Database.Entities.Device, DeviceDto>();
 
-            CreateMap<Database.Entities.Device, DeviceForDetailDto>();
-
-            CreateMap<Registration, RegistrationForListDto>()
-                .ForMember(dest => dest.MacAddress, opt => opt.MapFrom(src => src.MacAddress.Label))
-                .ForMember(dest => dest.BleAddress, opt => opt.MapFrom(src => src.BleAddress.Label));
+            CreateMap<Registration, RegistrationForListDto>();
 
             CreateMap<Category, CategoryDto>()
                 .ForMember(dest => dest.ComponentIds, opt => opt.MapFrom(src => src.Components.Select(x => x.Id).ToArray()));
+
+            CreateMap<Component, ComponentDto>();
         }
     }
 }

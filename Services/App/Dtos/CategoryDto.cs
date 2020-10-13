@@ -15,5 +15,7 @@ namespace Device.Dtos
 
         public IEnumerable<int> ComponentIds { get; set; }
 
+        public IEnumerable<ComponentDto> Components { get; set; }
+
     }
 }

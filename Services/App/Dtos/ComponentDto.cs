@@ -5,6 +5,8 @@ namespace Device.Dtos
 {
     public class ComponentDto
     {
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 
