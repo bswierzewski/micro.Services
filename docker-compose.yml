@@ -45,7 +45,7 @@ services:
     container_name: backend
     build:
       context: .
-      dockerfile: Dockerfile-app
+      dockerfile: Dockerfile-backend
       args:
         IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
     ports:
