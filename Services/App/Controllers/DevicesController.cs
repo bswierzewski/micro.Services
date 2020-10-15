@@ -34,7 +34,7 @@ namespace Device.Controllers
             {
                 var device = await _repo.GetDevice(id);
 
-                var deviceToReturn = _mapper.Map<DeviceForDetailDto>(device);
+                var deviceToReturn = _mapper.Map<DeviceDto>(device);
 
                 return Ok(deviceToReturn);
             }
@@ -53,7 +53,7 @@ namespace Device.Controllers
             {
                 var devices = await _repo.GetDevices(deviceParams);
 
-                var devicesToReturn = _mapper.Map<IEnumerable<DeviceForListDto>>(devices);
+                var devicesToReturn = _mapper.Map<IEnumerable<DeviceDto>>(devices);
 
                 return Ok(devicesToReturn);
             }
@@ -70,13 +70,13 @@ namespace Device.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(deviceDto.Address))
+                if (string.IsNullOrEmpty(deviceDto.AddressLabel))
                     return StatusCode((int)HttpStatusCode.BadRequest, "The Address field is required.");
 
-                var address = await _repo.GetAddress(deviceDto.Address);
+                var address = await _repo.GetAddress(deviceDto.AddressLabel);
 
                 if (address == null)
-                    address = await _repo.AddAddress(deviceDto.Address);
+                    address = await _repo.AddAddress(deviceDto.AddressLabel);
                 else if (address.IsConfirmed == false)
                     address.IsConfirmed = true;
                 else
@@ -112,7 +112,7 @@ namespace Device.Controllers
         {
             try
             {
-                var device = await _repo.Find<Database.Entities.Device>(deviceDto.Id);
+                var device = await _repo.Find<Database.Entities.Device>(id);
 
                 if (device == null)
                     return StatusCode((int)HttpStatusCode.BadRequest, "Device not exists!");

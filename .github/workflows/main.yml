@@ -36,15 +36,15 @@ jobs:
         run: |
           docker buildx build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .
 
-      - name: Run Buildx - Device (push image)
-        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$device'))
+      - name: Run Buildx - App (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$app'))
         run: |
-          docker buildx build --file ./Dockerfile-device --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_device:latest --output "type=image,push=true" .
+          docker buildx build --file ./Dockerfile-app --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_app:latest --output "type=image,push=true" .
 
-      - name: Run Buildx - Update (push image)
-        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$update'))
+      - name: Run Buildx - Microcontroller (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$microcontroller'))
         run: |
-          docker buildx build --file ./Dockerfile-update --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_update:latest --output "type=image,push=true" .
+          docker buildx build --file ./Dockerfile-microcontroller --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_microcontroller:latest --output "type=image,push=true" .
 
       - name: Run Buildx - SocketIO (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$socket'))

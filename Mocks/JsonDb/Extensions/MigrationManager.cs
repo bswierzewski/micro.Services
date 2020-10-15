@@ -20,5 +20,13 @@ namespace JsonDb.Extensions
                 Seed.SeedData(appContext);
             }
         }
+
+        public static void SeedTestUser()
+        {
+            using (var appContext = new DataContext())
+            {
+                Seed.SeedTestUser(appContext);
+            }
+        }
     }
 }

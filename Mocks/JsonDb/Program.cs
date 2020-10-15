@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Database.Entities;
+using JsonDb.Extensions;
 using JsonDb.StaticData;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -14,6 +15,9 @@ namespace JsonDb
         public static string JsonPath => Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         static void Main(string[] args)
         {
+            // MigrationManager.SeedTestUser();
+            // return;
+
             var categoryFaker = new Faker<Category>()
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())

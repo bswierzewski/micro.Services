@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Device.Dtos
 {
-    public class CategoryDto
+    public class ComponentDto
     {
         public int Id { get; set; }
 
@@ -13,7 +13,6 @@ namespace Device.Dtos
         [Required]
         public string Icon { get; set; }
 
-        public IEnumerable<int> ComponentIds { get; set; }
-
+        public int? CategoryId { get; set; }
     }
 }
