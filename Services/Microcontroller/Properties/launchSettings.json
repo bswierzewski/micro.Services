@@ -12,7 +12,7 @@
     "Microcontroller": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:5002",
+      "applicationUrl": "http://192.168.100.116:5003",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -36,10 +36,10 @@ jobs:
         run: |
           docker buildx build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .
 
-      - name: Run Buildx - App (push image)
-        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$app'))
+      - name: Run Buildx - Backend (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$backend'))
         run: |
-          docker buildx build --file ./Dockerfile-app --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_app:latest --output "type=image,push=true" .
+          docker buildx build --file ./Dockerfile-backend --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_backend:latest --output "type=image,push=true" .
 
       - name: Run Buildx - Microcontroller (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$microcontroller'))

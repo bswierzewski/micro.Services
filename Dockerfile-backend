@@ -7,16 +7,16 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["./Libraries/Database/Database.csproj", "/Libraries/Database/Database.csproj"]
 COPY ["./Libraries/Extensions/Extensions.csproj", "/Libraries/Extensions/Extensions.csproj"]
-COPY ["./Services/App/App.csproj", ""]
-RUN dotnet restore "./App.csproj"
+COPY ["./Services/Backend/Backend.csproj", ""]
+RUN dotnet restore "./Backend.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./Services/App/App.csproj" -c Release -o /app/build
+RUN dotnet build "./Services/Backend/Backend.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./Services/App/App.csproj" -c Release -o /app/publish
+RUN dotnet publish "./Services/Backend/Backend.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "App.dll", "--urls=http://*:5002"]
+ENTRYPOINT ["dotnet", "Backend.dll", "--urls=http://*:5002"]
