@@ -11,7 +11,9 @@ namespace Device.Helpers
         {
             CreateMap<Database.Entities.Device, DeviceDto>();
 
-            CreateMap<Registration, RegistrationForListDto>();
+            CreateMap<Registration, RegistrationForListDto>()
+                .ForMember(dest => dest.MacAddress, opt => opt.MapFrom(src => src.MacAddress.Label))
+                .ForMember(dest => dest.BleAddress, opt => opt.MapFrom(src => src.BleAddress.Label));
 
             CreateMap<Category, CategoryDto>()
                 .ForMember(dest => dest.ComponentIds, opt => opt.MapFrom(src => src.Components.Select(x => x.Id).ToArray()));
