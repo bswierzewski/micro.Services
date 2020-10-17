@@ -55,7 +55,7 @@ namespace Broker.Service
                 if (macAddressId.HasValue && bleAddressId.HasValue)
                     registrations.Add(new Database.Entities.Registration()
                     {
-                        Created = json.Time,
+                        Created = DateTime.Now,
                         BleAddressId = bleAddressId.Value,
                         MacAddressId = macAddressId.Value,
                         Rssi = json.Rssi
