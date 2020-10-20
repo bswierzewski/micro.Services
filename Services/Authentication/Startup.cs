@@ -1,3 +1,4 @@
+using AutoMapper;
 using Authentication.Data;
 using Authentication.Helpers;
 using Database;
@@ -31,10 +32,12 @@ namespace Authentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>();
             services.AddControllers();
             services.AddCors();
+            services.AddDbContext<DataContext>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAutoMapper(typeof(AuthRepository).Assembly);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
