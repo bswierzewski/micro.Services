@@ -13,9 +13,12 @@ namespace Authentication.Data
             _context = context;
         }
 
-        public async Task<User> Login(string username, string password)
+        public async Task<User> Login(string login, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == login);
+
+            if (user == null)
+                await _context.Users.FirstOrDefaultAsync(x => x.Email == login);
 
             if (user == null)
                 return null;
@@ -65,6 +68,11 @@ namespace Authentication.Data
         public async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.Username == username);
+        }
+
+        public async Task<bool> EmailExists(string email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email == email);
         }
     }
 }

@@ -27,14 +27,20 @@ namespace Authentication.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
+            // Add only lower username and emial
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+            userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.Username))
                 return BadRequest("Username already exists");
 
+            if (await _repo.EmailExists(userForRegisterDto.Email))
+                return BadRequest("Email already exists");
+
             var userToCreate = new User
             {
                 Username = userForRegisterDto.Username,
+                Email = userForRegisterDto.Email,
                 IsActive = userForRegisterDto.IsActive,
             };
 
@@ -46,7 +52,7 @@ namespace Authentication.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDto.Login.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
                 return Unauthorized();
