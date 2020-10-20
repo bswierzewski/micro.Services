@@ -18,7 +18,7 @@ namespace Authentication.Data
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == login);
 
             if (user == null)
-                await _context.Users.FirstOrDefaultAsync(x => x.Email == login);
+                user = await _context.Users.FirstOrDefaultAsync(x => x.Email == login);
 
             if (user == null)
                 return null;

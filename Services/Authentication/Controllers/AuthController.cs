@@ -41,7 +41,7 @@ namespace Authentication.Controllers
             {
                 Username = userForRegisterDto.Username,
                 Email = userForRegisterDto.Email,
-                IsActive = userForRegisterDto.IsActive,
+                IsActive = true,
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
