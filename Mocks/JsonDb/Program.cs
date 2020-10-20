@@ -22,7 +22,7 @@ namespace JsonDb
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
-                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign));
+                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.FontAwesome));
 
             var categories = categoryFaker.Generate(10);
 
@@ -32,7 +32,7 @@ namespace JsonDb
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
                 .RuleFor(x => x.Name, f => f.Name.FirstName())
-                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign))
+                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.FontAwesome))
                 .RuleFor(x => x.CategoryId, f => f.PickRandom(categoryIds));
 
             var components = componentFaker.Generate(20);
@@ -40,7 +40,7 @@ namespace JsonDb
             var kindFaker = new Faker<Kind>()
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
                 .RuleFor(x => x.Created, f => f.Date.Soon())
-                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign))
+                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.FontAwesome))
                 .RuleFor(x => x.Name, f => f.Vehicle.Type());
 
             var kinds = kindFaker.Generate(10);
@@ -65,7 +65,7 @@ namespace JsonDb
                 .RuleFor(x => x.ComponentId, f => f.IndexVariable = f.PickRandom(componentIds))
                 .RuleFor(x => x.CategoryId, f => components[f.IndexVariable - 1].CategoryId)
                 .RuleFor(x => x.AddressId, f => addressIds[f.IndexFaker])
-                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.MaterialDesign));
+                .RuleFor(x => x.Icon, f => f.PickRandom(Icons.FontAwesome));
 
             var devices = deviceFaker.Generate(30);
 
@@ -95,7 +95,8 @@ namespace JsonDb
 
             var userFaker = new Faker<User>()
                 .RuleFor(x => x.Id, f => f.IndexFaker + 1)
-                .RuleFor(x => x.Username, f => f.Internet.UserName())
+                .RuleFor(x => x.Username, f => f.Internet.UserName().ToLower())
+                .RuleFor(x => x.Email, f => f.Internet.Email().ToLower())
                 .RuleFor(x => x.Created, f => f.Date.Past())
                 .RuleFor(x => x.LastActive, f => f.Date.Past())
                 .RuleFor(x => x.IsActive, f => true);
