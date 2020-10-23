@@ -31,14 +31,14 @@ namespace Authentication.Controllers
 
 
         [HttpPost("users/activate")]
-        public async Task<IActionResult> ActivateUser(UserDto userDto)
+        public async Task<IActionResult> ChangeActivateUser(UserDto userDto)
         {
             var user = await _repo.GetUser(userDto.Id);
 
             if (user == null)
                 return BadRequest("User not exists!");
 
-            await _repo.ActivateUser(user);
+            await _repo.ChangeActivateUser(user);
 
             return Ok();
         }

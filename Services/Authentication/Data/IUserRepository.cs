@@ -9,6 +9,6 @@ namespace Authentication.Data
     {
         Task<User> GetUser(int id);
         Task<IList<User>> GetUsers();
-        Task<bool> ActivateUser(User user);
+        Task<bool> ChangeActivateUser(User user);
     }
 }

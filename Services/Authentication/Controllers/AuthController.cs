@@ -45,7 +45,7 @@ namespace Authentication.Controllers
                 Created = DateTime.Now,
             };
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+            await _repo.Register(userToCreate, userForRegisterDto.Password);
 
             return StatusCode(201);
         }
@@ -53,7 +53,7 @@ namespace Authentication.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Login.ToLower(), userForLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
                 return Unauthorized();

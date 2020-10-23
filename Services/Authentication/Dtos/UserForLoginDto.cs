@@ -5,7 +5,7 @@ namespace Authentication.Dtos
     public class UserForLoginDto
     {
         [Required]
-        public string Login { get; set; }
+        public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }
