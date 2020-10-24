@@ -29,6 +29,15 @@ namespace Authentication.Controllers
             return Ok(usersToReturn);
         }
 
+        [HttpGet("users/{id}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            var user = await _repo.GetUser(id);
+
+            var userToReturn = _mapper.Map<UserForDetailDto>(user);
+
+            return Ok(userToReturn);
+        }
 
         [HttpPost("users/activate")]
         public async Task<IActionResult> ChangeActivateUser(UserDto userDto)

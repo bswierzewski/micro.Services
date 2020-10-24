@@ -12,6 +12,8 @@ namespace Authentication.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Database.Entities.User, UserForListDto>();
+
+            CreateMap<Database.Entities.User, UserForDetailDto>();
         }
     }
 }
