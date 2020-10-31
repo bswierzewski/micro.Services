@@ -1,4 +1,5 @@
 ﻿using Database.Entities;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -9,30 +10,23 @@ namespace Database
 {
     public static class Seed
     {
-        public static void SeedTestUser(DataContext context)
+        public static void SeedTestUser(UserManager<User> userManager)
         {
-            if (!context.Users.Any())
+            if (!userManager.Users.Any())
             {
                 var user = new User()
                 {
                     Created = DateTime.Now,
                     IsActive = true,
                     LastActive = DateTime.Now,
-                    Username = "test"
+                    UserName = "test"
                 };
 
                 user.Id = 0;
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash("test", out passwordHash, out passwordSalt);
+                user.UserName = user.UserName.ToLower();
 
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
-                user.Username = user.Username.ToLower();
-
-                context.Users.Add(user);
+                userManager.CreateAsync(user, "Pa$$w0rd");
             };
-
-            context.SaveChanges();
         }
 
 
@@ -47,13 +41,7 @@ namespace Database
                 var users = DeserializeJsonObject<User>(jsonObject, "users");
                 users.ForEach(user =>
                 {
-                    user.Id = 0;
-                    byte[] passwordHash, passwordSalt;
-                    CreatePasswordHash("password", out passwordHash, out passwordSalt);
-
-                    user.PasswordHash = passwordHash;
-                    user.PasswordSalt = passwordSalt;
-                    user.Username = user.Username.ToLower();
+                    user.UserName = user.UserName.ToLower();
 
                     context.Users.Add(user);
                 });
@@ -168,15 +156,6 @@ namespace Database
                 resultList = jsonObject[collectionName].ToObject<List<T>>();
 
             return resultList;
-        }
-
-        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
         }
 
         #endregion

@@ -1,21 +1,15 @@
+using Microsoft.AspNetCore.Identity;
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace Database.Entities
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
 
         public bool IsActive { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
     }
 }

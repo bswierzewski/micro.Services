@@ -1,9 +1,13 @@
 ﻿using Database.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Database
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User, Role, int,
+        IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
+        IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public DataContext() : base() { }
 
@@ -13,13 +17,25 @@ namespace Database
 
             optionsBuilder.UseNpgsql("Username=postgres;" +
                                      "Password=mysecretpassword;" +
-                                     "Server=db;" +
+                                     "Server=localhost;" +
                                      "Database=micro");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasMany(ur => ur.UserRoles)
+                .WithOne(u => u.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+
+            modelBuilder.Entity<Role>()
+                .HasMany(ur => ur.UserRoles)
+                .WithOne(u => u.Role)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
 
             modelBuilder.Entity<Address>()
                 .HasIndex(x => x.Label)
@@ -37,7 +53,6 @@ namespace Database
         public DbSet<Component> Components { get; set; }
         public DbSet<FileData> FileDatas { get; set; }
         public DbSet<Registration> Registrations { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Version> Versions { get; set; }
     }
 }
