@@ -1,12 +1,13 @@
-using AutoMapper;
 using Authentication.Data;
 using Authentication.Helpers;
+using AutoMapper;
 using Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,10 +35,21 @@ namespace Authentication
         {
             services.AddControllers();
             services.AddCors();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddDbContext<DataContext>();
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddAutoMapper(typeof(AuthRepository).Assembly);
+            services.AddAutoMapper(typeof(TokenService).Assembly);
+
+            services.AddIdentityCore<Database.Entities.User>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.User.RequireUniqueEmail = true;
+            })
+                .AddRoles<Database.Entities.Role>()
+                .AddRoleManager<RoleManager<Database.Entities.Role>>()
+                .AddSignInManager<SignInManager<Database.Entities.User>>()
+                .AddRoleValidator<RoleValidator<Database.Entities.Role>>()
+                .AddEntityFrameworkStores<DataContext>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -50,8 +62,12 @@ namespace Authentication
                     };
                 });
 
-            // Inject an implementation of ISwaggerProvider with defaulted settings applied
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("1", policy => policy.RequireRole("Member"));
+            });
 
+            // Inject an implementation of ISwaggerProvider with defaulted settings applied
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
