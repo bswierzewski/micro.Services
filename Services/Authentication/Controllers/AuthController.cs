@@ -38,6 +38,7 @@ namespace Authentication.Controllers
                 Email = userForRegisterDto.Email,
                 IsActive = false,
                 Created = DateTime.Now,
+                LastActive = DateTime.Now,
             };
 
             var result = await _userManager.CreateAsync(user, userForRegisterDto.Password);
@@ -66,6 +67,10 @@ namespace Authentication.Controllers
 
             if (!user.IsActive)
                 return Unauthorized("Account nonactivated");
+
+            user.LastActive = DateTime.Now;
+
+            await _userManager.UpdateAsync(user);
 
             return Ok(new
             {
