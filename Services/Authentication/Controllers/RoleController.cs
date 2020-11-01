@@ -34,38 +34,28 @@ namespace Authentication.Controllers
         }
 
         [HttpPost("roles")]
-        public async Task<IActionResult> AddRoles([FromQuery] string roles)
+        public async Task<IActionResult> AddRoles(Role role)
         {
-            var tempRoles = roles.Split(",").Select(n => new Role { Name = n }).ToList();
+            if (await _roleManager.RoleExistsAsync(role.Name))
+                return BadRequest();
 
-            foreach (var role in tempRoles)
-            {
-                if (await _roleManager.RoleExistsAsync(role.Name))
-                    continue;
-
-                await _roleManager.CreateAsync(role);
-            }
+            await _roleManager.CreateAsync(role);
 
             return Ok();
         }
 
-        [HttpDelete("roles")]
-        public async Task<IActionResult> DeleteRoles([FromQuery] string roles)
+        [HttpDelete("roles/{id}")]
+        public async Task<IActionResult> DeleteRoles(string id)
         {
-            var rolesFromQuery = roles.Split(",");
+            var role = await _roleManager.FindByIdAsync(id);
 
-            foreach (var roleName in rolesFromQuery)
-            {
-                if (!await _roleManager.RoleExistsAsync(roleName))
-                    continue;
+            if (role == null)
+                return BadRequest("Role not exists!");
 
-                var role = await _roleManager.FindByNameAsync(roleName);
-
-                await _roleManager.DeleteAsync(role);
-            }
+            await _roleManager.DeleteAsync(role);
 
             return Ok();
         }
-
     }
+
 }

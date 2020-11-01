@@ -8,5 +8,7 @@ namespace Authentication.Dtos
     public class UserDto
     {
         public int Id { get; set; }
+        public bool IsActive { get; set; }
+        public string[] Roles { get; set; }
     }
 }

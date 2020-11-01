@@ -1,4 +1,5 @@
 using Authentication.Data;
+using Authentication.Dtos;
 using AutoMapper;
 using Database.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -32,9 +33,11 @@ namespace Authentication.Controllers
                 {
                     u.Id,
                     Username = u.UserName,
-                    Email = u.Email,
+                    u.Email,
                     Roles = u.UserRoles.Select(r => r.Role.Name).ToList(),
-                    u.IsActive
+                    u.IsActive,
+                    u.Created,
+                    u.LastActive,
                 })
                 .ToListAsync();
 
@@ -53,56 +56,53 @@ namespace Authentication.Controllers
                 {
                     u.Id,
                     Username = u.UserName,
-                    Email = u.Email,
+                    u.Email,
                     Roles = u.UserRoles.Select(r => r.Role.Name).ToList(),
-                    u.IsActive
+                    u.IsActive,
+                    u.Created,
+                    u.LastActive,
                 })
                 .FirstOrDefaultAsync();
 
             return Ok(user);
         }
 
-        [HttpPost("users/edit-roles/{username}")]
-        public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles)
+        [HttpPut("users")]
+        public async Task<ActionResult> UpdateUser(UserDto userDto)
         {
-            var selectedRoles = roles.Split(",");
-
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByIdAsync(userDto.Id.ToString());
 
             if (user == null)
                 return NotFound("Could not find user");
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
+            var result = await _userManager.AddToRolesAsync(user, userDto.Roles.Except(userRoles));
 
             if (!result.Succeeded)
                 return BadRequest("Failed to add to roles");
 
-            result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
+            result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(userDto.Roles));
 
             if (!result.Succeeded)
                 return BadRequest("Failed to remove from roles");
 
-            return Ok(await _userManager.GetRolesAsync(user));
-        }
-
-        [HttpPost("users/edit-activate/{username}")]
-        public async Task<ActionResult> EditActivated(string username, [FromQuery] string activated)
-        {
-            if (!bool.TryParse(activated, out bool activate))
-                return BadRequest("Bad activated argument");
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user == null)
-                return NotFound("Could not find user");
-
-            user.IsActive = activate;
+            user.IsActive = userDto.IsActive;
 
             await _userManager.UpdateAsync(user);
 
-            return Ok();
+            return Ok(await _userManager.GetRolesAsync(user));
+        }
+
+        [HttpDelete("users/{id}")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user == null)
+                return BadRequest();
+
+            return Ok(await _userManager.DeleteAsync(user));
         }
     }
 }
