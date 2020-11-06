@@ -211,12 +211,12 @@ CREATE INDEX "IX_Versions_KindId" ON "Versions" ("KindId");
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20201027190741_IdentityAdded', '3.1.9');
 
-INSERT INTO public."AspNetUsers" ("UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount", "Created", "LastActive", "IsActive") VALUES ('test', 'TEST', 'test@test', 'TEST@TEST', false, 'AQAAAAEAACcQAAAAEKkWj0YPNCdlAOX0srMpY3BumZX2HRMtxs5zzRyfVFLzYzfLYj+d48LKapwI0I5cqw==', 'STZSEMF4XBIJQTUJZTGE3HGXDRM63LJO', 'daa1f935-31e9-4344-b236-cfbd8bbe3146', NULL, false, false, NULL, true, 0, '2020-10-31 12:55:03.241054', '0001-01-01 00:00:00', true);
 INSERT INTO public."AspNetUsers" ("UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount", "Created", "LastActive", "IsActive") VALUES ('admin', 'ADMIN', 'admin@admin', 'ADMIN@ADMIN', false, 'AQAAAAEAACcQAAAAEP+ft9Im54ZEwoYJWOHajxKiEcX2WfhayD8gV2QZF8l4S26YDhmBXPiykvF2h0q4Iw==', 'PL7ZGOCNQMRLZ3YFBETJPD2NQ4PZDOVI', '26ca969e-7623-4a55-9896-d145900d60c0', NULL, false, false, NULL, true, 0, '2020-10-31 12:55:11.893999', '0001-01-01 00:00:00', true);
+INSERT INTO public."AspNetUsers" ("UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount", "Created", "LastActive", "IsActive") VALUES ('test', 'TEST', 'test@test', 'TEST@TEST', false, 'AQAAAAEAACcQAAAAEKkWj0YPNCdlAOX0srMpY3BumZX2HRMtxs5zzRyfVFLzYzfLYj+d48LKapwI0I5cqw==', 'STZSEMF4XBIJQTUJZTGE3HGXDRM63LJO', 'daa1f935-31e9-4344-b236-cfbd8bbe3146', NULL, false, false, NULL, true, 0, '2020-10-31 12:55:03.241054', '0001-01-01 00:00:00', true);
 
-INSERT INTO public."AspNetRoles" ("Name", "NormalizedName", "ConcurrencyStamp") VALUES ('Member','MEMBER','45d1f146-192b-482b-9241-e0b23faa7aa4');
 INSERT INTO public."AspNetRoles" ("Name", "NormalizedName", "ConcurrencyStamp") VALUES ('Admin','ADMIN','f97edd36-8db1-43c0-bd5c-248fd74eb551');
+INSERT INTO public."AspNetRoles" ("Name", "NormalizedName", "ConcurrencyStamp") VALUES ('Member','MEMBER','45d1f146-192b-482b-9241-e0b23faa7aa4');
 
 INSERT INTO public."AspNetUserRoles" VALUES (1,1);
-INSERT INTO public."AspNetUserRoles" VALUES (2,1);
+INSERT INTO public."AspNetUserRoles" VALUES (1,2);
 INSERT INTO public."AspNetUserRoles" VALUES (2,2);
