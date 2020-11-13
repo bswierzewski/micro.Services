@@ -17,7 +17,7 @@ namespace Database
 
             optionsBuilder.UseNpgsql("Username=postgres;" +
                                      "Password=mysecretpassword;" +
-                                     "Server=localhost;" +
+                                     "Server=db;" +
                                      "Database=micro");
         }
 
