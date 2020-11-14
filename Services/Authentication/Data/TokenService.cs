@@ -19,7 +19,7 @@ namespace Authentication.Data
 
         public TokenService(IConfiguration config, UserManager<User> userManager)
         {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretToken"));
+            _key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(config.GetSection("AppSettings:Token").Value));
             _userManager = userManager;
         }
 
