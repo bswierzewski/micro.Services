@@ -14,7 +14,6 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v1
 
-
       - name: Docker Login
         id: docker
         if: success()
@@ -49,4 +48,5 @@ jobs:
       - name: Run Buildx - Broker Test (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$br'))
         run: |
-          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest --output "type=image,push=true" .
+          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest
+          docker push swierzewskibartosz/broker:latest
