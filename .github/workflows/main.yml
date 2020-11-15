@@ -12,7 +12,7 @@ jobs:
       DOCKER_TARGET_PLATFORM: linux/arm/v7
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Docker Login
         id: docker
@@ -48,5 +48,7 @@ jobs:
       - name: Run Buildx - Broker Test (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$br'))
         run: |
-          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest
-          docker push swierzewskibartosz/broker:latest
+          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest 
+      - name: Build image
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$br'))
+        run: docker push swierzewskibartosz/broker:latest
