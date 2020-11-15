@@ -5,7 +5,7 @@ on:
 jobs:
   build-update:
     if: contains(github.event.head_commit.message, '$')
-    runs-on: [self-hosted, linux, ARM64]
+    runs-on: ubuntu-18.04
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -13,6 +13,17 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v1
+
+      - name: Set up Docker Buildx
+        uses: crazy-max/ghaction-docker-buildx@v3.1.0
+        with:
+          version: latest
+
+      - name: Prepare
+        if: success()
+        id: prepare
+        run: |
+          echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}
 
       - name: Docker Login
         id: docker
@@ -23,7 +34,7 @@ jobs:
       - name: Run Buildx - Authentication (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$auth'))
         run: |
-          docker build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .
+          docker buildx build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .
 
       - name: Run Buildx - Backend (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$backend'))
@@ -43,4 +54,4 @@ jobs:
       - name: Run Buildx - Broker (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$broker'))
         run: |
-          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/service_broker:latest --output "type=image,push=true" .
+          docker buildx build --file ./Dockerfile-broker --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_broker:latest --output "type=image,push=true" .
