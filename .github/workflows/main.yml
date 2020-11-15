@@ -14,16 +14,6 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v1
 
-      - name: Set up Docker Buildx
-        uses: crazy-max/ghaction-docker-buildx@v3.1.0
-        with:
-          version: latest
-
-      - name: Prepare
-        if: success()
-        id: prepare
-        run: |
-          echo ::set-output name=docker_platform::${DOCKER_TARGET_PLATFORM}
 
       - name: Docker Login
         id: docker
@@ -55,3 +45,8 @@ jobs:
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$broker'))
         run: |
           docker buildx build --file ./Dockerfile-broker --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_broker:latest --output "type=image,push=true" .
+
+      - name: Run Buildx - Broker Test (push image)
+        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$br'))
+        run: |
+          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest --output "type=image,push=true" .
