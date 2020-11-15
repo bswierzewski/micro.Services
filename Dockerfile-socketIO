@@ -1,4 +1,4 @@
-ARG IMAGE=arm32v7/node:slim
+ARG IMAGE=arm64v8/node:alpine3.12
 
 FROM $IMAGE 
 

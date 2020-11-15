@@ -47,4 +47,4 @@ jobs:
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$broker'))
         run: |
           docker build --file ./Dockerfile-broker --tag swierzewskibartosz/service_broker:latest .
-          docker push swierzewskibartosz/broker:latest
+          docker push swierzewskibartosz/service_broker:latest
