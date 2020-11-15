@@ -48,7 +48,5 @@ jobs:
       - name: Run Buildx - Broker Test (push image)
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$br'))
         run: |
-          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest 
-      - name: Build image
-        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$br'))
-        run: docker push swierzewskibartosz/broker:latest
+          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest .
+          docker push swierzewskibartosz/broker:latest
