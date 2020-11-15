@@ -9,7 +9,6 @@ jobs:
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      DOCKER_TARGET_PLATFORM: linux/arm/v7
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
@@ -20,33 +19,32 @@ jobs:
         run: |
           echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
 
-      - name: Run Buildx - Authentication (push image)
+      - name: Run Buildx - Authentication
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$auth'))
         run: |
-          docker buildx build --file ./Dockerfile-auth --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_authentication:latest --output "type=image,push=true" .
+          docker build --file ./Dockerfile-auth --tag swierzewskibartosz/service_authentication:latest .
+          docker push swierzewskibartosz/service_authentication:latest
 
-      - name: Run Buildx - Backend (push image)
+      - name: Run - Backend
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$backend'))
         run: |
-          docker buildx build --file ./Dockerfile-backend --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_backend:latest --output "type=image,push=true" .
+          docker build --file ./Dockerfile-backend --tag swierzewskibartosz/service_backend:latest .
+          docker push swierzewskibartosz/service_backend:latest
 
-      - name: Run Buildx - Microcontroller (push image)
+      - name: Run - Microcontroller
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$microcontroller'))
         run: |
-          docker buildx build --file ./Dockerfile-microcontroller --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_microcontroller:latest --output "type=image,push=true" .
+          docker build --file ./Dockerfile-microcontroller --tag swierzewskibartosz/service_microcontroller:latest .
+          docker push swierzewskibartosz/service_microcontroller:latest
 
-      - name: Run Buildx - SocketIO (push image)
+      - name: Run - SocketIO
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$socket'))
         run: |
-          docker buildx build --file ./Dockerfile-socketIO --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_socket_io:latest --output "type=image,push=true" .
+          docker build --file ./Dockerfile-socketIO --tag swierzewskibartosz/service_socket_io:latest .
+          docker push swierzewskibartosz/service_socket_io:latest
 
-      - name: Run Buildx - Broker (push image)
+      - name: Run - Broker
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$broker'))
         run: |
-          docker buildx build --file ./Dockerfile-broker --platform ${{ steps.prepare.outputs.docker_platform }} --tag swierzewskibartosz/service_broker:latest --output "type=image,push=true" .
-
-      - name: Run Buildx - Broker Test (push image)
-        if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$br'))
-        run: |
-          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/broker:latest .
+          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/service_broker:latest .
           docker push swierzewskibartosz/broker:latest
