@@ -1,4 +1,4 @@
-ARG IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm64v8
+ARG IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm32v7
 
 FROM $IMAGE AS base
 WORKDIR /app
