@@ -24,8 +24,8 @@ jobs:
         run: |
           docker build --file ./Dockerfile-auth --tag swierzewskibartosz/service_authentication:amd --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0 .
           docker build --file ./Dockerfile-auth --tag swierzewskibartosz/service_authentication:arm --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm32v7 .
-          docker push swierzewskibartosz/service_authentication_amd:latest
-          docker push swierzewskibartosz/service_authentication_arm:latest
+          docker push swierzewskibartosz/service_authentication:amd
+          docker push swierzewskibartosz/service_authentication:arm
 
       - name: Run - Backend
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$backend'))
