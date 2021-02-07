@@ -19,11 +19,13 @@ jobs:
         run: |
           echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
 
-      - name: Run - Authentication
+      - name: Build and push - Authentication
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$auth'))
         run: |
-          docker build --file ./Dockerfile-auth --tag swierzewskibartosz/service_authentication:latest .
-          docker push swierzewskibartosz/service_authentication:latest
+          docker build --file ./Dockerfile-auth --tag swierzewskibartosz/service_authentication_amd:latest --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0 .
+          docker build --file ./Dockerfile-auth --tag swierzewskibartosz/service_authentication_arm:latest --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm32v7 .
+          docker push swierzewskibartosz/service_authentication_amd:latest
+          docker push swierzewskibartosz/service_authentication_arm:latest
 
       - name: Run - Backend
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$backend'))
