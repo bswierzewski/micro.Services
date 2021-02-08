@@ -27,26 +27,34 @@ jobs:
           docker push swierzewskibartosz/service_authentication:amd
           docker push swierzewskibartosz/service_authentication:arm
 
-      - name: Run - Backend
+      - name: Build and push - Backend
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$backend'))
         run: |
-          docker build --file ./Dockerfile-backend --tag swierzewskibartosz/service_backend:latest .
-          docker push swierzewskibartosz/service_backend:latest
+          docker build --file ./Dockerfile-backend --tag swierzewskibartosz/service_backend:amd --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0 .
+          docker build --file ./Dockerfile-backend --tag swierzewskibartosz/service_backend:arm --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm32v7 .
+          docker push swierzewskibartosz/service_backend:amd
+          docker push swierzewskibartosz/service_backend:arm
 
-      - name: Run - Microcontroller
+      - name: Build and push - Microcontroller
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$microcontroller'))
         run: |
-          docker build --file ./Dockerfile-microcontroller --tag swierzewskibartosz/service_microcontroller:latest .
-          docker push swierzewskibartosz/service_microcontroller:latest
+          docker build --file ./Dockerfile-microcontroller --tag swierzewskibartosz/service_microcontroller:amd --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0 .
+          docker build --file ./Dockerfile-microcontroller --tag swierzewskibartosz/service_microcontroller:arm --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm32v7 .
+          docker push swierzewskibartosz/service_microcontroller:amd
+          docker push swierzewskibartosz/service_microcontroller:arm
 
-      - name: Run - SocketIO
+      - name: Build and push - SocketIO
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$socket'))
         run: |
-          docker build --file ./Dockerfile-socketIO --tag swierzewskibartosz/service_socket_io:latest .
-          docker push swierzewskibartosz/service_socket_io:latest
+          docker build --file ./Dockerfile-socketIO --tag swierzewskibartosz/service_socket_io:amd --build-arg IMAGE=node:15.8.0-alpine3.10 .
+          docker build --file ./Dockerfile-socketIO --tag swierzewskibartosz/service_socket_io:arm --build-arg IMAGE=arm32v7/node:15.8.0-alpine3.10 .
+          docker push swierzewskibartosz/service_socket_io:amd
+          docker push swierzewskibartosz/service_socket_io:arm
 
-      - name: Run - Broker
+      - name: Build and push - Broker
         if: always() && (contains(github.event.head_commit.message, '$all') || contains(github.event.head_commit.message, '$broker'))
         run: |
-          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/service_broker:latest .
-          docker push swierzewskibartosz/service_broker:latest
+          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/service_broker:amd --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0 .
+          docker build --file ./Dockerfile-broker --tag swierzewskibartosz/service_broker:arm --build-arg IMAGE=mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim-arm32v7 .
+          docker push swierzewskibartosz/service_broker:amd
+          docker push swierzewskibartosz/service_broker:arm

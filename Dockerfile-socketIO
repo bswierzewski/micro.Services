@@ -1,3 +1,5 @@
+ARG IMAGE
+
 FROM node:alpine3.12 AS builder
 
 WORKDIR /usr/src/app
@@ -8,7 +10,7 @@ RUN npm install
 
 COPY ./Services/SocketIO .
 
-FROM arm32v7/node:alpine3.12
+FROM $IMAGE 
 
 WORKDIR /usr/src/app
 
